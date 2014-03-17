@@ -8,7 +8,7 @@ module.exports =
     @projectManagerView = new ProjectManagerView(state.projectManagerViewState)
 
     atom.workspaceView.command 'project-manager:add', => @addProject('Test')
-    atom.workspaceView.command 'project-manager:get', => @getProjects()
+    atom.workspaceView.command 'project-manager:list', => @listProjects()
     atom.workspaceView.command 'project-manager:open', => @openProject('Test')
 
   deactivate: ->
@@ -20,16 +20,19 @@ module.exports =
   addProject: (title) ->
     projectPath = atom.project?.getPath()
     atom.config.set("project-manager.#{title}", projectPath) if projectPath?
+    # atom.config.set("project-manager.#{title}.title", "#{title}") if projectPath?
+    # atom.config.set("project-manager.#{title}.path", projectPath) if projectPath?
 
-  getProjects: ->
-    projects = atom.config.get("project-manager")
+  getProjects: =>
+    atom.config.get("project-manager")
 
-    for project, path of projects
-      console.log "#{project} - #{path}"
+  listProjects: ->
+    for project, path of @getProjects()
+      console.log "#{projecte} - #{path}"
 
   openProject: (title) ->
-    projects = atom.config.get("project-manager")
+    projects = @getProjects
 
-    for project, path of projects
+    for project, path of @getProjects()
       if project is title
         open = exec "open -a Atom.app #{path}"
