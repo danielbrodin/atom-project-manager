@@ -1,0 +1,16 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Enable project-manager': 'project-manager:toggle'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'project-manager'
+      'submenu': [
+        { 'label': 'Toggle', 'command': 'project-manager:toggle' }
+      ]
+    ]
+  }
+]

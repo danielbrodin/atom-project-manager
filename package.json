@@ -1,0 +1,13 @@
+{
+  "name": "project-manager",
+  "main": "./lib/project-manager",
+  "version": "0.0.0",
+  "description": "A basic project manager for Atom",
+  "repository": "https://github.com/atom/project-manager",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
