@@ -1,5 +1,7 @@
 # Project Manager
 
+![Open In](project-manager.gif)
+
 I really needed a project manager for Atom, so since there wasn't one available I started making my own. Currently it's in a very basic form, i.e. you can save a project and browse through your saved projects, but I plan on making it as good as I can.
 
 All projects are currently saved in the settings file so that you can easily change the path of a project or remove it (empty the path field). My intention was to also add the projects title as a field to the settings for the possibility to easily change it, but with the current implementation of the settings view I found it to confusing, so will wait with this.
