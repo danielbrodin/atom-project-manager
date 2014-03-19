@@ -7,7 +7,7 @@ class ProjectManagerAddView extends View
   @content: ->
     @div class: 'project-manager overlay from-top', =>
       @div class: 'editor-container', outlet: 'editorContainer', =>
-        @span 'Project title:'
+        @span class: 'project-manager-editor-title', 'Project title:'
         @subview 'editor', new EditorView(mini: true)
 
   initialize: ->

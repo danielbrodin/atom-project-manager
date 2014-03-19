@@ -45,9 +45,7 @@ class ProjectManagerView extends SelectListView
   viewForItem: ({title, path}) ->
     $$ ->
       @li class: 'project', 'data-project-title': title, =>
-        @div class: 'pull-right', =>
-        @span class: 'icon icon-chevron-right'
-        @span title
+        @div class: 'icon icon-chevron-right', title
 
   confirmed: ({title}) ->
     @cancel()
