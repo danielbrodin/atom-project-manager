@@ -1,6 +1,6 @@
 # Project Manager
 
-![Open In](https://github.com/danielbrodin/atom-project-manager/blob/master/project-manager.gif)
+![Open In](project-manager.gif)
 
 I really needed a project manager for Atom, so since there wasn't one available I started making my own. Currently it's in a very basic form, i.e. you can save a project and browse through your saved projects, but I plan on making it as good as I can.
 
