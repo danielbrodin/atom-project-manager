@@ -36,7 +36,7 @@ class ProjectManagerView extends SelectListView
 
     projects = []
     for title, path of atom.config.get('project-manager')
-      projects.push({title, path}) if path
+      projects.push({title, path}) if path?
     @setItems(projects)
 
     atom.workspaceView.append(@)
@@ -44,7 +44,7 @@ class ProjectManagerView extends SelectListView
 
   viewForItem: ({title, path}) ->
     $$ ->
-      @li class: 'project', 'data-project-title': title, =>
+      @li 'data-project-title': title, =>
         @div class: 'icon icon-chevron-right', title
 
   confirmed: ({title}) ->
