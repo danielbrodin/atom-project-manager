@@ -4,6 +4,8 @@ I really needed a project manager for Atom, so since there wasn't one available 
 
 All projects are currently saved in the settings file so that you can easily change the path of a project or remove it (empty the path field). My intention was to also add the projects title as a field to the settings for the possibility to easily change it, but with the current implementation of the settings view I found it to confusing, so will wait with this.
 
+Please let me know if you find a bug or have any idea for improvements.
+
 ## Installation
 `apm install project-manager` or find it in Settings (`cmd-,`) / Packages
 
