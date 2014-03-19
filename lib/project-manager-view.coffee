@@ -1,24 +1,54 @@
-{View} = require 'atom'
+{$, $$, SelectListView, View} = require 'atom'
 
 module.exports =
-class ProjectManagerView extends View
-  @content: ->
-    @div class: 'project-manager overlay from-top', =>
-      @div "The ProjectManager package is Alive! It's ALIVE!", class: "message"
+class ProjectManagerView extends SelectListView
+  projectManager: null
+  activate: ->
+    new ProjectManagerView
 
   initialize: (serializeState) ->
-    atom.workspaceView.command "project-manager:toggle", => @toggle()
+    super
+    @addClass('project-manager overlay from-top')
 
-  # Returns an object that can be retrieved when package is activated
   serialize: ->
 
-  # Tear down any state and detach
+  getFilterKey: ->
+    'title'
+
   destroy: ->
     @detach()
 
-  toggle: ->
-    console.log "ProjectManagerView was toggled!"
+  toggle: (projectManager) ->
+    @projectManager = projectManager # Better fix for this???
     if @hasParent()
       @detach()
     else
-      atom.workspaceView.append(this)
+      @attach()
+
+  attach: ->
+    @storeFocusedElement()
+
+    if @previouslyFocusedElement[0] and @previouslyFocusedElement[0] isnt document.body
+      @eventElement = @previouslyFocusedElement
+    else
+      @eventElement = atom.workspaceView
+    @keyBindings = atom.keymap.keyBindingsMatchingElement(@eventElement)
+
+    projects = []
+    for title, path of atom.config.get('project-manager')
+      projects.push({title, path}) if path
+    @setItems(projects)
+
+    atom.workspaceView.append(@)
+    @focusFilterEditor()
+
+  viewForItem: ({title, path}) ->
+    $$ ->
+      @li class: 'project', 'data-project-title': title, =>
+        @div class: 'pull-right', =>
+        @span class: 'icon icon-chevron-right'
+        @span title
+
+  confirmed: ({title}) ->
+    @cancel()
+    @projectManager.openProject(title)
