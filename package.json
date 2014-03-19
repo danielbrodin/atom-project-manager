@@ -3,7 +3,7 @@
   "main": "./lib/project-manager",
   "version": "0.0.0",
   "description": "Project manager for Atom",
-  "repository": "https://github.com/atom/project-manager",
+  "repository": "https://github.com/danielbrodin/atom-project-manager",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
