@@ -26,14 +26,6 @@ class ProjectManagerView extends SelectListView
       @attach()
 
   attach: ->
-    @storeFocusedElement()
-
-    if @previouslyFocusedElement[0] and @previouslyFocusedElement[0] isnt document.body
-      @eventElement = @previouslyFocusedElement
-    else
-      @eventElement = atom.workspaceView
-    @keyBindings = atom.keymap.keyBindingsMatchingElement(@eventElement)
-
     projects = []
     for title, path of atom.config.get('project-manager')
       projects.push({title, path}) if path?
