@@ -19,7 +19,7 @@ class ProjectManagerView extends SelectListView
     @detach()
 
   toggle: (projectManager) ->
-    @projectManager = projectManager # Better fix for this???
+    @projectManager = projectManager
     if @hasParent()
       @detach()
     else
@@ -27,8 +27,10 @@ class ProjectManagerView extends SelectListView
 
   attach: ->
     projects = []
-    for title, path of atom.config.get('project-manager')
-      projects.push({title, path}) if path?
+    currentPath = atom.project?.getPath()
+    for title, path of @projectManager.getProjects()
+      if path isnt currentPath
+        projects.push({title, path}) if path?
     @setItems(projects)
 
     atom.workspaceView.append(@)
