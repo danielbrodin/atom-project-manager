@@ -22,8 +22,10 @@ class ProjectManagerAddView extends View
     @editorContainer.find('.editor').focus()
 
   confirm: =>
-    @value = @editor.getText()
-    @projectManager.addProject(@value)
+    project =
+      title: @editor.getText()
+      path: atom.project?.getPath()
+    @projectManager.addProject(project)
     @remove()
 
   remove: =>
@@ -31,7 +33,7 @@ class ProjectManagerAddView extends View
     @addClass('hidden')
 
   toggle: (projectManager) ->
-    @projectManager = projectManager # Better fix for this
+    @projectManager = projectManager
     atom.workspaceView.append(@)
     @focus()
     @handleEvents()

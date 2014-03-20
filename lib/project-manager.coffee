@@ -16,14 +16,14 @@ module.exports =
   createFile: ->
     packagePath = atom.getPackageDirPaths
 
-  addProject: (title) ->
-    projectPath = atom.project?.getPath()
+  addProject: (project) ->
+    projectPath = project.path
+    projectTitle = project.title
 
     for project, path of @getProjects()
       if path is projectPath
         return # Project is already saved
-
-    atom.config.set("project-manager.#{title}", projectPath) if projectPath?
+    atom.config.set("project-manager.#{projectTitle}", projectPath) if projectPath?
 
   getProjects: =>
     atom.config.get("project-manager")
