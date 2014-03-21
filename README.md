@@ -22,3 +22,5 @@ To change the path of a project, go to the settings view / Project Manager and c
 ## Todo
 - Change name of a project
 - Add multiple directories to a project
+- Option for opening project in current window instead of a new one
+- Option for showing path in project view
