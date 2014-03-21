@@ -1,4 +1,5 @@
 {$, $$, SelectListView, View} = require 'atom'
+CSON = require 'season'
 
 module.exports =
 class ProjectManagerView extends SelectListView
@@ -28,15 +29,14 @@ class ProjectManagerView extends SelectListView
   attach: ->
     projects = []
     currentPath = atom.project?.getPath()
-    for title, path of @projectManager.getProjects()
-      if path isnt currentPath
-        projects.push({title, path}) if path?
+    for project, data of CSON.readFileSync("#{@projectManager.projectFileDir}/#{@projectManager.projectFilename}")
+      projects.push(data)
     @setItems(projects)
 
     atom.workspaceView.append(@)
     @focusFilterEditor()
 
-  viewForItem: ({title, path}) ->
+  viewForItem: ({title, paths}) ->
     $$ ->
       @li 'data-project-title': title, =>
         @div class: 'icon icon-chevron-right', title
