@@ -1,6 +1,5 @@
 ProjectManagerView = require './project-manager-view'
 ProjectManagerAddView = require './project-manager-add-view'
-{exec} = require 'child_process'
 
 module.exports =
   projectManagerView: null
@@ -29,5 +28,6 @@ module.exports =
     atom.config.get("project-manager")
 
   openProject: (title) ->
-    path = @getProjects()[title]
-    open = exec "open -a Atom.app #{path}" if path?
+    paths = @getProjects()[title].split(',')
+    atom.open options =
+      pathsToOpen: paths if paths?
