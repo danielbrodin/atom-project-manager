@@ -25,10 +25,12 @@ class ProjectManagerAddView extends View
     project =
       title: @editor.getText()
       path: atom.project?.getPath()
-    @projectManager.addProject(project)
-    @remove()
+
+    @projectManager.addProject(project) if project.title
+    @remove() if project.title
 
   remove: =>
+    @editor.setText('')
     atom.workspaceView.focus() if atom.workspaceView?
     @addClass('hidden')
 
