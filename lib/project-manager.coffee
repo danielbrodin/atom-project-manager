@@ -16,12 +16,13 @@ module.exports =
 
     atom.workspaceView.command 'project-manager:save-project', => @projectManagerAddView.toggle(@)
     atom.workspaceView.command 'project-manager:toggle', => @projectManagerView.toggle(@)
+    atom.workspaceView.command 'project-manager:edit-projects', => @editProjects()
 
     if not CSON.resolve(@file)
       projects = {}
       CSON.writeFileSync(@file, projects)
 
-    # Move saved projects to the new file
+    # Migrate current projects
     if atom.config.get('project-manager')
       for title, path of atom.config.get('project-manager')
         if typeof path is 'string'
@@ -42,3 +43,7 @@ module.exports =
 
     atom.open options =
       pathsToOpen: paths
+
+  editProjects: ->
+    atom.open options =
+      pathsToOpen: [@file]
