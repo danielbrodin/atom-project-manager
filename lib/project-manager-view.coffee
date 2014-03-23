@@ -38,9 +38,11 @@ class ProjectManagerView extends SelectListView
 
   viewForItem: ({title, paths}) ->
     $$ ->
-      @li 'data-project-title': title, =>
-        @div class: 'icon icon-chevron-right', title
+      @li class: 'two-lines', 'data-project-title': title, =>
+        @div class: 'primary-line icon icon-chevron-right', title
+        if atom.config.get('project-manager.showPath')
+          @div class: 'secondary-line no-icon', path for path in paths
 
-  confirmed: ({title}) ->
+  confirmed: ({title, paths}) ->
     @cancel()
-    @projectManager.openProject(title)
+    @projectManager.openProject({title, paths})

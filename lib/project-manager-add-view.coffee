@@ -24,7 +24,7 @@ class ProjectManagerAddView extends View
   confirm: =>
     project =
       title: @editor.getText()
-      path: [atom.project?.getPath()]
+      paths: [atom.project?.getPath()]
 
     @projectManager.addProject(project) if project.title
     @remove() if project.title
