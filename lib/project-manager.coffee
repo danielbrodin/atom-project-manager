@@ -14,7 +14,6 @@ module.exports =
   file: null
 
   activate: (state) ->
-    console.log state
     @file = "#{@fileDir}/#{@filename}"
     @projectManagerView = new ProjectManagerView(state.projectManagerViewState)
     @projectManagerAddView = new ProjectManagerAddView(state.projectManagerAddViewState)
@@ -28,16 +27,8 @@ module.exports =
       CSON.writeFileSync(@file, projects)
 
     # Migrate current projects
-    if atom.config.get('project-manager') and not state.projectsMigrated
-      state.projectsMigrated = true
-      for title, path of atom.config.get('project-manager')
-        if typeof path is 'string'
-          console.log path
-          atom.config.set("project-manager.#{title}", null)
-          moveProject =
-            title: title
-            paths: [path]
-          @addProject(moveProject)
+    if state.projectsMigrated?
+      @migrate(state)
 
   addProject: (project) ->
     projects = CSON.readFileSync(@file)
@@ -56,5 +47,13 @@ module.exports =
       title: 'Config'
       paths: [@file]
     @openProject(config)
-    # atom.open options =
-    #   pathsToOpen: [@file]
+
+  migrate: (state) ->
+    state.projectsMigrated = true
+    for title, path of atom.config.get('project-manager')
+      if typeof path is 'string'
+        atom.config.set("project-manager.#{title}", null)
+        moveProject =
+          title: title
+          paths: [path]
+        @addProject(moveProject)
