@@ -7,9 +7,11 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'project-manager'
+      'label': 'Project Manager'
       'submenu': [
         { 'label': 'Toggle', 'command': 'project-manager:toggle' }
+        { 'label': 'Save Project', 'command': 'project-manager:save-project' }
+        { 'label': 'Edit Projects', 'command': 'project-manager:edit-projects' }
       ]
     ]
   }
