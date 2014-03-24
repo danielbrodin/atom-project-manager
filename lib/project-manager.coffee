@@ -1,6 +1,4 @@
-ProjectManagerView = require './project-manager-view'
-ProjectManagerAddView = require './project-manager-add-view'
-CSON = require 'season'
+fs = require 'fs'
 
 module.exports =
   configDefaults:
@@ -15,22 +13,23 @@ module.exports =
 
   activate: (state) ->
     @file = "#{@fileDir}/#{@filename}"
-    @projectManagerView = new ProjectManagerView(state.projectManagerViewState)
-    @projectManagerAddView = new ProjectManagerAddView(state.projectManagerAddViewState)
 
-    atom.workspaceView.command 'project-manager:save-project', => @projectManagerAddView.toggle(@)
-    atom.workspaceView.command 'project-manager:toggle', => @projectManagerView.toggle(@)
-    atom.workspaceView.command 'project-manager:edit-projects', => @editProjects()
+    atom.workspaceView.command 'project-manager:save-project', =>
+      @createProjectManagerAddView(state).toggle(@)
+    atom.workspaceView.command 'project-manager:toggle', =>
+      @createProjectManagerView(state).toggle(@)
+    atom.workspaceView.command 'project-manager:edit-projects', =>
+      @editProjects()
 
-    if not CSON.resolve(@file)
-      projects = {}
-      CSON.writeFileSync(@file, projects)
-
-    # Migrate current projects
-    if state.projectsMigrated?
-      @migrate(state)
+    fs.exists @file, (exists) =>
+      unless exists
+        fs.open @file, 'a', (err, fd) ->
+          # Migrate current project
+          if not err and state.projectsMigrated?
+            @migrate(state)
 
   addProject: (project) ->
+    CSON = require 'season'
     projects = CSON.readFileSync(@file)
     projects[project.title] = project
     CSON.writeFileSync(@file, projects)
@@ -57,3 +56,15 @@ module.exports =
           title: title
           paths: [path]
         @addProject(moveProject)
+
+  createProjectManagerView: (state) ->
+    unless @projectManagerView?
+      ProjectManagerView = require './project-manager-view'
+      @projectManagerView = new ProjectManagerView(state.projectManagerViewState)
+    @projectManagerView
+
+  createProjectManagerAddView: (state) ->
+    unless @projectManagerAddView?
+      ProjectManagerAddView = require './project-manager-add-view'
+      @projectManagerAddView = new ProjectManagerAddView(state.projectManagerAddViewState)
+    @projectManagerAddView
