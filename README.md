@@ -14,6 +14,8 @@ A package for saving your projects for fast and easy access, similiar to the one
 
 **Edit projects:** All projects are saved in a `.cson` file which you can easily reach by searching for *"edit projects"* in the Command Palette (`cmd-shift-p`)
 
+All these commands can also be reached from the Packages/Project Manager menu
+
 ## Settings
 **Show Path:** Shows the path in the list view
 
