@@ -23,7 +23,7 @@ module.exports =
 
     fs.exists @file, (exists) =>
       unless exists
-        fs.open @file, 'a', (err, fd) ->
+        fs.writeFile @file, '{}', (err) ->
           # Migrate current project
           if not err and state.projectsMigrated?
             @migrate(state)
