@@ -30,7 +30,7 @@ module.exports =
 
   addProject: (project) ->
     CSON = require 'season'
-    projects = CSON.readFileSync(@file)
+    projects = CSON.readFileSync(@file) || {}
     projects[project.title] = project
     CSON.writeFileSync(@file, projects)
 
