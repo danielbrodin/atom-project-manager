@@ -1,29 +1,26 @@
-AtomProjectManager = require '../lib/project-manager'
-
-# Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
-#
-# To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
-# or `fdescribe`). Remove the `f` to unfocus the block.
+ProjectManager = require '../lib/project-manager'
+{WorkspaceView} = require 'atom'
+fs = require 'fs'
 
 describe "ProjectManager", ->
-  activationPromise = null
+  activationPromise: null
 
-  beforeEach ->
-    atom.workspaceView = new WorkspaceView
-    activationPromise = atom.packages.activatePackage('projectManager')
+  describe "Toggle Project Manager", ->
+    beforeEach ->
+      atom.workspaceView = new WorkspaceView
+      activationPromise = atom.packages.activatePackage('project-manager')
 
-  describe "when the project-manager:toggle event is triggered", ->
-    it "attaches the view", ->
+    it "Shows the Project Viewer", ->
+      expect(atom.workspaceView.find('.project-manager')).not.toExist()
+      atom.workspaceView.trigger 'project-manager:toggle'
       expect(atom.workspaceView.find('.project-manager')).toExist()
 
-      # This is an activation event, triggering it will cause the package to be
-      # activated.
-      atom.workspaceView.trigger 'project-manager:toggle'
+  describe "Initiating Project Manager", ->
+    beforeEach ->
+      activationPromise = atom.packages.activatePackage('project-manager')
 
-      waitsForPromise ->
-        activationPromise
-
-      runs ->
-        expect(atom.workspaceView.find('.project-manager')).not.toExist()
-        atom.workspaceView.trigger 'project-manager:toggle'
-        expect(atom.workspaceView.find('.project-manager')).toExist()
+    it "Makes sure projects.cson exists", ->
+      options =
+        encoding: 'utf-8'
+      fs.readFile ProjectManager.file, options, (err, data) ->
+        expect(err).toBe null
