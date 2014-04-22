@@ -25,7 +25,7 @@ All projects are saved in a `.cson` file which you can easily reach by searching
 Atom allows some editor specific settings which can now manually be added to the `projects.cson` file.
 The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette `cmd-shift-p`
 
-```CSON
+```CoffeeScript
 'Project Manager:'
   'title': 'Project Manager'
   'paths': [
