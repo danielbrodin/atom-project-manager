@@ -29,8 +29,8 @@ class ProjectManagerView extends SelectListView
   attach: ->
     projects = []
     currentProjects = CSON.readFileSync(@projectManager.file)
-    for project, data of currentProjects
-      projects.push(data)
+    for title, project of currentProjects
+      projects.push(project)
     @setItems(projects)
 
     atom.workspaceView.append(@)
