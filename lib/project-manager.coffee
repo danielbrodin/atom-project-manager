@@ -23,10 +23,6 @@ module.exports =
 
     fs.exists @file, (exists) =>
       unless exists
-        fs.writeFile @file, '{}', (err) ->
-          # Migrate current project
-          if not err and state.projectsMigrated?
-            @migrate(state)
 
   addProject: (project) ->
     CSON = require 'season'
@@ -46,16 +42,6 @@ module.exports =
       title: 'Config'
       paths: [@file]
     @openProject(config)
-
-  migrate: (state) ->
-    state.projectsMigrated = true
-    for title, path of atom.config.get('project-manager')
-      if typeof path is 'string'
-        atom.config.set("project-manager.#{title}", null)
-        moveProject =
-          title: title
-          paths: [path]
-        @addProject(moveProject)
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
