@@ -32,9 +32,9 @@ The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLeng
     '/path/to/project-manager'
   ]
   'settings':
-    'setSoftTabs': true # Enable or disable soft tabs for this editor
-    'setSoftWrap': true # Enable or disable soft wrap for this editor.
-    'setTabLength': 2 # Set the on-screen length of tab characters.
+    'setSoftTabs': true  # Enable or disable soft tabs for this editor
+    'setSoftWrap': true  # Enable or disable soft wrap for this editor.
+    'setTabLength': 2    # Set the on-screen length of tab characters.
 ```
 
 ## Settings
