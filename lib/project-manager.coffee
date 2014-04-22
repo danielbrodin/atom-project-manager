@@ -20,9 +20,32 @@ module.exports =
       @createProjectManagerView(state).toggle(@)
     atom.workspaceView.command 'project-manager:edit-projects', =>
       @editProjects()
+    atom.workspaceView.command 'project-manager:reload-project-settings', =>
+      @loadSettings()
 
     fs.exists @file, (exists) =>
       unless exists
+        fs.writeFile @file, '{}', (error) ->
+          if error
+            console.log "Error: Could not create the file projects.cson - #{error}"
+      else
+        @loadSettings()
+
+  loadSettings: ->
+    CSON = require 'season'
+    CSON.readFile @file, (error, data) =>
+      unless error
+        for title, project of data
+          for path in project.paths
+            if path is atom.project.getPath()
+              if project.settings?
+                @enableSettings(project.settings)
+              break
+
+  enableSettings: (settings) ->
+    for setting, value of settings
+      atom.workspace.eachEditor (editor) ->
+        editor[setting](value)
 
   addProject: (project) ->
     CSON = require 'season'
