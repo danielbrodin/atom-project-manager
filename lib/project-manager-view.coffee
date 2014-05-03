@@ -22,7 +22,7 @@ class ProjectManagerView extends SelectListView
   toggle: (projectManager) ->
     @projectManager = projectManager
     if @hasParent()
-      @detach()
+      @cancel()
     else
       @attach()
 
