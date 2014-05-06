@@ -26,7 +26,7 @@ Atom allows some editor specific settings which can now manually be added to the
 The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette `cmd-shift-p`
 
 ```CoffeeScript
-'Project Manager:'
+'Project Manager':
   'title': 'Project Manager'
   'paths': [
     '/path/to/project-manager'
