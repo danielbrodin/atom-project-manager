@@ -21,13 +21,19 @@ Search for **save project** in the Command Palette `cmd-shift-p` and write the t
 ### Edit projects
 All projects are saved in a `.cson` file which you can easily reach by searching for **edit projects** in the Command Palette `cmd-shift-p`
 
-### Project Specific Settings
-Atom allows some editor specific settings which can now manually be added to the `projects.cson` file.
+## Settings
+### Editor `settings:`
+Atom allows some editor specific settings which can now manually be added to the `projects.cson` file under a `settings` object.
 The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette `cmd-shift-p`
 
+### List `icon:`
+This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicon](https://github.com/styleguide/css/7.0) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
+
+### Example
 ```CoffeeScript
 'Project Manager':
   'title': 'Project Manager'
+  'icon': 'icon-squirrel'
   'paths': [
     '/path/to/project-manager'
   ]
@@ -37,7 +43,7 @@ The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLeng
     'setTabLength': 2    # Set the on-screen length of tab characters.
 ```
 
-## Settings
+### Atom Settings
 **Show Path:** Shows the path in the list view
 
 **Close Current:** Closes the current window before opening the new project
