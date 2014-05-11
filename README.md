@@ -13,18 +13,18 @@ or find it in the Packages tab under settings
 ## Usage
 All commands can also be found in the Packages menu
 ### List projects
-`ctrl-cmd-p` or search for **project manager** in the Command Palette `cmd-shift-p`
+`ctrl-cmd-p` (mac) / `ctrl-alt-p` (win & linux) or **Project Manager** in the Command Palette.
 
 ### Save project
-Search for **save project** in the Command Palette `cmd-shift-p` and write the title of the project to save it.
+**Save Project** in the Command Palette and write the title you want to save the project as.
 
 ### Edit projects
-All projects are saved in a `.cson` file which you can easily reach by searching for **edit projects** in the Command Palette `cmd-shift-p`
+All projects are saved in a `.cson` file which you can easily reach by searching for **Edit Projects** in the Command Palette.
 
 ## Settings
 ### Editor `settings:`
 Atom allows some editor specific settings which can now manually be added to the `projects.cson` file under a `settings` object.
-The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette `cmd-shift-p`
+The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette.
 
 ### List `icon:`
 This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicon](https://github.com/styleguide/css/7.0) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
