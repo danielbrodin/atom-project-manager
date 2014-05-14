@@ -13,7 +13,7 @@ or find it in the Packages tab under settings
 ## Usage
 All commands can also be found in the Packages menu
 ### List projects
-`ctrl-cmd-p` (mac) / `ctrl-alt-p` (win & linux) or **Project Manager** in the Command Palette.
+`ctrl-cmd-p` (mac) / `ctrl-shift-alt-p` (win & linux) or **Project Manager** in the Command Palette.
 
 ### Save project
 **Save Project** in the Command Palette and write the title you want to save the project as.

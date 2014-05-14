@@ -2,7 +2,7 @@
   'ctrl-cmd-p': 'project-manager:toggle'
 
 '.platform-win32':
-  'ctrl-alt-p': 'project-manager:toggle'
+  'ctrl-shift-alt-p': 'project-manager:toggle'
 
 '.platform-linux':
-  'ctrl-alt-p': 'project-manager:toggle'
+  'ctrl-shift-alt-p': 'project-manager:toggle'
