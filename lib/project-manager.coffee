@@ -4,6 +4,7 @@ module.exports =
   configDefaults:
     showPath: false
     closeCurrent: false
+    sortByTitle: false
 
   projectManagerView: null
   projectManagerAddView: null
