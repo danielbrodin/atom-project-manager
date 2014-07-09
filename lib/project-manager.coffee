@@ -51,11 +51,12 @@ module.exports =
         editor[setting](value)
 
   enableTriggers: (triggers) ->
-    for name, value of triggers
+    for command, args of triggers
+      name = command.split(":")[0]
       continue if atom.packages.isPackageDisabled(name)
-      do(name, value) ->
+      do(command, args, name) ->
         atom.packages.activatePackage(name).then (pkg) ->
-          atom.workspaceView.trigger value
+          atom.workspaceView.trigger command, [args]
 
   addProject: (project) ->
     CSON = require 'season'
