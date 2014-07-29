@@ -19,6 +19,12 @@ class ProjectManagerView extends SelectListView
   destroy: ->
     @detach()
 
+  getEmptyMessage: (itemCount, filteredItemCount) =>
+    if not itemCount
+      'No projects saved yet'
+    else
+      super
+
   toggle: (projectManager) ->
     @projectManager = projectManager
     if @hasParent()
