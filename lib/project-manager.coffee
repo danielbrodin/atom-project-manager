@@ -5,15 +5,21 @@ module.exports =
     showPath: false
     closeCurrent: false
     sortByTitle: false
+    environmentSpecificProjects: false
 
   projectManagerView: null
   projectManagerAddView: null
-  filename: 'projects.cson'
-  fileDir: atom.getConfigDirPath()
-  file: null
+
+  filepath: null
 
   activate: (state) ->
-    @file = "#{@fileDir}/#{@filename}"
+    fs.exists @file(), (exists) =>
+      unless exists
+        fs.writeFile @file(), '{}', (error) ->
+          if error
+            console.log "Error: Could not create #{@file()} - #{error}"
+      else
+        @loadSettings()
 
     atom.workspaceView.command 'project-manager:save-project', =>
       @createProjectManagerAddView(state).toggle(@)
@@ -24,17 +30,36 @@ module.exports =
     atom.workspaceView.command 'project-manager:reload-project-settings', =>
       @loadSettings()
 
-    fs.exists @file, (exists) =>
+    atom.config.observe 'project-manager.environmentSpecificProjects', (newValue, obj = {}) =>
+      previous = if obj.previous? then obj.previous else newValue
+      unless newValue is previous
+        @updateFile()
+
+  file: (update = false) ->
+    @filepath = null if update
+
+    unless @filepath?
+      filename = 'projects.cson'
+      filedir = atom.getConfigDirPath()
+
+      if atom.config.get('project-manager.environmentSpecificProjects')
+        os = require 'os'
+        hostname = os.hostname().split('.').shift().toLowerCase()
+        filename = "projects.#{hostname}.cson"
+
+      @filepath = "#{filedir}/#{filename}"
+    @filepath
+
+  updateFile: ->
+    fs.exists @file(true), (exists) =>
       unless exists
-        fs.writeFile @file, '{}', (error) ->
+        fs.writeFile @file(), '{}', (error) ->
           if error
-            console.log "Error: Could not create the file projects.cson - #{error}"
-      else
-        @loadSettings()
+            console.log "Error: Could not create #{@file()} - #{error}"
 
   loadSettings: ->
     CSON = require 'season'
-    CSON.readFile @file, (error, data) =>
+    CSON.readFile @file(), (error, data) =>
       unless error
         for title, project of data
           for path in project.paths
@@ -50,9 +75,9 @@ module.exports =
 
   addProject: (project) ->
     CSON = require 'season'
-    projects = CSON.readFileSync(@file) || {}
+    projects = CSON.readFileSync(@file()) || {}
     projects[project.title] = project
-    CSON.writeFileSync(@file, projects)
+    CSON.writeFileSync(@file(), projects)
 
   openProject: ({title, paths}) ->
     atom.open options =
@@ -64,7 +89,7 @@ module.exports =
   editProjects: ->
     config =
       title: 'Config'
-      paths: [@file]
+      paths: [@file()]
     @openProject(config)
 
   createProjectManagerView: (state) ->

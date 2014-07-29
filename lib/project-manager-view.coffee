@@ -28,7 +28,7 @@ class ProjectManagerView extends SelectListView
 
   attach: ->
     projects = []
-    currentProjects = CSON.readFileSync(@projectManager.file)
+    currentProjects = CSON.readFileSync(@projectManager.file())
     for title, project of currentProjects
       projects.push(project)
 
