@@ -57,7 +57,7 @@ class ProjectManagerView extends SelectListView
     @cancel()
     @projectManager.openProject({title, paths})
 
-  sortBy: (arr, key) =>
+  sortBy: (arr, key) ->
     arr.sort (a, b) ->
       a[key].toUpperCase() > b[key].toUpperCase()
 
