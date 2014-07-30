@@ -7,8 +7,11 @@ class ProjectManagerAddView extends View
   @content: ->
     @div class: 'project-manager overlay from-top', =>
       @div class: 'editor-container', outlet: 'editorContainer', =>
-        @span class: 'project-manager-editor-title', 'Project title:'
-        @subview 'editor', new EditorView(mini: true)
+        @subview 'editor',
+          new EditorView(mini: true, placeholderText: 'Project title')
+        @div =>
+          @span 'Path: '
+          @span class: 'text-highlight', atom.project?.getPath()
 
   initialize: ->
 
