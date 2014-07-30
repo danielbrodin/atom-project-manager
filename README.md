@@ -2,7 +2,7 @@
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
-A package for saving your projects for fast and easy access, similiar to the one in Sublime Text.
+A package for saving your projects for fast and easy access.
 
 ## Installation
 ```sh
@@ -47,6 +47,10 @@ This changes the icon displayed next to the project title in the list view. The 
 **Show Path:** Shows the path in the list view
 
 **Close Current:** Closes the current window before opening the new project
+
+**Environment Specific Projects:** Use `projects.hostname.cson` instead of `projects.cson`
+
+**Sort By Title:** Sorts the projects list by title in ascending order
 
 ## Todo
 - Add multiple directories to a project (Can not currently be done in Atom)
