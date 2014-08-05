@@ -80,11 +80,56 @@ module.exports =
     CSON.writeFileSync(@file(), projects)
 
   openProject: ({title, paths}) ->
-    atom.open options =
-      pathsToOpen: paths
+    unless atom.config.get('project-manager.closeCurrent')
+      # Short-circuit and just open another project.
+      atom.open options =
+        pathsToOpen: paths
 
-    if atom.config.get('project-manager.closeCurrent') or not atom.project.getPath()
-      atom.close()
+      if not atom.project.getPath()
+        atom.close()
+
+      return
+
+    # Serialize and set the state of each component
+    atom.state.syntax = atom.syntax.serialize()
+    atom.state.project = atom.project.serialize()
+    atom.state.workspace = atom.workspace.serialize()
+    atom.packages.deactivatePackage "tree-view"
+    atom.state.packageStates = atom.packages.packageStates
+
+    # Save our state.
+    atom.saveSync()
+
+    # Decode the load settings
+    settings = JSON.parse(decodeURIComponent(location.search.substr(14)))
+
+    # Change the initial path
+    settings.initialPath = paths[0]
+
+    # Encode and set the "load" settings
+    search = "?loadSettings=" + encodeURIComponent(JSON.stringify(settings))
+    uri = window.location.origin + window.location.pathname + search
+    window.history.replaceState({}, "", uri)
+    delete atom.constructor.loadSettings
+    atom.state = atom.constructor.loadState "editor"
+
+    # "Switch" to the new project.
+    atom.project.destroy()
+    delete atom.project
+    atom.deserializeProject()
+    atom.deserializePackageStates()
+
+    # Load the new project in the tree view
+    atom.packages.activatePackage "tree-view"
+
+    # Load all stored buffers of the new project
+    pane = atom.workspace.paneContainer.root
+    for buffer in atom.project.buffers
+      editor = atom.project.buildEditorForBuffer buffer
+      pane.addItem editor
+
+    # Activate the last-active buffer
+    pane.activateItemForUri atom.state.workspace.paneContainer.root.activeItemUri
 
   editProjects: ->
     config =
