@@ -1,6 +1,13 @@
 # Changelog
 
-## 1.6
+## 1.7.2
+- Updated changelog
+
+## 1.7.1
+- Updated readme
+
+## 1.7
+*Something seems to have happend during publish so 1.6 was skipped*
 - Project path now shows when saving a project
 
 ## 1.5
