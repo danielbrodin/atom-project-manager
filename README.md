@@ -48,7 +48,7 @@ This changes the icon displayed next to the project title in the list view. The 
 
 **Close Current:** Closes the current window before opening the new project
 
-**Environment Specific Projects:** Use `projects.hostname.cson` instead of `projects.cson`
+**Environment Specific Projects:** Use `projects.[hostname].cson` instead of `projects.cson`
 
 **Sort By Title:** Sorts the projects list by title in ascending order
 
