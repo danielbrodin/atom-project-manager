@@ -30,7 +30,8 @@ module.exports =
     atom.workspaceView.command 'project-manager:reload-project-settings', =>
       @loadSettings()
 
-    atom.config.observe 'project-manager.environmentSpecificProjects', (newValue, obj = {}) =>
+    atom.config.observe 'project-manager.environmentSpecificProjects',
+    (newValue, obj = {}) =>
       previous = if obj.previous? then obj.previous else newValue
       unless newValue is previous
         @updateFile()
@@ -83,7 +84,8 @@ module.exports =
     atom.open options =
       pathsToOpen: paths
 
-    if atom.config.get('project-manager.closeCurrent') or not atom.project.getPath()
+    if atom.config.get('project-manager.closeCurrent') or
+    not atom.project.getPath()
       atom.close()
 
   editProjects: ->
@@ -95,11 +97,11 @@ module.exports =
   createProjectManagerView: (state) ->
     unless @projectManagerView?
       ProjectManagerView = require './project-manager-view'
-      @projectManagerView = new ProjectManagerView(state.projectManagerViewState)
+      @projectManagerView = new ProjectManagerView()
     @projectManagerView
 
   createProjectManagerAddView: (state) ->
     unless @projectManagerAddView?
       ProjectManagerAddView = require './project-manager-add-view'
-      @projectManagerAddView = new ProjectManagerAddView(state.projectManagerAddViewState)
+      @projectManagerAddView = new ProjectManagerAddView()
     @projectManagerAddView

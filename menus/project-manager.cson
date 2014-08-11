@@ -1,7 +1,7 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
   '.overlayer':
-      'Enable project-manager': 'project-manager:toggle'
+    'Enable project-manager': 'project-manager:toggle'
 
 'menu': [
   {
@@ -9,10 +9,22 @@
     'submenu': [
       'label': 'Project Manager'
       'submenu': [
-        { 'label': 'Toggle', 'command': 'project-manager:toggle' }
-        { 'label': 'Save Project', 'command': 'project-manager:save-project' }
-        { 'label': 'Edit Projects', 'command': 'project-manager:edit-projects' }
-        { 'label': 'Reload Projects Settings', 'command': 'project-manager:reload-project-settings' }
+        {
+          'label': 'Toggle',
+          'command': 'project-manager:toggle'
+        }
+        {
+          'label': 'Save Project',
+          'command': 'project-manager:save-project'
+        }
+        {
+          'label': 'Edit Projects',
+          'command': 'project-manager:edit-projects'
+        }
+        {
+          'label': 'Reload Projects Settings',
+          'command': 'project-manager:reload-project-settings'
+        }
       ]
     ]
   }
