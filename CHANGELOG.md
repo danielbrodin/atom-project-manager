@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.4
+- Removed Project Manager from the context menu since it has nothing todo with the interface.
+- Some code cleanup and fix
+
 ## 1.7.3
 - Fixed inconsistency in filename in README and CHANGELOG.
 - Added brackets around hostname in `projects.[hostname].cson` to make it clearer that that part will change to use the hostname of the environment.
