@@ -72,7 +72,13 @@ module.exports =
   enableSettings: (settings) ->
     for setting, value of settings
       atom.workspace.eachEditor (editor) ->
-        editor[setting](value)
+        if typeof value is 'string' or typeof value is 'number'
+          editor[setting](value)
+        else
+          for filesetting, filevalue of value
+            if editor.getGrammar() is setting
+              edit[filesetting](filevalue)
+
 
   addProject: (project) ->
     CSON = require 'season'
