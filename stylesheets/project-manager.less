@@ -12,3 +12,41 @@
   margin-bottom: 4px;
   font-size: 12px;
 }
+
+.project-manager-settings-view {
+  -webkit-flex: 1;
+  -webkit-flex-flow: column;
+  display: -webkit-flex;
+  position: relative;
+  overflow-y: auto;
+
+  .panel-heading {
+    color: white;
+  }
+}
+
+.project-manager-settings-project-view {
+  + .project-manager-settings-project-view {
+    margin-top: 10px;
+  }
+
+  .project-settings-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .panel-body {
+      background: #fcfcfc;
+
+    }
+
+    .row {
+      + .row {
+        margin-top: 8px;
+      }
+    }
+
+    .add-project-setting {
+      margin-top: 8px
+    }
+  }
+}

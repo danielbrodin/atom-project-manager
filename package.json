@@ -9,6 +9,7 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
-    "season": "1.x"
+    "season": "1.x",
+    "underscore-plus": "1.5.1"
   }
 }

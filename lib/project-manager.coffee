@@ -1,4 +1,7 @@
+_ = require 'underscore-plus'
 fs = require 'fs'
+SettingsView = null
+settingsView = null
 
 module.exports =
   configDefaults:
@@ -12,6 +15,8 @@ module.exports =
 
   filepath: null
 
+  configUri: 'atom://project-manager-settings'
+
   activate: (state) ->
     fs.exists @file(), (exists) =>
       unless exists
@@ -21,12 +26,19 @@ module.exports =
       else
         @loadSettings()
 
+    atom.workspace.registerOpener (uri) =>
+      if uri is @configUri
+        unless SettingsView?
+          SettingsView = require './settings/settings-view'
+        unless settingsView?.hasParent()
+          settingsView = new SettingsView(projectManager: @)
+
     atom.workspaceView.command 'project-manager:save-project', =>
       @createProjectManagerAddView(state).toggle(@)
     atom.workspaceView.command 'project-manager:toggle', =>
       @createProjectManagerView(state).toggle(@)
     atom.workspaceView.command 'project-manager:edit-projects', =>
-      @editProjects()
+      atom.workspaceView.open(@configUri)
     atom.workspaceView.command 'project-manager:reload-project-settings', =>
       @loadSettings()
 
@@ -70,15 +82,11 @@ module.exports =
               break
 
   enableSettings: (settings) ->
+    unflattenedSettings = {}
     for setting, value of settings
-      atom.workspace.eachEditor (editor) ->
-        if typeof value is 'string' or typeof value is 'number'
-          editor[setting](value)
-        else
-          for filesetting, filevalue of value
-            if editor.getGrammar() is setting
-              edit[filesetting](filevalue)
-
+      _.setValueForKeyPath(unflattenedSettings, setting, value)
+      atom.config.settings = _.deepExtend(unflattenedSettings, atom.config.settings)
+      atom.config.emit('reloaded')
 
   addProject: (project) ->
     CSON = require 'season'
@@ -93,12 +101,6 @@ module.exports =
     if atom.config.get('project-manager.closeCurrent') or
     not atom.project.getPath()
       atom.close()
-
-  editProjects: ->
-    config =
-      title: 'Config'
-      paths: [@file()]
-    @openProject(config)
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
