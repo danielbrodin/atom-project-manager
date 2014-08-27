@@ -89,10 +89,7 @@ module.exports =
   openProject: ({title, paths}) ->
     atom.open options =
       pathsToOpen: paths
-
-    if atom.config.get('project-manager.closeCurrent') or
-    not atom.project.getPath()
-      atom.close()
+      newWindow: !atom.config.get('project-manager.closeCurrent')
 
   editProjects: ->
     config =
