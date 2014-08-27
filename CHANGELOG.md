@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.7.5
+Now use the updated Atom::open() API
+
 ## 1.7.4
 - Removed Project Manager from the context menu since it has nothing todo with the interface.
 - Some code cleanup and fix
