@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.6
+Miss read the updated Atom::open() API so going back to the old way of closing
+the current window, but with a fix to it.
+
 ## 1.7.5
 Now use the updated Atom::open() API
 
