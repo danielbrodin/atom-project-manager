@@ -67,6 +67,8 @@ module.exports =
             if path is atom.project.getPath()
               if project.settings?
                 @enableSettings(project.settings)
+              if project.triggers?
+                @enableTriggers(project.triggers)
               break
 
   enableSettings: (settings) ->
@@ -79,6 +81,14 @@ module.exports =
             if editor.getGrammar() is setting
               edit[filesetting](filevalue)
 
+
+  enableTriggers: (triggers) ->
+    for command, args of triggers
+      name = command.split(":")[0]
+      continue if atom.packages.isPackageDisabled(name)
+      do(command, args, name) ->
+        atom.packages.activatePackage(name).then (pkg) ->
+          atom.workspaceView.trigger command, [args]
 
   addProject: (project) ->
     CSON = require 'season'
