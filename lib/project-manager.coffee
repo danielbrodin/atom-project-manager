@@ -96,9 +96,10 @@ module.exports =
     projects[project.title] = project
     CSON.writeFileSync(@file(), projects)
 
-  openProject: ({title, paths}) ->
+  openProject: ({title, paths, devMode}) ->
     atom.open options =
       pathsToOpen: paths
+      devMode: devMode
 
     if atom.config.get('project-manager.closeCurrent')
       setTimeout ->

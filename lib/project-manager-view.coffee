@@ -53,9 +53,9 @@ class ProjectManagerView extends SelectListView
         if atom.config.get('project-manager.showPath')
           @div class: 'secondary-line no-icon', path for path in paths
 
-  confirmed: ({title, paths}) ->
+  confirmed: (project) ->
     @cancel()
-    @projectManager.openProject({title, paths})
+    @projectManager.openProject(project)
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
