@@ -27,7 +27,7 @@ module.exports =
     atom.workspaceView.command 'project-manager:toggle', =>
       @createProjectManagerView(state).toggle(@)
     atom.workspaceView.command 'project-manager:edit-projects', =>
-      @editProjects()
+      atom.workspaceView.open @file()
     atom.workspaceView.command 'project-manager:reload-project-settings', =>
       @loadSettings()
 
@@ -104,12 +104,6 @@ module.exports =
       setTimeout ->
         atom.close()
       , 200
-
-  editProjects: ->
-    config =
-      title: 'Config'
-      paths: [@file()]
-    @openProject(config)
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
