@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "season": "1.x",
-    "underscore-plus": "1.5.1",
-    "pathwatcher": "^2.0"
+    "underscore-plus": "1.5.1"
   }
 }

@@ -61,11 +61,8 @@ module.exports =
             console.log "Error: Could not create #{@file()} - #{error}"
 
   subscribeToProjectsFile: ->
-    PathWatcher = require 'pathwatcher'
-    filePath = @file()
-    @pathWatcher.close() if @pathWatcher?
-
-    @pathWatcher = PathWatcher.watch filePath, (event, path) =>
+    @fileWatcher.close() if @fileWatcher?
+    @fileWatcher = fs.watch @file(), (event, filename) =>
       @loadSettings()
 
   loadSettings: ->

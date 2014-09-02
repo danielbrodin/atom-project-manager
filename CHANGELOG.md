@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.8.2
+Now using FS instead of pathwatcher for monitoring changes in the projects file.
+
 ## 1.8.1
 - **Project Manager: Edit Projects** will now open file in the current window instead of a new one
 - Added possibility to open project in dev mode with `devMode: true`
