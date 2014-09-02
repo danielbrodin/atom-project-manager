@@ -19,6 +19,7 @@ module.exports =
           if error
             console.log "Error: Could not create #{@file()} - #{error}"
       else
+        @subscribeToProjectsFile()
         @loadSettings()
 
     atom.workspaceView.command 'project-manager:save-project', =>
@@ -35,6 +36,7 @@ module.exports =
       previous = if obj.previous? then obj.previous else newValue
       unless newValue is previous
         @updateFile()
+        @subscribeToProjectsFile()
 
   file: (update = false) ->
     @filepath = null if update
@@ -58,6 +60,14 @@ module.exports =
           if error
             console.log "Error: Could not create #{@file()} - #{error}"
 
+  subscribeToProjectsFile: ->
+    PathWatcher = require 'pathwatcher'
+    filePath = @file()
+    @pathWatcher.close() if @pathWatcher?
+
+    @pathWatcher = PathWatcher.watch filePath, (event, path) =>
+      @loadSettings()
+
   loadSettings: ->
     CSON = require 'season'
     CSON.readFile @file(), (error, data) =>
@@ -70,15 +80,15 @@ module.exports =
               break
 
   enableSettings: (settings) ->
-    for setting, value of settings
-      atom.workspace.eachEditor (editor) ->
-        if typeof value is 'string' or typeof value is 'number'
-          editor[setting](value)
-        else
-          for filesetting, filevalue of value
-            if editor.getGrammar() is setting
-              edit[filesetting](filevalue)
+    _ = require 'underscore-plus'
 
+    projectSettings = {}
+    for setting, value of settings
+      _.setValueForKeyPath(projectSettings, setting, value)
+      atom.config.settings = _.deepExtend(
+        projectSettings,
+        atom.config.settings)
+    atom.config.emit('updated')
 
   addProject: (project) ->
     CSON = require 'season'
@@ -93,8 +103,7 @@ module.exports =
     if atom.config.get('project-manager.closeCurrent')
       setTimeout ->
         atom.close()
-      , 100
-
+      , 200
 
   editProjects: ->
     config =

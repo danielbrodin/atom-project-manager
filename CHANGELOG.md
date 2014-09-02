@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.8
+Changed the way settings work which mean that if you have used any of the old settings, you have to redo them. This way all settings that can be set from the settings view/config.cson can be project specific.
+
+```CoffeeScript
+# Old way
+'settings':
+  'setTabLength': 2
+
+# New way
+'settings':
+  'editor.tabLength': 2
+  'editor.showIndentGuide': true
+  'project-manager.showPath': true
+```
+
 ## 1.7.6
 Miss read the updated Atom::open() API so going back to the old way of closing
 the current window, but with a fix to it.

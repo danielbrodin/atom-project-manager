@@ -16,17 +16,23 @@ All commands can also be found in the Packages menu
 `ctrl-cmd-p` (mac) / `ctrl-shift-alt-p` (win & linux) or **Project Manager** in the Command Palette.
 
 ### Save project
-**Save Project** in the Command Palette and write the title you want to save the project as.
+**Project Manager: Save Project** in the Command Palette and write the title you want to save the project as.
 
 ### Edit projects
-All projects are saved in a `.cson` file which you can easily reach by searching for **Edit Projects** in the Command Palette.
+All projects are saved in a `.cson` file which you can easily reach by searching for **Project Manager: Edit Projects** in the Command Palette.
 
-## Settings
-### Editor `settings:`
-Atom allows some editor specific settings which can now manually be added to the `projects.cson` file under a `settings` object.
-The settings currently available are `setSoftTabs`, `setSoftWrap`and `setTabLength`. After making a change to the settings they can be updated by searching for **Reload Project Settings** under the Command Palette.
+## Project Settings
+### `settings:`
+Under settings you can set everything that you can have in the `config.cson` file which is what you see under the settings view.
+The formatting should be as follows:
+```
+'settings':
+  'editor.tabLength': 2
+  'project-manager.showPath': true
+```
+The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
 
-### List `icon:`
+### `icon:`
 This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicon](https://github.com/styleguide/css/7.0) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
 
 ### Example
@@ -38,12 +44,12 @@ This changes the icon displayed next to the project title in the list view. The 
     '/path/to/project-manager'
   ]
   'settings':
-    'setSoftTabs': true  # Enable or disable soft tabs for this editor
-    'setSoftWrap': true  # Enable or disable soft wrap for this editor.
-    'setTabLength': 2    # Set the on-screen length of tab characters.
+    'editor.tabLength': 2
+    'editor.showIndentGuide': false
+    'project-manager:showPath': true
 ```
 
-### Atom Settings
+## Package Settings
 **Show Path:** Shows the path in the list view
 
 **Close Current:** Closes the current window before opening the new project
@@ -51,6 +57,3 @@ This changes the icon displayed next to the project title in the list view. The 
 **Environment Specific Projects:** Use `projects.[hostname].cson` instead of `projects.cson`
 
 **Sort By Title:** Sorts the projects list by title in ascending order
-
-## Todo
-- Add multiple directories to a project (Can not currently be done in Atom)
