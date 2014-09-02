@@ -5,6 +5,13 @@
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": "https://github.com/danielbrodin/atom-project-manager",
   "license": "MIT",
+  "keywords": [
+    "project",
+    "manager",
+    "settings",
+    "workflow",
+    "productivity"
+  ],
   "engines": {
     "atom": ">0.50.0"
   },
