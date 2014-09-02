@@ -33,7 +33,7 @@ The formatting should be as follows:
 The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
 
 ### `devMode:`
-Will open the project in developer mode
+Will open the project in dev mode. The API for this doesn't work perfectly though so if you try to switch to a project that is already open in dev mode, a new window will open.
 
 ### `icon:`
 This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicon](https://github.com/styleguide/css/7.0) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
