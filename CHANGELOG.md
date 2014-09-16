@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.9.0
+- You can now add templates in the projects file.
+
 ## 1.8.2
 Now using FS instead of pathwatcher for monitoring changes in the projects file.
 
@@ -7,7 +10,7 @@ Now using FS instead of pathwatcher for monitoring changes in the projects file.
 - **Project Manager: Edit Projects** will now open file in the current window instead of a new one
 - Added possibility to open project in dev mode with `devMode: true`
 
-## 1.8
+## 1.8.0
 Changed the way settings work which mean that if you have used any of the old settings, you have to redo them. This way all settings that can be set from the settings view/config.cson can be project specific.
 
 ```CoffeeScript

@@ -20,7 +20,7 @@ module.exports =
             console.log "Error: Could not create #{@file()} - #{error}"
       else
         @subscribeToProjectsFile()
-        @loadSettings()
+        @loadCurrentProject()
 
     atom.workspaceView.command 'project-manager:save-project', =>
       @createProjectManagerAddView(state).toggle(@)
@@ -29,7 +29,7 @@ module.exports =
     atom.workspaceView.command 'project-manager:edit-projects', =>
       atom.workspaceView.open @file()
     atom.workspaceView.command 'project-manager:reload-project-settings', =>
-      @loadSettings()
+      @loadCurrentProject()
 
     atom.config.observe 'project-manager.environmentSpecificProjects',
     (newValue, obj = {}) =>
@@ -63,22 +63,28 @@ module.exports =
   subscribeToProjectsFile: ->
     @fileWatcher.close() if @fileWatcher?
     @fileWatcher = fs.watch @file(), (event, filename) =>
-      @loadSettings()
+      @loadCurrentProject()
 
-  loadSettings: ->
+  loadCurrentProject: ->
     CSON = require 'season'
+    _ = require 'underscore-plus'
     CSON.readFile @file(), (error, data) =>
       unless error
-        for title, project of data
-          for path in project.paths
-            if path is atom.project.getPath()
-              if project.settings?
-                @enableSettings(project.settings)
-              break
+        project = @getCurrentProject(data)
+        if project
+          if project.template? and data[project.template]?
+            project = _.deepExtend(project, data[project.template])
+          @enableSettings(project.settings) if project.settings?
+
+  getCurrentProject: (projects) ->
+    for title, project of projects
+      for path in project.paths
+        if path is atom.project.getPath()
+          return project
+    return false
 
   enableSettings: (settings) ->
     _ = require 'underscore-plus'
-
     projectSettings = {}
     for setting, value of settings
       _.setValueForKeyPath(projectSettings, setting, value)

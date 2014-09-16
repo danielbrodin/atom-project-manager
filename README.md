@@ -38,19 +38,27 @@ Will open the project in dev mode. The API for this doesn't work perfectly thoug
 ### `icon:`
 This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicon](https://github.com/styleguide/css/7.0) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
 
+### `template:`
+You can specify a template in the `projects.cson` file to share settings between projects. The settings will merge so you can still specify project specific settings.
+
 ### Example
 ```CoffeeScript
 'Project Manager':
   'title': 'Project Manager'
-  'icon': 'icon-squirrel'
   'devMode': true
+  'template': 'coffeescript-template'
   'paths': [
     '/path/to/project-manager'
   ]
   'settings':
-    'editor.tabLength': 2
     'editor.showIndentGuide': false
     'project-manager:showPath': true
+
+'coffeescript-template':
+  'icon': 'icon-coffeescript'
+  'settings':
+    'editor.tabLength': 2
+    'editor.preferredLineLength': 80
 ```
 
 ## Package Settings
