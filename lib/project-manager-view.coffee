@@ -63,5 +63,4 @@ class ProjectManagerView extends SelectListView
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
-      a[key].toUpperCase() > b[key].toUpperCase()
-
+      (a[key] || '\uffff').toUpperCase() > (b[key] || '\uffff').toUpperCase()
