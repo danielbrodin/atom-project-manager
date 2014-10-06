@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.9.1
+Now using the updated config system. If you were using "sort by title" you will have to set it again with the new sort by option.
+
 ## 1.9.0
 - You can now add templates in the projects file.
 

@@ -1,11 +1,27 @@
 fs = require 'fs'
 
 module.exports =
-  configDefaults:
-    showPath: false
-    closeCurrent: false
-    sortByTitle: false
-    environmentSpecificProjects: false
+  config:
+    showPath:
+      type: 'boolean'
+      default: true
+
+    closeCurrent:
+      type: 'boolean'
+      default: false
+
+    environmentSpecificProjects:
+      type: 'boolean'
+      default: false
+
+    sortBy:
+      type: 'string'
+      description: 'Default sorting is the order in which the projects are'
+      default: 'default'
+      enum: [
+        'default'
+        'title'
+      ]
 
   projectManagerView: null
   projectManagerAddView: null

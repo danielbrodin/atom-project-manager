@@ -68,4 +68,4 @@ You can specify a template in the `projects.cson` file to share settings between
 
 **Environment Specific Projects:** Use `projects.[hostname].cson` instead of `projects.cson`
 
-**Sort By Title:** Sorts the projects list by title in ascending order
+**Sort By:** Sorts the projects list by selected option
