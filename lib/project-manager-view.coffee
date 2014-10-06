@@ -37,11 +37,13 @@ class ProjectManagerView extends SelectListView
     projects = []
     currentProjects = CSON.readFileSync(@projectManager.file())
     for title, project of currentProjects
-      project = _.deepExtend(project, currentProjects[project.template]) if project.template?
+      if project.template?
+        project = _.deepExtend(project, currentProjects[project.template])
       projects.push(project) if project.paths?
 
-    if atom.config.get('project-manager.sortByTitle')
-      projects = @sortBy(projects, 'title')
+    sortBy = atom.config.get('project-manager.sortBy')
+    if sortBy isnt 'default'
+      projects = @sortBy(projects, sortBy)
     @setItems(projects)
 
     atom.workspaceView.append(@)

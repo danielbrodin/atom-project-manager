@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.9.2
+Bug fix
+
 ## 1.9.1
 Now using the updated config system. If you were using "sort by title" you will have to set it again with the new sort by option.
 
