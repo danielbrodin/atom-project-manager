@@ -4,11 +4,35 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
-.project-manager {
+@dev-mode-icon: "\f065";
 
+.project-manager {}
+
+.project-manager-list-group {
+  color: @text-color-subtle;
+  text-shadow: none;
+  padding: 1px 2px;
+  margin-left: 10px;
+  background: @background-color-highlight;
+  border-radius: 1px;
+
+  .selected & {
+    color: @text-color;
+  }
 }
-.project-manager-editor-title {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 12px;
+
+.project-manager-devmode {
+  float: right;
+
+  &:before {
+    content: @dev-mode-icon;
+    color: @text-color-error;
+    font-family: 'Octicons Regular';
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 1;
+    display: inline-block;
+  }
 }

@@ -49,13 +49,20 @@ class ProjectManagerView extends SelectListView
     atom.workspaceView.append(@)
     @focusFilterEditor()
 
-  viewForItem: ({title, paths, icon}) ->
+  viewForItem: ({title, paths, icon, group, devMode}) ->
     icon = icon or 'icon-chevron-right'
     $$ ->
       @li class: 'two-lines', 'data-project-title': title, =>
-        @div class: "primary-line icon #{icon}", title
+        @div class: 'primary-line', =>
+          @span class: 'project-manager-devmode' if devMode
+          @div class: "icon #{icon}", =>
+            @span title
+            @span class: 'project-manager-list-group', group if group?
+
         if atom.config.get('project-manager.showPath')
-          @div class: 'secondary-line no-icon', path for path in paths
+          for path in paths
+            @div class: 'secondary-line', =>
+              @div class: 'no-icon', path
 
   confirmed: (project) ->
     @cancel()

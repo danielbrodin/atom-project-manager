@@ -21,6 +21,7 @@ module.exports =
       enum: [
         'default'
         'title'
+        'group'
       ]
 
   projectManagerView: null

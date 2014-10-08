@@ -41,11 +41,15 @@ This changes the icon displayed next to the project title in the list view. The 
 ### `template:`
 You can specify a template in the `projects.cson` file to share settings between projects. The settings will merge so you can still specify project specific settings.
 
+### `group:`
+You can specify a group that the project belongs to and then sort the projects list after group.
+
 ### Example
-```CoffeeScript
+```coffeeScript
 'Project Manager':
   'title': 'Project Manager'
   'devMode': true
+  'group': 'Atom'
   'template': 'coffeescript-template'
   'paths': [
     '/path/to/project-manager'
