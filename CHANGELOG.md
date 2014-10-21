@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.10.1
+Bugfix
+
 ## 1.10.0
 - You can now add a `group:` setting on a project and sort the projects list by group.
 - Added a marker for projects with `devMode: true` to the projects list to make it more clear that it will open in developer mode
