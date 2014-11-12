@@ -101,15 +101,21 @@ module.exports =
           return project
     return false
 
+  flattenSettings: (root, dict, path) ->
+    for key, value of dict
+      dotPath = key
+      dotPath = "#{path}.#{key}" if path?
+      isObject = value not instanceof Array and value instanceof Object
+      if not isObject
+        root[dotPath] = value
+      else
+        @flattenSettings root, dict[key], dotPath
+
   enableSettings: (settings) ->
-    _ = require 'underscore-plus'
-    projectSettings = {}
-    for setting, value of settings
-      _.setValueForKeyPath(projectSettings, setting, value)
-      atom.config.settings = _.deepExtend(
-        projectSettings,
-        atom.config.settings)
-    atom.config.emit('updated')
+    flatSettings = {}
+    @flattenSettings flatSettings, settings
+    for setting, value of flatSettings
+      atom.config.set setting, value
 
   addProject: (project) ->
     CSON = require 'season'
