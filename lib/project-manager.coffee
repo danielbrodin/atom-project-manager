@@ -102,10 +102,11 @@ module.exports =
     return false
 
   flattenSettings: (root, dict, path) ->
+    _ = require 'underscore-plus'
     for key, value of dict
       dotPath = key
       dotPath = "#{path}.#{key}" if path?
-      isObject = value not instanceof Array and value instanceof Object
+      isObject = not _.isArray(value) and _.isObject(value)
       if not isObject
         root[dotPath] = value
       else
