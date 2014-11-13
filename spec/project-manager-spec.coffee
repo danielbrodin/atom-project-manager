@@ -22,5 +22,5 @@ describe "ProjectManager", ->
     it "Makes sure projects.cson exists", ->
       options =
         encoding: 'utf-8'
-      fs.readFile ProjectManager.file, options, (err, data) ->
+      fs.readFile ProjectManager.file(), options, (err, data) ->
         expect(err).toBe null
