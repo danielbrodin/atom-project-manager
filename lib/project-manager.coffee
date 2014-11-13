@@ -112,10 +112,15 @@ module.exports =
         @flattenSettings root, dict[key], dotPath
 
   enableSettings: (settings) ->
+    _ = require 'underscore-plus'
     flatSettings = {}
     @flattenSettings flatSettings, settings
     for setting, value of flatSettings
-      atom.config.set setting, value
+      if _.isArray value
+        currentValue = atom.config.get setting
+        value = _.union currentValue, value
+      atom.config.setRawValue setting, value
+    atom.config.emit 'updated'
 
   addProject: (project) ->
     CSON = require 'season'
