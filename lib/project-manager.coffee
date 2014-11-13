@@ -82,16 +82,17 @@ module.exports =
     @fileWatcher = fs.watch @file(), (event, filename) =>
       @loadCurrentProject()
 
-  loadCurrentProject: ->
+  loadCurrentProject: (project, done) ->
     CSON = require 'season'
     _ = require 'underscore-plus'
     CSON.readFile @file(), (error, data) =>
       unless error
-        project = @getCurrentProject(data)
+        project = @getCurrentProject(data) if not project?
         if project
           if project.template? and data[project.template]?
             project = _.deepExtend(project, data[project.template])
           @enableSettings(project.settings) if project.settings?
+      done?()
 
   getCurrentProject: (projects) ->
     for title, project of projects
@@ -129,15 +130,15 @@ module.exports =
     projects[project.title] = project
     CSON.writeFileSync(@file(), projects)
 
-  openProject: ({title, paths, devMode}) ->
-    atom.open options =
-      pathsToOpen: paths
-      devMode: devMode
-
-    if atom.config.get('project-manager.closeCurrent')
-      setTimeout ->
-        atom.close()
-      , 200
+  openProject: (project) ->
+    @loadCurrentProject project, ->
+      atom.open options =
+        pathsToOpen: project.paths
+        devMode: project.devMode
+      if atom.config.get('project-manager.closeCurrent')
+        setTimeout ->
+          atom.close()
+        , 200
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
