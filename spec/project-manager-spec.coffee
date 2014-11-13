@@ -24,3 +24,11 @@ describe "ProjectManager", ->
         encoding: 'utf-8'
       fs.readFile ProjectManager.file(), options, (err, data) ->
         expect(err).toBe null
+
+    it "getCurrentPath existential operator issue is fixed", ->
+      projects = test: paths: [atom.project.getPath()]
+      result = ProjectManager.getCurrentProject projects
+      expect(result).not.toBe false
+      projects = test: {}
+      result = ProjectManager.getCurrentProject projects
+      expect(result).toBe false
