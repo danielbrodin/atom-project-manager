@@ -98,7 +98,7 @@ module.exports =
     for title, project of projects
       continue if not project.paths?
       for path in project.paths
-        if path is atom.project.getPath()
+        if path in atom.project.getPaths()
           return project
     return false
 
