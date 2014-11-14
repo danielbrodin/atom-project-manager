@@ -1,0 +1,14 @@
+'Test01':
+  'title': 'Test01'
+  'paths': [
+    '/Users/'
+  ]
+  'settings':
+    'tree-view':
+      'showOnRightSide': true
+    'fuzzy-finder':
+      'ignoredNames': [
+        'test1'
+        'test2'
+        'test3'
+      ]
