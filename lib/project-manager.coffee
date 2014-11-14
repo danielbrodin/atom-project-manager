@@ -9,6 +9,7 @@ module.exports =
     closeCurrent:
       type: 'boolean'
       default: false
+      description: "Currently disabled since it's broken. Waiting for a better way to implement it."
 
     environmentSpecificProjects:
       type: 'boolean'
@@ -135,10 +136,6 @@ module.exports =
       atom.open options =
         pathsToOpen: project.paths
         devMode: project.devMode
-      if atom.config.get('project-manager.closeCurrent')
-        setTimeout ->
-          atom.close()
-        , 200
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?

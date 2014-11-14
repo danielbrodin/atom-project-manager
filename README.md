@@ -68,7 +68,7 @@ You can specify a group that the project belongs to and then sort the projects l
 ## Package Settings
 **Show Path:** Shows the path in the list view
 
-**Close Current:** Closes the current window before opening the new project
+~~**Close Current:** Closes the current window before opening the new project~~ *(Currently disabled)*
 
 **Environment Specific Projects:** Use `projects.[hostname].cson` instead of `projects.cson`
 
