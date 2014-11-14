@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.11.0
+`Project Manager: Save Project` now automatically fills in the title field with the current directory name
+
 ## 1.10.2
 Disabled **Close Current** since it currently breaks in Atom. Will enable it again as soon as there is a good solution to fix it.
 
