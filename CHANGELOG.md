@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.11.1
+Fixed link to octicons in readme
+
 ## 1.11.0
 `Project Manager: Save Project` now automatically fills in the title field with the current directory name
 
