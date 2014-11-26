@@ -40,14 +40,18 @@ module.exports =
         @subscribeToProjectsFile()
         @loadCurrentProject()
 
-    atom.workspaceView.command 'project-manager:save-project', =>
-      @createProjectManagerAddView(state).toggle(@)
-    atom.workspaceView.command 'project-manager:toggle', =>
-      @createProjectManagerView(state).toggle(@)
-    atom.workspaceView.command 'project-manager:edit-projects', =>
-      atom.workspaceView.open @file()
-    atom.workspaceView.command 'project-manager:reload-project-settings', =>
-      @loadCurrentProject()
+    atom.commands.add 'atom-workspace',
+      'project-manager:toggle': =>
+        @createProjectManagerView(state).toggle(@)
+
+      'project-manager:save-project': =>
+        @createProjectManagerAddView(state).toggle(@)
+
+      'project-manager:edit-projects': =>
+        atom.workspaceView.open @file()
+
+      'project-manager:reload-project-settings': =>
+        @loadCurrentProject()
 
     atom.config.observe 'project-manager.environmentSpecificProjects',
     (newValue, obj = {}) =>
