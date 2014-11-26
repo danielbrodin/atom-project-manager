@@ -54,11 +54,11 @@ module.exports =
         @loadCurrentProject()
 
     atom.config.observe 'project-manager.environmentSpecificProjects',
-    (newValue, obj = {}) =>
-      previous = if obj.previous? then obj.previous else newValue
-      unless newValue is previous
-        @updateFile()
-        @subscribeToProjectsFile()
+      (newValue, obj = {}) =>
+        previous = if obj.previous? then obj.previous else newValue
+        unless newValue is previous
+          @updateFile()
+          @subscribeToProjectsFile()
 
   file: (update = false) ->
     @filepath = null if update
