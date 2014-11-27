@@ -1,5 +1,6 @@
 # Changelog
-## 1.11.2
+
+## 1.12.0
 Now using the new commands API
 
 ## 1.11.1
