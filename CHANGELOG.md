@@ -1,4 +1,6 @@
 # Changelog
+## 1.11.2
+Now using the new commands API
 
 ## 1.11.1
 Fixed link to octicons in readme
