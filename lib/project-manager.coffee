@@ -9,7 +9,9 @@ module.exports =
     closeCurrent:
       type: 'boolean'
       default: false
-      description: "Currently disabled since it's broken. Waiting for a better way to implement it."
+      description:
+        "Currently disabled since it's broken.
+        Waiting for a better way to implement it."
 
     environmentSpecificProjects:
       type: 'boolean'
