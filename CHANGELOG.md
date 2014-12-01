@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0
+- Improved loading of settings
+- Fixed deprecated warnings
+- Added tests for most things
+
+Big thanks to [@alvaromartin](https://github.com/alvaromartin)
+
 ## 1.12.0
 Now using the new commands API
 
