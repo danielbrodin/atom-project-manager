@@ -61,7 +61,7 @@ describe "ProjectManager", ->
       atom.config.emit 'update'
       expect(atom.config.get('tree-view.showOnRightSide')).toBe off
       done = off
-      runs -> ProjectManager.loadCurrentProject undefined, -> done = on
+      runs -> ProjectManager.loadCurrentProject -> done = on
       waitsFor -> done
       runs -> expect(atom.config.get('tree-view.showOnRightSide')).toBe on
 
@@ -70,12 +70,12 @@ describe "ProjectManager", ->
       atom.config.emit 'update'
       expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 3
       done = off
-      runs -> ProjectManager.loadCurrentProject undefined, -> done = on
+      runs -> ProjectManager.loadCurrentProject -> done = on
       waitsFor -> done
       runs -> expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 6
 
     it "Doesn't overwrite the user's config file after loading settings", ->
       done = off
-      runs -> ProjectManager.loadCurrentProject undefined, -> done = on
+      runs -> ProjectManager.loadCurrentProject -> done = on
       waitsFor -> done
       runs -> expect(atom.config.save).not.toHaveBeenCalled()
