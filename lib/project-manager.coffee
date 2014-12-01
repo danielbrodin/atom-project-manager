@@ -87,33 +87,47 @@ module.exports =
     @fileWatcher = fs.watch @file(), (event, filename) =>
       @loadCurrentProject()
 
-  loadCurrentProject: ->
+  loadCurrentProject: (project, done) ->
     CSON = require 'season'
     _ = require 'underscore-plus'
     CSON.readFile @file(), (error, data) =>
       unless error
-        project = @getCurrentProject(data)
+        project = @getCurrentProject(data) if not project?
         if project
           if project.template? and data[project.template]?
             project = _.deepExtend(project, data[project.template])
           @enableSettings(project.settings) if project.settings?
+      done?()
 
   getCurrentProject: (projects) ->
     for title, project of projects
-      for path in project.paths?
-        if path is atom.project.getPath()
+      continue if not project.paths?
+      for path in project.paths
+        if path in atom.project.getPaths()
           return project
     return false
 
+  flattenSettings: (root, dict, path) ->
+    _ = require 'underscore-plus'
+    for key, value of dict
+      dotPath = key
+      dotPath = "#{path}.#{key}" if path?
+      isObject = not _.isArray(value) and _.isObject(value)
+      if not isObject
+        root[dotPath] = value
+      else
+        @flattenSettings root, dict[key], dotPath
+
   enableSettings: (settings) ->
     _ = require 'underscore-plus'
-    projectSettings = {}
-    for setting, value of settings
-      _.setValueForKeyPath(projectSettings, setting, value)
-      atom.config.settings = _.deepExtend(
-        projectSettings,
-        atom.config.settings)
-    atom.config.emit('updated')
+    flatSettings = {}
+    @flattenSettings flatSettings, settings
+    for setting, value of flatSettings
+      if _.isArray value
+        currentValue = atom.config.get setting
+        value = _.union currentValue, value
+      atom.config.setRawValue setting, value
+    atom.config.emit 'updated'
 
   addProject: (project) ->
     CSON = require 'season'
@@ -121,10 +135,11 @@ module.exports =
     projects[project.title] = project
     CSON.writeFileSync(@file(), projects)
 
-  openProject: ({title, paths, devMode}) ->
-    atom.open options =
-      pathsToOpen: paths
-      devMode: devMode
+  openProject: (project) ->
+    @loadCurrentProject project, ->
+      atom.open options =
+        pathsToOpen: project.paths
+        devMode: project.devMode
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
