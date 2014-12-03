@@ -5,6 +5,7 @@ _ = require 'underscore-plus'
 module.exports =
 class ProjectManagerView extends SelectListView
   projectManager: null
+  possibleFilterKeys: ['title', 'group', 'template']
   activate: ->
     new ProjectManagerView
 
@@ -15,7 +16,23 @@ class ProjectManagerView extends SelectListView
   serialize: ->
 
   getFilterKey: ->
-    'title'
+    filter = 'title'
+    input = @filterEditorView.getText()
+    inputArr = input.split(':')
+
+    if inputArr.length > 1 and inputArr[0] in @possibleFilterKeys
+      filter = inputArr[0]
+
+    return filter
+
+  getFilterQuery: ->
+    input = @filterEditorView.getText()
+    inputArr = input.split(':')
+
+    if inputArr.length > 1
+      input = inputArr[1]
+
+    return input
 
   destroy: ->
     @detach()
