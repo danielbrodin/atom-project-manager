@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.14.0
+Added filters for project listing, ex: `group: atom`
+
 ## 1.13.0
 - Improved loading of settings
 - Fixed deprecated warnings
