@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.14.1
+Added notifications
+
 ## 1.14.0
 Added filters for project listing, ex: `group: atom`
 

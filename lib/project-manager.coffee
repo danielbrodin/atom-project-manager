@@ -37,7 +37,8 @@ module.exports =
       unless exists
         fs.writeFile @file(), '{}', (error) ->
           if error
-            console.log "Error: Could not create #{@file()} - #{error}"
+            atom.notifications?.addError "Project Manager", options =
+              details: "Could not create #{@file()}"
       else
         @subscribeToProjectsFile()
         @loadCurrentProject()
@@ -82,7 +83,8 @@ module.exports =
       unless exists
         fs.writeFile @file(), '{}', (error) ->
           if error
-            console.log "Error: Could not create #{@file()} - #{error}"
+            atom.notifications?.addError "Project Manager", options =
+              details: "Could not create #{@file()}"
 
   subscribeToProjectsFile: ->
     @fileWatcher.close() if @fileWatcher?
@@ -135,7 +137,14 @@ module.exports =
     CSON = require 'season'
     projects = CSON.readFileSync(@file()) || {}
     projects[project.title] = project
-    CSON.writeFileSync(@file(), projects)
+    successMessage = "#{project.title} has been added"
+    errorMessage = "#{project.title} could not be saved to #{@file()}"
+
+    CSON.writeFile @file(), projects, (err) ->
+      unless err
+        atom.notifications?.addSuccess successMessage
+      else
+        atom.notifications?.addError errorMessage
 
   openProject: (project) ->
     atom.open options =
