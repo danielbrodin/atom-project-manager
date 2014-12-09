@@ -1,8 +1,8 @@
-'.platform-darwin':
+'.platform-darwin atom-workspace atom-text-editor':
   'ctrl-cmd-p': 'project-manager:toggle'
 
-'.platform-win32':
+'.platform-win32 atom-workspace atom-text-editor':
   'ctrl-shift-alt-p': 'project-manager:toggle'
 
-'.platform-linux':
+'.platform-linux atom-workspace atom-text-editor':
   'ctrl-shift-alt-p': 'project-manager:toggle'
