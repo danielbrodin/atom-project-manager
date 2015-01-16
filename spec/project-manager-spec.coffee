@@ -1,5 +1,6 @@
+{$} = require 'atom-space-pen-views'
 ProjectManager = require '../lib/project-manager'
-{WorkspaceView} = require 'atom'
+workspaceElement = null
 fs = require 'fs'
 
 describe "ProjectManager", ->
@@ -8,22 +9,24 @@ describe "ProjectManager", ->
   describe "Toggle Project Manager", ->
 
     beforeEach ->
+      workspaceElement = atom.views.getView(atom.workspace)
+      jasmine.attachToDOM(workspaceElement)
       ProjectManager.projectManagerView = null
-      atom.workspaceView = new WorkspaceView
       @settingsFile = "#{__dirname}/projects.test.cson"
       spyOn(ProjectManager, 'file').andCallFake => @settingsFile
       waitsForPromise -> atom.packages.activatePackage('project-manager')
 
     it "Shows the Project Viewer", ->
-      atom.workspaceView.trigger 'project-manager:toggle'
-      list = atom.workspaceView.find('.project-manager .list-group li')
+      atom.commands.dispatch workspaceElement, 'project-manager:toggle'
+      list = $(workspaceElement).find('.project-manager .list-group li')
       expect(list.length).toBe 1
       expect(list.first().find('.primary-line').text()).toBe 'Test01'
 
   describe "Initiating Project Manager", ->
 
     beforeEach ->
-      atom.workspaceView = new WorkspaceView
+      workspaceElement = atom.views.getView(atom.workspace)
+      jasmine.attachToDOM(workspaceElement)
       @settingsFile = "#{__dirname}/projects.test.cson"
       spyOn(ProjectManager, 'file').andCallFake => @settingsFile
       waitsForPromise -> atom.packages.activatePackage('project-manager')
@@ -51,7 +54,8 @@ describe "ProjectManager", ->
         @projects = data
         @projects.Test01.paths = [__dirname]
       ProjectManager.projectManagerView = null
-      atom.workspaceView = new WorkspaceView
+      workspaceElement = atom.views.getView(atom.workspace)
+      jasmine.attachToDOM(workspaceElement)
       spyOn(ProjectManager, 'file').andCallFake => @settingsFile
       spyOn(ProjectManager, 'getCurrentProject').andCallFake => @projects.Test01
       waitsForPromise -> atom.packages.activatePackage('project-manager')

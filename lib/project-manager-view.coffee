@@ -1,4 +1,4 @@
-{$, $$, SelectListView, View} = require 'atom'
+{$, $$, SelectListView, View} = require 'atom-space-pen-views'
 CSON = require 'season'
 _ = require 'underscore-plus'
 
@@ -11,7 +11,7 @@ class ProjectManagerView extends SelectListView
 
   initialize: (serializeState) ->
     super
-    @addClass('project-manager overlay from-top')
+    @addClass('project-manager')
 
   serialize: ->
 
@@ -34,8 +34,12 @@ class ProjectManagerView extends SelectListView
 
     return input
 
-  destroy: ->
-    @detach()
+  cancelled: ->
+    @hide()
+
+  confirmed: (project) ->
+    @projectManager.openProject(project)
+    @cancel()
 
   getEmptyMessage: (itemCount, filteredItemCount) =>
     if not itemCount
@@ -45,12 +49,17 @@ class ProjectManagerView extends SelectListView
 
   toggle: (projectManager) ->
     @projectManager = projectManager
-    if @hasParent()
-      @cancel()
+    if @panel?.isVisible()
+      @hide()
     else
-      @attach()
+      @show()
 
-  attach: ->
+  hide: ->
+    @panel?.hide()
+
+  show: ->
+    @panel ?= atom.workspace.addModalPanel(item: this)
+    @panel.show()
     projects = []
     currentProjects = CSON.readFileSync(@projectManager.file())
     for title, project of currentProjects
@@ -62,8 +71,6 @@ class ProjectManagerView extends SelectListView
     if sortBy isnt 'default'
       projects = @sortBy(projects, sortBy)
     @setItems(projects)
-
-    atom.workspaceView.append(@)
     @focusFilterEditor()
 
   viewForItem: ({title, paths, icon, group, devMode}) ->
@@ -80,10 +87,6 @@ class ProjectManagerView extends SelectListView
           for path in paths
             @div class: 'secondary-line', =>
               @div class: 'no-icon', path
-
-  confirmed: (project) ->
-    @cancel()
-    @projectManager.openProject(project)
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
