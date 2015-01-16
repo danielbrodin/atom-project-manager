@@ -17,7 +17,7 @@ class ProjectManagerAddView extends View
   initialize: ->
     @editor.on 'core:confirm', @confirm
     @editor.on 'core:cancel', @hide
-    @editorContainer.on 'blur', @hide
+    @editor.on 'blur', @hide
 
   cancelled: =>
     @hide()
