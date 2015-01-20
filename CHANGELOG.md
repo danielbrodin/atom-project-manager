@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.0
+Fixed deprecated calls. Thanks to [@tswaters](https://github.com/tswaters)
+
 ## 1.14.1
 Added notifications
 
