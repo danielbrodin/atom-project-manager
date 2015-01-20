@@ -6,3 +6,6 @@
 
 '.platform-linux':
   'ctrl-shift-alt-p': 'project-manager:toggle'
+
+'.project-manager input':
+  'enter': 'core:confirm'
