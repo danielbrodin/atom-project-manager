@@ -31,7 +31,7 @@ class ProjectManagerAddView extends View
     @hide() if project.title
 
   hide: =>
-    atom.commands.dispatch(atom.views.getView(atom.workspace), 'focus');
+    atom.commands.dispatch(atom.views.getView(atom.workspace), 'focus')
     @panel.hide()
 
   show: =>
