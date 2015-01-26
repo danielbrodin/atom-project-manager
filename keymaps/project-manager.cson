@@ -2,10 +2,10 @@
   'ctrl-cmd-p': 'project-manager:toggle'
 
 '.platform-win32':
-  'ctrl-shift-alt-p': 'project-manager:toggle'
+  'alt-shift-p': 'project-manager:toggle'
 
 '.platform-linux':
-  'ctrl-shift-alt-p': 'project-manager:toggle'
+  'alt-shift-p': 'project-manager:toggle'
 
 '.project-manager input':
   'enter': 'core:confirm'

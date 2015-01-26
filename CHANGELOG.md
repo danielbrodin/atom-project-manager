@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.1
+Changed keybindings on windows and linux to `alt-shift-p`.
+
 ## 1.15.0
 Fixed deprecated calls. Thanks to [@tswaters](https://github.com/tswaters)
 
