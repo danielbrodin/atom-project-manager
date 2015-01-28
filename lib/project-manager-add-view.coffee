@@ -11,8 +11,8 @@ class ProjectManagerAddView extends View
         @div =>
           @input outlet:'editor', class:'native-key-bindings', placeholderText: 'Project title'
         @div =>
-          @span 'Path: '
-          @span class: 'text-highlight', atom.project?.getPath()
+          for projectPath in atom.project?.getPaths()
+            @span class: 'text-highlight', projectPath
 
   initialize: ->
     @editor.on 'core:confirm', @confirm
@@ -25,7 +25,7 @@ class ProjectManagerAddView extends View
   confirm: =>
     project =
       title: @editor.val()
-      paths: [atom.project?.getPath()]
+      paths: atom.project.getPaths()
 
     @projectManager.addProject(project) if project.title
     @hide() if project.title
@@ -37,7 +37,10 @@ class ProjectManagerAddView extends View
   show: =>
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
-    basename = path.basename(atom.project.getPath())
+
+    firstPath = atom.project.getPaths()[0]
+    basename = path.basename(firstPath)
+
     @editor.val(basename)
     @editor.focus()
     @editor.select()
