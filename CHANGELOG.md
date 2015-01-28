@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.3
+Updated readme with new keybinding
+
 ## 1.15.2
 Windows seems to be case sensitive so now using `alt-shift-P`
 

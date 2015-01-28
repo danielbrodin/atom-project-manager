@@ -13,9 +13,9 @@ or find it in the Packages tab under settings
 ## Usage
 All commands can also be found in the Packages menu
 ### List projects
-`ctrl-cmd-p` (mac) / `ctrl-shift-alt-p` (win & linux) or **Project Manager** in the Command Palette.
+`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or **Project Manager** in the Command Palette.
 
-You can filter result by `title`, `group` and `template`. 
+You can filter result by `title`, `group` and `template`.
 `group: atom` would list all projects with the group `atom`. Default is `title`
 
 ### Save project
