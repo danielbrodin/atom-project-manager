@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.4
+Update deprecated calls
+
 ## 1.15.3
 Updated readme with new keybinding
 
