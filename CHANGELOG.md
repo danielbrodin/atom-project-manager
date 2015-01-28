@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.2
+Windows seems to be case sensitive so now using `alt-shift-P`
+
 ## 1.15.1
 Changed keybindings on windows and linux to `alt-shift-p`.
 
