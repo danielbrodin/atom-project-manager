@@ -1,6 +1,4 @@
 fs = require 'fs'
-ProjectManagerAddView = require './project-manager-add-view'
-ProjectManagerView = require './project-manager-view'
 
 module.exports =
   config:
@@ -155,10 +153,12 @@ module.exports =
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
+      ProjectManagerView = require './project-manager-view'
       @projectManagerView = new ProjectManagerView()
     @projectManagerView
 
   createProjectManagerAddView: (state) ->
     unless @projectManagerAddView?
+      ProjectManagerAddView = require './project-manager-add-view'
       @projectManagerAddView = new ProjectManagerAddView()
     @projectManagerAddView

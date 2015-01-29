@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.5
+Performance fix
+
 ## 1.15.4
 Update deprecated calls
 
