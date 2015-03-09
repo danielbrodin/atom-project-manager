@@ -147,9 +147,7 @@ module.exports =
         atom.notifications?.addError errorMessage
 
   openProject: (project) ->
-    atom.open options =
-      pathsToOpen: project.paths
-      devMode: project.devMode
+    atom.project.setPaths project.paths
 
   createProjectManagerView: (state) ->
     unless @projectManagerView?
