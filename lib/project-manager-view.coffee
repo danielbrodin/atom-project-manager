@@ -38,7 +38,15 @@ class ProjectManagerView extends SelectListView
     @hide()
 
   confirmed: (project) ->
-    @projectManager.openProject(project)
+    pM = @projectManager
+    @projectManager.getCurrentProject (currentProject) ->
+      localStorage.setItem('project-manager-last-project', JSON.stringify(project))
+      pM.saveWorkspace currentProject, ()->
+        atom.project.setPaths project.paths
+        pM.closeAllOpenFiles()
+        pM.openWorkspace project,()->
+          pM.setLastActive project
+
     @cancel()
 
   getEmptyMessage: (itemCount, filteredItemCount) =>
