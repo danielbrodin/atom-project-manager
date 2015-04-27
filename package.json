@@ -18,6 +18,7 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
     "season": "1.x",
-    "underscore-plus": "1.5.1"
+    "underscore-plus": "1.5.1",
+    "nedb": "^1.1.2"
   }
 }

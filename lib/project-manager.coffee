@@ -24,7 +24,6 @@ project.delete()
 
 ###
 
-
 module.exports =
   config:
     showPath:
@@ -53,3 +52,15 @@ module.exports =
       ]
 
   activate: (state) ->
+    filename = @file()
+    db = new Datastore({filename: filename})
+    db.loadDatabase (err) ->
+      # project =
+      #   title: 'Project Manager'
+      #   paths: atom.project.getPaths()
+      #
+      # db.insert(project)
+
+      project = db.findOne {paths: atom.project.getPaths()[0]}, (err, docs) ->
+        console.log docs
+
