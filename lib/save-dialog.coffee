@@ -16,13 +16,12 @@ class SaveDialog extends Dialog
       iconClass: 'icon-arrow-right'
 
   onConfirm: (title) ->
-    if title and atom.project.getPaths()
+    if title
       settings =
         title: title
         paths: atom.project.getPaths()
-
-      project = new Project(settings)
-      project.save()
+        
+      project = new Project(settings, true)
 
       @close()
     else
