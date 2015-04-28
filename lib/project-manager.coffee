@@ -22,7 +22,15 @@ project.save()
 ::Delete::
 project.delete()
 
+
+
+::TODO::
+- Add notifications
+- Edit projects view
+
 ###
+
+Manager = require './manager'
 
 module.exports =
   config:
@@ -51,16 +59,22 @@ module.exports =
         'group'
       ]
 
-  activate: (state) ->
-    filename = @file()
-    db = new Datastore({filename: filename})
-    db.loadDatabase (err) ->
-      # project =
-      #   title: 'Project Manager'
-      #   paths: atom.project.getPaths()
-      #
-      # db.insert(project)
+  manager: null
 
-      project = db.findOne {paths: atom.project.getPaths()[0]}, (err, docs) ->
-        console.log docs
+  activate: (state) ->
+    @manager = new Manager()
+
+    # Add commands
+    atom.commands.add 'atom-workspace',
+      'project-manager:toggle': =>
+        # @createProjectManagerView(state).toggle(@)
+
+      'project-manager:save-project': =>
+        # @createProjectManagerAddView(state).toggle(@)
+
+      'project-manager:edit-projects': =>
+        atom.workspace.open @file()
+
+      'project-manager:reload-project-settings': =>
+        @loadCurrentProject()
 

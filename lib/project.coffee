@@ -13,6 +13,8 @@ class Project
     devMode: false
     template: null
 
+  db: null
+
   initialize: (settings={}, newProject=false) ->
     for key, value in settings
       @properties[key] = value
@@ -24,5 +26,9 @@ class Project
     Settings.load(@settings)
 
   save: ->
-    db = new DB()
-    db.add(@properties)
+    @db = new DB() unless @db
+    @db.add(@properties)
+
+  delete: ->
+    @db = new DB() unless @db
+    delete = @db.delete @

@@ -12,9 +12,12 @@ class DB
 
     @db = new Datastore(dbSettings)
 
+    @lookForChanges()
+
   ## CREATE
   add: (project) ->
-    @db.insert project
+    if not project._id
+      @db.insert project
 
   ## FIND
   findCurrent: ->
@@ -35,9 +38,22 @@ class DB
 
   ## DELETE
   delete: (project) ->
+    return false unless project._id
     @db.remove {_id: project._id}, {}, (err, numRemoved) ->
-      console.log numRemoved
+      return numRemoved
 
+
+  lookForChanges: ->
+    # Look for changes to the environment setting
+    atom.config.observe 'project-manager.environmentSpecificProjects',
+      (newValue, obj = {}) =>
+        previous = if obj.previous? then obj.previous else newValue
+        unless newValue is previous
+          dbSettings =
+            filename: @file(true)
+            autoload: true
+          @db = new Datastore(dbSettings)
+          # @subscribeToProjectsFile()
 
   file: (update=false) ->
     @filepath = null if update
