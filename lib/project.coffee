@@ -1,3 +1,4 @@
+_ = require 'underscore-plus'
 Settings = require './settings'
 DB = require './db'
 
@@ -16,6 +17,11 @@ class Project
   db: null
 
   initialize: (settings={}, newProject=false) ->
+    if settings.template
+      @db = new DB() unless @db
+      template = @db.find('title', settings.template)
+      settings = _.deepExtend(settings, template)
+
     for key, value in settings
       @properties[key] = value
 
@@ -32,3 +38,8 @@ class Project
   delete: ->
     @db = new DB() unless @db
     delete = @db.delete @
+
+  open: ->
+    atom.open options =
+      pathsToOpen: @properties.paths
+      devMode: @properties.devMode
