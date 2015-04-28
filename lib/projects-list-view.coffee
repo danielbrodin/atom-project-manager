@@ -5,6 +5,7 @@ Projects = require './projects'
 module.exports =
 class ProjectsListView extends SelectListView
   possibleFilterKeys: ['title', 'group', 'template']
+
   activate: ->
     new ProjectManagerView
 
@@ -50,16 +51,16 @@ class ProjectsListView extends SelectListView
     if @panel?.isVisible()
       @hide()
     else
-      @show()
+      projects = new Projects()
+      projects.getAll (projects) =>
+        @show(projects)
 
   hide: ->
     @panel?.hide()
 
-  show: ->
+  show: (projects) ->
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
-
-    projects = Projects.getAll()
 
     sortBy = atom.config.get('project-manager.sortBy')
     if sortBy isnt 'default'
@@ -68,18 +69,17 @@ class ProjectsListView extends SelectListView
     @focusFilterEditor()
 
   viewForItem: (project) ->
-    data = project.properties
     icon = icon or 'icon-chevron-right'
     $$ ->
-      @li class: 'two-lines', 'data-project-title': data.title, =>
+      @li class: 'two-lines', 'data-project-title': project.title, =>
         @div class: 'primary-line', =>
-          @span class: 'project-manager-devmode' if data.devMode
+          @span class: 'project-manager-devmode' if project.devMode
           @div class: "icon #{icon}", =>
-            @span data.title
-            @span class: 'project-manager-list-group', data.group if data.group?
+            @span project.title
+            @span class: 'project-manager-list-group', project.group if project.group?
 
         if atom.config.get('project-manager.showPath')
-          for path in data.paths
+          for path in project.paths
             @div class: 'secondary-line', =>
               @div class: 'no-icon', path
 

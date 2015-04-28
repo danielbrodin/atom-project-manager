@@ -20,7 +20,7 @@ project.paths = atom.project.getPaths()
 project.save()
 
 ::Delete::
-project.delete()
+project.remove()
 
 
 
@@ -31,6 +31,7 @@ project.delete()
 ###
 
 Manager = require './manager'
+SaveDialog = null
 
 module.exports =
   config:
@@ -60,7 +61,7 @@ module.exports =
       ]
 
   manager: null
-  projectListView: null
+  projectsListView: null
 
   activate: (state) ->
     @manager = new Manager()
@@ -84,6 +85,6 @@ module.exports =
 
   createProjectListView: ->
     unless @projectListView?
-      ProjectListView = require './project-list-view'
-      @projectListView = new  ProjectListView()
-    @projectListView
+      ProjectsListView = require './projects-list-view'
+      @projectsListView = new  ProjectsListView()
+    @projectsListView
