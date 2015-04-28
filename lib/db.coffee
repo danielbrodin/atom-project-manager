@@ -20,16 +20,20 @@ class DB
       @db.insert project
 
   ## FIND
-  findCurrent: ->
-    paths = atom.project.getPaths()
-    path = paths[0]
-    @find(path)
-
   find: (value='', key='paths') ->
     findBy = {}
     findBy[key] = value
     @db.findOne findBy, (err, data) ->
       return data
+
+  findCurrent: ->
+    paths = atom.project.getPaths()
+    path = paths[0]
+    @find(path)
+
+  findAll: ->
+    @db.find {}, (err, projects) ->
+      return projects unless err
 
   ## UPDATE
   update: (project) ->
