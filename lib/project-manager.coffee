@@ -60,6 +60,7 @@ module.exports =
       ]
 
   manager: null
+  projectListView: null
 
   activate: (state) ->
     @manager = new Manager()
@@ -67,14 +68,22 @@ module.exports =
     # Add commands
     atom.commands.add 'atom-workspace',
       'project-manager:toggle': =>
-        # @createProjectManagerView(state).toggle(@)
+        @createProjectListView().toggle()
 
-      'project-manager:save-project': =>
-        # @createProjectManagerAddView(state).toggle(@)
+      'project-manager:save-project': ->
+        SaveDialog ?= require './save-dialog'
+        saveDialog = new SaveDialog()
+        saveDialog.attach()
 
-      'project-manager:edit-projects': =>
-        atom.workspace.open @file()
+      # 'project-manager:edit-projects': =>
+        # atom.workspace.open @file()
+        # Edit projects view
 
       'project-manager:reload-project-settings': =>
         @loadCurrentProject()
 
+  createProjectListView: ->
+    unless @projectListView?
+      ProjectListView = require './project-list-view'
+      @projectListView = new  ProjectListView()
+    @projectListView
