@@ -5,35 +5,41 @@ class DB
   db: null
   filepath: null
 
-  initialize: ->
+  constructor: ->
     dbSettings =
       filename: @file()
       autoload: true
+
+    console.log dbSettings
 
     @db = new Datastore(dbSettings)
 
     @lookForChanges()
 
   ## CREATE
-  add: (project) ->
+  add: (project, callback) ->
     if not project._id
-      @db.insert project
+      @db.insert project, (err, newProject) ->
+        unless err
+          callback(newProject)
+        else
+          console.log err
 
   ## FIND
-  find: (value='', key='paths') ->
+  find: (value='', key='paths', callback) ->
     findBy = {}
     findBy[key] = value
     @db.findOne findBy, (err, data) ->
-      return data
+      callback(data)
 
-  findCurrent: ->
+  findCurrent: (callback) ->
     paths = atom.project.getPaths()
     path = paths[0]
-    @find(path)
+    @find path, 'paths', callback
 
-  findAll: ->
+  findAll: (callback) ->
     @db.find {}, (err, projects) ->
-      return projects unless err
+      callback(projects)
 
   ## UPDATE
   update: (project) ->
@@ -71,5 +77,5 @@ class DB
         hostname = os.hostname().split('.').shift().toLowerCase()
         filename = "projects.#{hostname}"
 
-      @filepath = "#{filedir}/#{@filename}"
+      @filepath = "#{filedir}/#{filename}"
     @filepath
