@@ -2,18 +2,14 @@ _ = require 'underscore-plus'
 
 module.exports =
 class Settings
-  settings: null
-
-  initialize: (settings={})->
-    @settings = settings
+  cosntructor: ()->
 
   update: (settings={}) ->
-    @settings = settings
-    @load()
+    @load(settings)
 
-  load: () ->
+  load: (settings={}) ->
     flatSettings = {}
-    @flattenSettings flatSettings, @settings
+    @flattenSettings flatSettings, settings
     for setting, value of flatSettings
       if _.isArray value
         currentValue = atom.config.get setting
