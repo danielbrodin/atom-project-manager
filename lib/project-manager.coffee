@@ -1,36 +1,4 @@
-###
-:Manager:
-settings = db.find()...
-project = Project(settings)
-
-::Save project::
-- Dialog
-
-
-:DB:
-NEDB - https://github.com/louischatriot/nedb
-
-
-:Project:
-::Create::
-project.save()
-
-::Update::
-project.paths = atom.project.getPaths()
-project.save()
-
-::Delete::
-project.remove()
-
-
-
-::TODO::
-- Add notifications
-- Edit projects view
-
-###
-
-Manager = require './manager'
+Projects = require './projects'
 SaveDialog = null
 
 module.exports =
@@ -60,11 +28,13 @@ module.exports =
         'group'
       ]
 
-  manager: null
+  projects: null
+  project: null
   projectsListView: null
+  db: null
 
   activate: (state) ->
-    @manager = new Manager()
+    @loadProject()
 
     # Add commands
     atom.commands.add 'atom-workspace',
@@ -76,12 +46,23 @@ module.exports =
         saveDialog = new SaveDialog()
         saveDialog.attach()
 
-      # 'project-manager:edit-projects': =>
-        # atom.workspace.open @file()
-        # Edit projects view
+      'project-manager:edit-projects': =>
+        unless @db
+          DB = require './db'
+          @db = new DB()
+
+        atom.workspace.open @db.file()
 
       'project-manager:reload-project-settings': =>
-        @loadCurrentProject()
+        @loadProject()
+
+  loadProject: ->
+    @projects = new Projects events =
+      update: () =>
+        @loadProject()
+    @project = @projects.getCurrent()
+    if @project
+      @project.load()
 
   createProjectListView: ->
     unless @projectListView?

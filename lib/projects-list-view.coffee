@@ -7,7 +7,7 @@ class ProjectsListView extends SelectListView
   possibleFilterKeys: ['title', 'group', 'template']
 
   activate: ->
-    new ProjectManagerView
+    new ProjectListView
 
   initialize: (serializeState) ->
     super
@@ -69,7 +69,7 @@ class ProjectsListView extends SelectListView
     @focusFilterEditor()
 
   viewForItem: (project) ->
-    icon = icon or 'icon-chevron-right'
+    icon = project.icon or 'icon-chevron-right'
     $$ ->
       @li class: 'two-lines', 'data-project-title': project.title, =>
         @div class: 'primary-line', =>

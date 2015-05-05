@@ -1,36 +1,61 @@
-Datastore = require 'nedb'
+CSON = require 'season'
+fs = require 'fs'
+_ = require 'underscore-plus'
 
 module.exports =
 class DB
-  db: null
   filepath: null
+  events: {}
 
-  constructor: ->
-    dbSettings =
-      filename: @file()
-      autoload: true
-
-    console.log dbSettings
-
-    @db = new Datastore(dbSettings)
-
-    @lookForChanges()
+  constructor: (@events) ->
+    fs.exists @file(), (exists) =>
+      unless exists
+        fs.writeFile @file(), '{}', (error) ->
+          if error
+            atom.notifications?.addError "Project Manager", options =
+              details: "Could not create the file for storing projects"
+      else
+        @subscribeToProjectsFile()
 
   ## CREATE
   add: (project, callback) ->
-    if not project._id
-      @db.insert project, (err, newProject) ->
-        unless err
-          callback(newProject)
-        else
-          console.log err
+    projects = CSON.readFileSync(@file()) || {}
+    projects[project.title] = project
+    successMessage = "#{project.title} has been added"
+    errorMessage = "#{project.title} could not be saved to #{@file()}"
+
+    CSON.writeFile @file(), projects, (err) ->
+      unless err
+        atom.notifications?.addSuccess successMessage
+        callback(project)
+      else
+        atom.notifications?.addError errorMessage
 
   ## FIND
   find: (value='', key='paths', callback) ->
-    findBy = {}
-    findBy[key] = value
-    @db.findOne findBy, (err, data) ->
-      callback(data)
+    CSON.readFile @file(), (error, results) ->
+      found = false
+      unless error
+        projects = []
+
+        # "JOIN" on templates :)
+        for key, result of results
+          if result.template? and results[result.template]?
+            result = _.deepExtend(result, results[result.template])
+          projects.push(result)
+
+        if key and value
+          for project of projects
+            if typeof project[key] is 'object'
+              if value in project[key]
+                found = project
+            else if project[key] is value
+              found = project
+        else
+          found = projects
+
+        callback(found)
+
 
   findCurrent: (callback) ->
     paths = atom.project.getPaths()
@@ -38,20 +63,15 @@ class DB
     @find path, 'paths', callback
 
   findAll: (callback) ->
-    @db.find {}, (err, projects) ->
-      callback(projects)
+    @find '', '', callback
 
   ## UPDATE
-  update: (project) ->
-    @db.update project
+  # update: (project) ->
+  #   @db.update project
 
 
   ## DELETE
-  delete: (project) ->
-    return false unless project._id
-    @db.remove {_id: project._id}, {}, (err, numRemoved) ->
-      return numRemoved
-
+  # delete: (project) ->
 
   lookForChanges: ->
     # Look for changes to the environment setting
@@ -59,23 +79,33 @@ class DB
       (newValue, obj = {}) =>
         previous = if obj.previous? then obj.previous else newValue
         unless newValue is previous
-          dbSettings =
-            filename: @file(true)
-            autoload: true
-          @db = new Datastore(dbSettings)
-          # @subscribeToProjectsFile()
+          @subscribeToProjectsFile()
+          @updateFile()
+
+  subscribeToProjectsFile: ->
+    @fileWatcher.close() if @fileWatcher?
+    @fileWatcher = fs.watch @file(), (event, filename) ->
+      # Send update event
+
+  updateFile: ->
+    fs.exists @file(true), (exists) =>
+      unless exists
+        fs.writeFile @file(), '{}', (error) ->
+          if error
+            atom.notifications?.addError "Project Manager", options =
+              details: "Could not create the file for storing projects"
 
   file: (update=false) ->
     @filepath = null if update
 
     unless @filepath?
-      filename = 'projects'
+      filename = 'projects.cson'
       filedir = atom.getConfigDirPath()
 
       if atom.config.get('project-manager.environmentSpecificProjects')
         os = require 'os'
         hostname = os.hostname().split('.').shift().toLowerCase()
-        filename = "projects.#{hostname}"
+        filename = "projects.#{hostname}.cson"
 
       @filepath = "#{filedir}/#{filename}"
     @filepath

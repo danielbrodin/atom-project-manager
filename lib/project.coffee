@@ -20,11 +20,6 @@ class Project
   projectSettings: null
 
   constructor: (properties={}, newProject=false) ->
-    # if settings.template
-    #   @db = new DB() unless @db
-    #   template = @db.find('title', settings.template)
-    #   settings = _.deepExtend(settings, template)
-
     for key, value of properties
       if key in @allowedProperties
         @[key] = value
