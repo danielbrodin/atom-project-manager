@@ -19,17 +19,9 @@ class Project
   db: null
   projectSettings: null
 
-  constructor: (properties={}, newProject=false) ->
-    for key, value of properties
-      if key in @allowedProperties
-        @[key] = value
-
+  constructor: (@properties, newProject=false) ->
     if newProject
       @save()
-
-    if @settings
-      @projectSettings = new Settings()
-      @projectSettings.load(@settings)
 
   getProperties: ->
     properties = {}
@@ -38,7 +30,8 @@ class Project
     return properties
 
   load: ->
-    Settings.load(@settings)
+    @projectSettings ?= new Settings()
+    @projectSettings.load(@settings)
 
   save: ->
     properties = @getProperties()
