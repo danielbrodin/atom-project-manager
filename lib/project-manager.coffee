@@ -57,12 +57,10 @@ module.exports =
         @loadProject()
 
   loadProject: ->
-    @projects = new Projects events =
-      update: () =>
-        @loadProject()
-    @project = @projects.getCurrent()
-    if @project
-      @project.load()
+    @projects ?= new Projects()
+    @projects.getCurrent (project) ->
+      if project
+        project.load()
 
   createProjectListView: ->
     unless @projectListView?

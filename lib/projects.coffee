@@ -6,8 +6,8 @@ module.exports =
 class Projects
   db: null
 
-  constructor: (events={}) ->
-    @db = new DB(events)
+  constructor: () ->
+    @db = new DB()
 
   getAll: (callback) ->
     @db.findAll (projectSettings) ->

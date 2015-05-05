@@ -5,9 +5,8 @@ _ = require 'underscore-plus'
 module.exports =
 class DB
   filepath: null
-  events: {}
 
-  constructor: (@events) ->
+  constructor: () ->
     fs.exists @file(), (exists) =>
       unless exists
         fs.writeFile @file(), '{}', (error) ->
@@ -80,6 +79,7 @@ class DB
     @fileWatcher.close() if @fileWatcher?
     @fileWatcher = fs.watch @file(), (event, filename) ->
       # Send update event
+      console.log "DB updated"
 
   updateFile: ->
     fs.exists @file(true), (exists) =>
