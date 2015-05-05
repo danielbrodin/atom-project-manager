@@ -56,12 +56,6 @@ class DB
 
         callback(found)
 
-
-  findCurrent: (callback) ->
-    paths = atom.project.getPaths()
-    path = paths[0]
-    @find path, 'paths', callback
-
   findAll: (callback) ->
     @find '', '', callback
 
@@ -73,7 +67,7 @@ class DB
   ## DELETE
   # delete: (project) ->
 
-  lookForChanges: ->
+  lookForChanges: =>
     # Look for changes to the environment setting
     atom.config.observe 'project-manager.environmentSpecificProjects',
       (newValue, obj = {}) =>
