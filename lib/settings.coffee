@@ -2,7 +2,7 @@ _ = require 'underscore-plus'
 
 module.exports =
 class Settings
-  cosntructor: ()->
+  constructor: ()->
 
   update: (settings={}) ->
     @load(settings)
