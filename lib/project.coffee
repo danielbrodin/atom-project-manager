@@ -19,9 +19,10 @@ class Project
   db: null
   projectSettings: null
 
-  constructor: (@properties, newProject=false) ->
-    if newProject
-      @save()
+  constructor: (properties) ->
+    for key, value of properties
+      if key in @allowedProperties
+        @[key] = value
 
   getProperties: ->
     properties = {}

@@ -34,7 +34,11 @@ module.exports =
   db: null
 
   activate: (state) ->
+    @projects = new Projects()
     @loadProject()
+
+    @projects.onUpdate () =>
+      @loadProject()
 
     # Add commands
     atom.commands.add 'atom-workspace',
@@ -57,7 +61,6 @@ module.exports =
         @loadProject()
 
   loadProject: ->
-    @projects ?= new Projects()
     @projects.getCurrent (project) ->
       if project
         project.load()

@@ -1,3 +1,4 @@
+{Emitter} = require 'atom'
 CSON = require 'season'
 fs = require 'fs'
 _ = require 'underscore-plus'
@@ -7,6 +8,8 @@ class DB
   filepath: null
 
   constructor: () ->
+    @emitter = new Emitter
+
     fs.exists @file(), (exists) =>
       unless exists
         fs.writeFile @file(), '{}', (error) ->
@@ -31,7 +34,7 @@ class DB
         atom.notifications?.addError errorMessage
 
   ## FIND
-  find: (value='', key='paths', callback) ->
+  find: (searchValue='', searchKey='paths', callback) ->
     CSON.readFile @file(), (error, results) ->
       found = false
       unless error
@@ -43,12 +46,12 @@ class DB
             result = _.deepExtend(result, results[result.template])
           projects.push(result)
 
-        if key and value
-          for project of projects
-            if typeof project[key] is 'object'
-              if value in project[key]
+        if searchKey and searchValue
+          for key, project of projects
+            if typeof project[searchKey] is 'object'
+              if searchValue in project[searchKey]
                 found = project
-            else if project[key] is value
+            else if project[searchKey] is searchValue
               found = project
         else
           found = projects
@@ -66,6 +69,9 @@ class DB
   ## DELETE
   # delete: (project) ->
 
+  onUpdate: (callback) ->
+    @emitter.on 'db-updated', callback
+
   lookForChanges: =>
     # Look for changes to the environment setting
     atom.config.observe 'project-manager.environmentSpecificProjects',
@@ -75,11 +81,11 @@ class DB
           @subscribeToProjectsFile()
           @updateFile()
 
-  subscribeToProjectsFile: ->
+  subscribeToProjectsFile: =>
     @fileWatcher.close() if @fileWatcher?
-    @fileWatcher = fs.watch @file(), (event, filename) ->
+    @fileWatcher = fs.watch @file(), (event, filename) =>
+      @emitter.emit 'db-updated'
       # Send update event
-      console.log "DB updated"
 
   updateFile: ->
     fs.exists @file(true), (exists) =>

@@ -1,3 +1,4 @@
+{Emitter} = require 'atom'
 _ = require 'underscore-plus'
 DB = require './db'
 Project = require './project'
@@ -8,6 +9,13 @@ class Projects
 
   constructor: () ->
     @db = new DB()
+    @emitter = new Emitter
+
+    @db.onUpdate () =>
+      @emitter.emit 'projects-updated'
+
+  onUpdate: (callback) ->
+    @emitter.on 'projects-updated', callback
 
   getAll: (callback) ->
     @db.findAll (projectSettings) ->
