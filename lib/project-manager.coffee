@@ -1,5 +1,7 @@
-Projects = require './projects'
+Projects = null
+Project = null
 SaveDialog = null
+DB = null
 
 module.exports =
   config:
@@ -34,12 +36,6 @@ module.exports =
   db: null
 
   activate: (state) ->
-    @projects = new Projects()
-    @loadProject()
-
-    @projects.onUpdate () =>
-      @loadProject()
-
     # Add commands
     atom.commands.add 'atom-workspace',
       'project-manager:toggle': =>
@@ -52,21 +48,36 @@ module.exports =
 
       'project-manager:edit-projects': =>
         unless @db
-          DB = require './db'
-          @db = new DB()
-
-        atom.workspace.open @db.file()
+          DB ?= require './db'
+          db = new DB()
+        atom.workspace.open db.file()
 
       'project-manager:reload-project-settings': =>
         @loadProject()
 
-  loadProject: ->
-    @projects.getCurrent (project) ->
-      if project
-        project.load()
+    atom.project.onDidChangePaths @updatePaths
+
+    @loadProject()
+
+  loadProject: =>
+    Project ?= require './project'
+    @project = new Project()
+    @project.loadCurrent (success) ->
+      if success
+        console.log 'Project is loaded'
+      else
+        console.log 'No project to load'
+
+
+  updatePaths: =>
+    if @project
+      paths = atom.project.getPaths()
+      @project.paths = paths
+      @project.save()
+
 
   createProjectListView: ->
     unless @projectListView?
       ProjectsListView = require './projects-list-view'
-      @projectsListView = new  ProjectsListView()
+      @projectsListView = new ProjectsListView()
     @projectsListView

@@ -17,11 +17,12 @@ class SaveDialog extends Dialog
 
   onConfirm: (title) ->
     if title
-      settings =
+      properties =
         title: title
         paths: atom.project.getPaths()
-        
-      project = new Project(settings, true)
+
+      project = new Project(properties)
+      project.save()
 
       @close()
     else

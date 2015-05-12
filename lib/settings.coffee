@@ -8,6 +8,7 @@ class Settings
     @load(settings)
 
   load: (settings={}) ->
+    console.log 'Settings', settings
     flatSettings = {}
     @flattenSettings flatSettings, settings
     for setting, value of flatSettings

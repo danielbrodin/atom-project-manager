@@ -4,11 +4,12 @@ DB = require './db'
 
 module.exports =
 class Project
-  allowedProperties: [
-    '_id', 'title', 'icon', 'paths', 'settings', 'group', 'devMode'
+  properties: [
+    'title', 'icon', 'paths', 'settings', 'group', 'devMode', 'template'
   ]
-  # properties:
-  title: ''
+  requiredProperties: ['title', 'paths']
+
+  title: null
   icon: 'icon-chevron-right'
   paths: []
   settings: {}
@@ -19,24 +20,71 @@ class Project
   db: null
   projectSettings: null
 
-  constructor: (properties) ->
+  constructor: (properties=null) ->
+    if properties
+      @initProperties(properties)
+
+  initProperties: (properties) =>
     for key, value of properties
-      if key in @allowedProperties
-        @[key] = value
+      @properties.push(key) unless key in @properties
+      @[key] = value
+
+  loadCurrent: (callback) =>
+    paths = atom.project.getPaths()
+    path = paths[0]
+    @db ?= new DB(path, 'paths')
+    @db.find (settings) =>
+      if settings
+        console.log 'loadcurrent', settings
+        @initProperties(settings)
+        @load()
+
+        @db.onUpdate (settings) =>
+          @settings = settings
+          @load()
+          console.log 'An update :)'
+        callback(true)
+      else
+        callback(false)
+
+  isCurrent: =>
+    isCurrent = true
+    paths = atom.project.getPaths()
+    for path in paths
+      if not path in @paths
+        isCurrent = false
+
+    return isCurrent
 
   getProperties: ->
     properties = {}
-    for key in @allowedProperties
-      properties[key] = @[key] if @[key]?
+    for key in @properties
+      properties[key] = @[key] if key of @
     return properties
 
-  load: ->
-    @projectSettings ?= new Settings()
-    @projectSettings.load(@settings)
+  isValid: ->
+    valid = true
+    for key in @requiredProperties
+      if not @[key] or not @[key].length
+        valid = false
+    return valid
 
-  save: ->
+  # TODO
+  # Look for a settings file in root folder
+  # to merge with project settings
+  load: ->
+    if @isCurrent()
+      @projectSettings ?= new Settings()
+      @projectSettings.load(@settings)
+
+  ###
+    TODO:
+      Add ID to all projects
+      Could be the same as key perhaps?
+  ###
+  save: =>
     properties = @getProperties()
-    @db = new DB() unless @db
+    @db ?= new DB()
     @db.add properties, (newProject) =>
       @_id = newProject._id
 
