@@ -85,7 +85,6 @@ class DB
         else
           callback(true) if callback?
 
-
   ## DELETE
   # delete: (project) ->
 
