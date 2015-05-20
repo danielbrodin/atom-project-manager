@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.6
+Bugfix
+
 ## 1.15.5
 Performance fix
 

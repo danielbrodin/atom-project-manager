@@ -15,8 +15,9 @@ class ProjectManagerAddView extends View
             @span class: 'text-highlight', projectPath
 
   initialize: ->
-    @editor.on 'core:confirm', @confirm
-    @editor.on 'core:cancel', @hide
+    atom.commands.add @element,
+      'core:confirm': => @confirm()
+      'core:cancel': => @hide()
     @editor.on 'blur', @hide
 
   cancelled: =>
