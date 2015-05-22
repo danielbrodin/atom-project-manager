@@ -65,7 +65,14 @@ class ProjectManagerView extends SelectListView
     for title, project of currentProjects
       if project.template?
         project = _.deepExtend(project, currentProjects[project.template])
-      projects.push(project) if project.paths?
+
+      missing = false
+      if project.paths?
+        for path in project.paths
+          if !fs.existsSync path
+            console.log "project-manager: " + path + " doesn't exist"
+            missing = true
+        projects.push(project) unless missing
 
     sortBy = atom.config.get('project-manager.sortBy')
     if sortBy isnt 'default'
