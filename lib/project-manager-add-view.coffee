@@ -1,4 +1,4 @@
-{View} = require 'atom-space-pen-views'
+{TextEditorView, View} = require 'atom-space-pen-views'
 path = require 'path'
 
 module.exports =
@@ -7,25 +7,21 @@ class ProjectManagerAddView extends View
 
   @content: ->
     @div class: 'project-manager', =>
-      @div class: 'editor-container', outlet: 'editorContainer', =>
-        @div =>
-          @input outlet:'editor', class:'native-key-bindings', placeholderText: 'Project title'
-        @div =>
-          for projectPath in atom.project?.getPaths()
-            @span class: 'text-highlight', projectPath
+      @label 'Enter the name of the project', class: 'icon icon-plus'
+      @subview 'editor', new TextEditorView(mini: true)
 
   initialize: ->
     atom.commands.add @element,
-      'core:confirm': => @confirm()
+      'core:confirm': => @confirm(@editor.getText())
       'core:cancel': => @hide()
     @editor.on 'blur', @hide
 
   cancelled: =>
     @hide()
 
-  confirm: =>
+  confirm: (title) =>
     project =
-      title: @editor.val()
+      title: title
       paths: atom.project.getPaths()
 
     @projectManager.addProject(project) if project.title
@@ -42,7 +38,7 @@ class ProjectManagerAddView extends View
     firstPath = atom.project.getPaths()[0]
     basename = path.basename(firstPath)
 
-    @editor.val(basename)
+    @editor.getModel().setText(basename)
     @editor.focus()
     @editor.select()
 

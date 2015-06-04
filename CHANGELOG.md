@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.8
+Updated the save project dialog
+
 ## 1.15.7
 Here just because apm got messed up and thought it published 1.15.6
 but it did not and now I have to publish 1.15.7 instead. Weird and annoying.
