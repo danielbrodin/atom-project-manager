@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.10
+A issue with enabling project settings turned up with an updated to Atom.
+Did a fix that got rid of the error, but might need an improved fix.
+
 ## 1.15.9
 - Fixes sorting when more than 10 projects are saved
 - Updated dependencies
