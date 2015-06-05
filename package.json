@@ -13,11 +13,11 @@
     "productivity"
   ],
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">0.200.0"
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
-    "season": "1.x",
-    "underscore-plus": "1.5.1"
+    "season": "^5.2.0",
+    "underscore-plus": "^1.6.6"
   }
 }
