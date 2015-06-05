@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.15.9
+- Fixes sorting when more than 10 projects are saved
+- Updated dependencies
+- Now shows an error notification if the projects file isn't valid
+
 ## 1.15.8
 Updated the save project dialog
 
