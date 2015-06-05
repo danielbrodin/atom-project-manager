@@ -131,7 +131,7 @@ module.exports =
         currentValue = atom.config.get setting
         value = _.union currentValue, value
       atom.config.setRawValue setting, value
-    atom.config.emit 'updated'
+    # atom.config.emit 'updated'
 
   addProject: (project) ->
     CSON = require 'season'
