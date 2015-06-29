@@ -1,5 +1,5 @@
 _ = require 'underscore-plus'
-Settings = require './settings'
+Settings = require './settings/settings'
 DB = require './db'
 
 module.exports =

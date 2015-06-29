@@ -2,13 +2,10 @@ _ = require 'underscore-plus'
 
 module.exports =
 class Settings
-  constructor: ()->
-
   update: (settings={}) ->
     @load(settings)
 
   load: (settings={}) ->
-    console.log 'Settings', settings
     flatSettings = {}
     @flattenSettings flatSettings, settings
     for setting, value of flatSettings
@@ -16,7 +13,7 @@ class Settings
         currentValue = atom.config.get setting
         value = _.union currentValue, value
       atom.config.setRawValue setting, value
-    atom.config.emit 'updated'
+    # atom.config.emit 'updated'
 
   flattenSettings: (root, dict, path) ->
     for key, value of dict
