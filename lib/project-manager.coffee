@@ -141,3 +141,18 @@ module.exports =
       ProjectManagerAddView = require './project-manager-add-view'
       @projectManagerAddView = new ProjectManagerAddView()
     @projectManagerAddView
+
+  provideProject: ->
+    CSON = require 'season'
+    _ = require 'underscore-plus'
+
+    projects = CSON.readFileSync @file()
+
+    for title, project of projects
+      continue if not project.paths?
+      for path in project.paths
+        if path in atom.project.getPaths()
+          if project.template? and data[project.template]?
+            project = _.deepExtend(project, data[project.template])
+          return project
+    return false
