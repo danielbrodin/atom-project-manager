@@ -1,4 +1,5 @@
 fs = require 'fs'
+Settings = require './settings'
 
 module.exports =
   config:
@@ -100,7 +101,7 @@ module.exports =
         if project
           if project.template? and data[project.template]?
             project = _.deepExtend(project, data[project.template])
-          @enableSettings(project.settings) if project.settings?
+          Settings.enable(project.settings) if project.settings?
       done?()
 
   getCurrentProject: (projects) ->
@@ -110,28 +111,6 @@ module.exports =
         if path in atom.project.getPaths()
           return project
     return false
-
-  flattenSettings: (root, dict, path) ->
-    _ = require 'underscore-plus'
-    for key, value of dict
-      dotPath = key
-      dotPath = "#{path}.#{key}" if path?
-      isObject = not _.isArray(value) and _.isObject(value)
-      if not isObject
-        root[dotPath] = value
-      else
-        @flattenSettings root, dict[key], dotPath
-
-  enableSettings: (settings) ->
-    _ = require 'underscore-plus'
-    flatSettings = {}
-    @flattenSettings flatSettings, settings
-    for setting, value of flatSettings
-      if _.isArray value
-        currentValue = atom.config.get setting
-        value = _.union currentValue, value
-      atom.config.setRawValue setting, value
-    # atom.config.emit 'updated'
 
   addProject: (project) ->
     CSON = require 'season'
