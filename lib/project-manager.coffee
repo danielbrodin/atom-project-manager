@@ -1,3 +1,4 @@
+{CompositeDisposable} = require 'atom'
 fs = require 'fs'
 Settings = require './settings'
 
@@ -30,10 +31,13 @@ module.exports =
 
   projectManagerView: null
   projectManagerAddView: null
-
   filepath: null
+  subscriptions: null
 
   activate: (state) ->
+    @subscriptions = new CompositeDisposable
+    @handleEvents()
+
     fs.exists @file(), (exists) =>
       unless exists
         fs.writeFile @file(), '{}', (error) ->
@@ -44,7 +48,15 @@ module.exports =
         @subscribeToProjectsFile()
         @loadCurrentProject()
 
-    atom.commands.add 'atom-workspace',
+    atom.config.observe 'project-manager.environmentSpecificProjects',
+      (newValue, obj = {}) =>
+        previous = if obj.previous? then obj.previous else newValue
+        unless newValue is previous
+          @updateFile()
+          @subscribeToProjectsFile()
+
+  handleEvents: ->
+    @subscriptions.add atom.commands.add 'atom-workspace',
       'project-manager:toggle': =>
         @createProjectManagerView(state).toggle(@)
 
@@ -56,13 +68,6 @@ module.exports =
 
       'project-manager:reload-project-settings': =>
         @loadCurrentProject()
-
-    atom.config.observe 'project-manager.environmentSpecificProjects',
-      (newValue, obj = {}) =>
-        previous = if obj.previous? then obj.previous else newValue
-        unless newValue is previous
-          @updateFile()
-          @subscribeToProjectsFile()
 
   file: (update = false) ->
     @filepath = null if update
@@ -141,6 +146,9 @@ module.exports =
       ProjectManagerAddView = require './project-manager-add-view'
       @projectManagerAddView = new ProjectManagerAddView()
     @projectManagerAddView
+
+  deactivate: ->
+    @subscriptions.dispose()
 
   provideProject: ->
     CSON = require 'season'
