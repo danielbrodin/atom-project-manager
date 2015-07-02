@@ -1,6 +1,8 @@
 {CompositeDisposable} = require 'atom'
 fs = require 'fs'
-Settings = require './settings'
+Settings = null
+ProjectsListView = null
+ProjectsAddView = null
 
 module.exports =
   config:
@@ -29,7 +31,6 @@ module.exports =
         'group'
       ]
 
-  projectManagerView: null
   projectManagerAddView: null
   filepath: null
   subscriptions: null
@@ -55,13 +56,17 @@ module.exports =
           @updateFile()
           @subscribeToProjectsFile()
 
-  handleEvents: ->
+  handleEvents: (state) ->
     @subscriptions.add atom.commands.add 'atom-workspace',
       'project-manager:toggle': =>
-        @createProjectManagerView(state).toggle(@)
+        ProjectsListView ?= require './project-manager-view'
+        projectsListView = new ProjectsListView()
+        projectsListView.toggle(@)
 
       'project-manager:save-project': =>
-        @createProjectManagerAddView(state).toggle(@)
+        ProjectsAddView ?= require './project-manager-add-view'
+        projectsAddView = new ProjectsAddView()
+        projectsAddView.toggle(@)
 
       'project-manager:edit-projects': =>
         atom.workspace.open @file()
@@ -106,6 +111,7 @@ module.exports =
         if project
           if project.template? and data[project.template]?
             project = _.deepExtend(project, data[project.template])
+          Settings ?= require './settings'
           Settings.enable(project.settings) if project.settings?
       done?()
 
@@ -134,18 +140,6 @@ module.exports =
     atom.open options =
       pathsToOpen: project.paths
       devMode: project.devMode
-
-  createProjectManagerView: (state) ->
-    unless @projectManagerView?
-      ProjectManagerView = require './project-manager-view'
-      @projectManagerView = new ProjectManagerView()
-    @projectManagerView
-
-  createProjectManagerAddView: (state) ->
-    unless @projectManagerAddView?
-      ProjectManagerAddView = require './project-manager-add-view'
-      @projectManagerAddView = new ProjectManagerAddView()
-    @projectManagerAddView
 
   deactivate: ->
     @subscriptions.dispose()
