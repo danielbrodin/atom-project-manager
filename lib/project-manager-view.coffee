@@ -62,7 +62,7 @@ class ProjectManagerView extends SelectListView
       unless error
         projects = []
         for title, project of currentProjects
-          if project.template?
+          if project.template? and currentProjects[project.template]?
             project = _.deepExtend(project, currentProjects[project.template])
           projects.push(project) if project.paths?
 
