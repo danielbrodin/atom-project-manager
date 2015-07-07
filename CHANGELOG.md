@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.11
+Fixes issue where projects couldn't be listed because template didn't exist. Thanks to  [@coopermaruyama](https://github.com/coopermaruyama)
+
 ## 1.15.10
 A issue with enabling project settings turned up with an updated to Atom.
 Did a fix that got rid of the error, but might need an improved fix.
