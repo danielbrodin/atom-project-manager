@@ -31,7 +31,6 @@ module.exports =
         'group'
       ]
 
-  projectManagerAddView: null
   filepath: null
   subscriptions: null
 
