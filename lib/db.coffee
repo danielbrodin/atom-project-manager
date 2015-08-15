@@ -55,7 +55,7 @@ class DB
   add: (project, callback) ->
     projects = CSON.readFileSync(@file()) || {}
     id = project.title.replace(/\s+/g, '').toLowerCase()
-    console.log id
+
     projects[id] = project
     successMessage = "#{project.title} has been added"
     errorMessage = "#{project.title} could not be saved"
