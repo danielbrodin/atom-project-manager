@@ -57,29 +57,46 @@ describe "ProjectManager", ->
       workspaceElement = atom.views.getView(atom.workspace)
       jasmine.attachToDOM(workspaceElement)
       spyOn(ProjectManager, 'file').andCallFake => @settingsFile
-      spyOn(ProjectManager, 'getCurrentProject').andCallFake => @projects.Test01
       waitsForPromise -> atom.packages.activatePackage('project-manager')
 
-    it "Overwrites existing settings", ->
-      atom.config.setRawValue 'tree-view.showOnRightSide', off
-      atom.config.emit 'update'
-      expect(atom.config.get('tree-view.showOnRightSide')).toBe off
-      done = off
-      runs -> ProjectManager.loadCurrentProject -> done = on
-      waitsFor -> done
-      runs -> expect(atom.config.get('tree-view.showOnRightSide')).toBe on
+    describe "without scopes", ->
+      beforeEach ->
+        spyOn(ProjectManager, 'getCurrentProject').andCallFake => @projects.Test01
 
-    it "Extends existing array settings", ->
-      atom.config.setRawValue 'fuzzy-finder.ignoredNames', ['a', 'b', 'c']
-      atom.config.emit 'update'
-      expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 3
-      done = off
-      runs -> ProjectManager.loadCurrentProject -> done = on
-      waitsFor -> done
-      runs -> expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 6
+      it "Overwrites existing settings", ->
+        atom.config.setRawValue 'tree-view.showOnRightSide', off
+        expect(atom.config.get('tree-view.showOnRightSide')).toBe off
+        done = off
+        runs -> ProjectManager.loadCurrentProject -> done = on
+        waitsFor -> done
+        runs -> expect(atom.config.get('tree-view.showOnRightSide')).toBe on
 
-    it "Doesn't overwrite the user's config file after loading settings", ->
-      done = off
-      runs -> ProjectManager.loadCurrentProject -> done = on
-      waitsFor -> done
-      runs -> expect(atom.config.save).not.toHaveBeenCalled()
+      it "Extends existing array settings", ->
+        atom.config.setRawValue 'fuzzy-finder.ignoredNames', ['a', 'b', 'c']
+        expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 3
+        done = off
+        runs -> ProjectManager.loadCurrentProject -> done = on
+        waitsFor -> done
+        runs -> expect(atom.config.get('fuzzy-finder.ignoredNames').length).toBe 6
+
+      it "Doesn't overwrite the user's config file after loading settings", ->
+        done = off
+        runs -> ProjectManager.loadCurrentProject -> done = on
+        waitsFor -> done
+        runs -> expect(atom.config.save).not.toHaveBeenCalled()
+
+    describe 'with scopes', ->
+      beforeEach ->
+        spyOn(ProjectManager, 'getCurrentProject').andCallFake => @projects.Test02
+
+      it "Updates global scope", ->
+        done = off
+        runs -> ProjectManager.loadCurrentProject -> done = on
+        waitsFor -> done
+        runs -> expect(atom.config.get 'editor.tabLength').toBe 2
+
+      it "Updates a specific scope", ->
+        done = off
+        runs -> ProjectManager.loadCurrentProject -> done = on
+        waitsFor -> done
+        runs -> expect(atom.config.get 'editor.tabLength', scope: [".source.coffee"]).toBe 4
