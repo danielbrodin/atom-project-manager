@@ -1,5 +1,6 @@
 Dialog = require './dialog'
 Project = require './project'
+path = require 'path'
 
 module.exports =
 class SaveDialog extends Dialog
