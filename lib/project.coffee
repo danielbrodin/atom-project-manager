@@ -42,13 +42,10 @@ class Project
     @save()
 
   isCurrent: =>
-    isCurrent = true
-    paths = atom.project.getPaths()
-    for path in paths
-      if not path in @props.paths
-        isCurrent = false
-
-    return isCurrent
+    path = atom.project.getPaths()[0]
+    if path is @props.paths[0]
+      return true
+    return false
 
   isValid: ->
     valid = true
