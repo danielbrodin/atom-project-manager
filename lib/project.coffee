@@ -29,23 +29,6 @@ class Project
       @properties.push(key) unless key in @properties
       @[key] = value
 
-  loadCurrent: (callback) =>
-    paths = atom.project.getPaths()
-    path = paths[0]
-    @db ?= new DB(path, 'paths')
-    @db.find (settings) =>
-      if settings
-        console.log 'loadcurrent', settings
-        @initProperties(settings)
-        @load()
-
-        @db.onUpdate (settings) =>
-          @settings = settings
-          @load()
-          console.log 'An update :)'
-        callback(true)
-      else
-        callback(false)
 
   isCurrent: =>
     isCurrent = true

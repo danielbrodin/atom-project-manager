@@ -60,20 +60,19 @@ module.exports =
     @loadProject()
 
   loadProject: =>
-    Project ?= require './project'
-    @project = new Project()
-    @project.loadCurrent (success) ->
-      if success
-        console.log 'Project is loaded'
-      else
-        console.log 'No project to load'
+    Projects ?= require './projects'
+    @projects = new Projects()
+    @projects.getCurrent (project) =>
+      if project
+        @project = project
+        @project.load()
 
-
-  updatePaths: =>
-    if @project
-      paths = atom.project.getPaths()
-      @project.paths = paths
-      @project.save()
+  updatePaths: ->
+    console.log "Update paths"
+    # if @project
+    #   paths = atom.project.getPaths()
+    #   @project.paths = paths
+    #   @project.save()
 
 
   createProjectListView: ->

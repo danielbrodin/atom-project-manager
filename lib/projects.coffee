@@ -28,4 +28,4 @@ class Projects
     @getAll (projects) ->
       for project in projects
         if project.isCurrent()
-          return project
+          callback(project)
