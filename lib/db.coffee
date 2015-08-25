@@ -52,31 +52,32 @@ class DB
         callback(found)
 
   ## CREATE
-  add: (project, callback) ->
+  add: (props, callback) ->
     projects = CSON.readFileSync(@file()) || {}
-    id = project.title.replace(/\s+/g, '').toLowerCase()
+    id = props.title.replace(/\s+/g, '').toLowerCase()
 
-    projects[id] = project
-    successMessage = "#{project.title} has been added"
-    errorMessage = "#{project.title} could not be saved"
+    projects[id] = props
+    successMessage = "#{project.props.title} has been added"
+    errorMessage = "#{project.props.title} could not be saved"
 
     CSON.writeFile @file(), projects, (err) ->
       unless err
         atom.notifications?.addSuccess successMessage
-        project._id = id
-        callback(project)
+        props._id = id
+        callback(props)
       else
         atom.notifications?.addError errorMessage
 
   ## UPDATE
-  update: (project, callback) ->
-    return false if not project._id
+  update: (props, callback) ->
+    return false if not props._id
 
     CSON.readFile @file(), (error, results) =>
       unless error
-        for key, value in results
-          if key is project._id
-            results[key] = project
+        for key, value of results
+          if key is props._id
+            delete(props._id)
+            results[key] = props
 
       CSON.writeFile @file(), results, (err)  ->
         if err
