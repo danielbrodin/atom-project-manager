@@ -67,13 +67,10 @@ module.exports =
         @project = project
         @project.load()
 
-  updatePaths: ->
-    console.log "Update paths"
-    # if @project
-    #   paths = atom.project.getPaths()
-    #   @project.paths = paths
-    #   @project.save()
-
+  updatePaths: =>
+    if @project
+      paths = atom.project.getPaths()
+      @project.set('paths', paths)
 
   createProjectListView: ->
     unless @projectListView?
