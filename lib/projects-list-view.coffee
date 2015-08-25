@@ -69,20 +69,19 @@ class ProjectsListView extends SelectListView
     @focusFilterEditor()
 
   viewForItem: (project) ->
-    icon = project.icon or 'icon-chevron-right'
     $$ ->
-      @li class: 'two-lines', 'data-project-title': project.title, =>
+      @li class: 'two-lines', 'data-project-title': project.props.title, =>
         @div class: 'primary-line', =>
-          @span class: 'project-manager-devmode' if project.devMode
-          @div class: "icon #{icon}", =>
-            @span project.title
-            @span class: 'project-manager-list-group', project.group if project.group?
+          @span class: 'project-manager-devmode' if project.props.devMode
+          @div class: "icon #{project.props.icon}", =>
+            @span project.props.title
+            @span class: 'project-manager-list-group', project.props.group if project.props.group?
 
         if atom.config.get('project-manager.showPath')
-          for path in project.paths
+          for path in project.props.paths
             @div class: 'secondary-line', =>
               @div class: 'no-icon', path
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
-      (a[key] || '\uffff').toUpperCase() > (b[key] || '\uffff').toUpperCase()
+      (a.props[key] || '\uffff').toUpperCase() > (b.props[key] || '\uffff').toUpperCase()
