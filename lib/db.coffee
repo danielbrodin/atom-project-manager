@@ -51,7 +51,6 @@ class DB
 
         callback(found)
 
-  ## CREATE
   add: (props, callback) ->
     projects = CSON.readFileSync(@file()) || {}
     id = props.title.replace(/\s+/g, '').toLowerCase()
@@ -68,7 +67,6 @@ class DB
       else
         atom.notifications?.addError errorMessage
 
-  ## UPDATE
   update: (props, callback) ->
     return false if not props._id
 
@@ -89,8 +87,7 @@ class DB
       if key is id
         delete(projects[key])
 
-  ## DELETE
-  # delete: (project) ->
+    CSON.writeFileSync @file(), projects
 
   onUpdate: (callback) ->
     @emitter.on 'db-updated', () =>
@@ -109,7 +106,6 @@ class DB
     @fileWatcher.close() if @fileWatcher?
     @fileWatcher = fs.watch @file(), (event, filename) =>
       @emitter.emit 'db-updated'
-      # Send update event
 
   updateFile: ->
     fs.exists @file(true), (exists) =>
