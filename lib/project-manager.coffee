@@ -68,8 +68,8 @@ module.exports =
         @project.load()
 
   updatePaths: =>
-    if @project
-      paths = atom.project.getPaths()
+    paths = atom.project.getPaths()
+    if @project and paths.length
       @project.set('paths', paths)
 
   createProjectListView: ->
