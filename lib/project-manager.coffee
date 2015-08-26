@@ -33,10 +33,8 @@ module.exports =
   projects: null
   project: null
   projectsListView: null
-  db: null
 
   activate: (state) ->
-    # Add commands
     atom.commands.add 'atom-workspace',
       'project-manager:toggle': =>
         @createProjectListView().toggle()
@@ -46,10 +44,9 @@ module.exports =
         saveDialog = new SaveDialog()
         saveDialog.attach()
 
-      'project-manager:edit-projects': =>
-        unless @db
-          DB ?= require './db'
-          db = new DB()
+      'project-manager:edit-projects': ->
+        DB ?= require './db'
+        db = new DB()
         atom.workspace.open db.file()
 
       'project-manager:reload-project-settings': =>
