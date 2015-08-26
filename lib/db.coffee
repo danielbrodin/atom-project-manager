@@ -72,19 +72,22 @@ class DB
   update: (props, callback) ->
     return false if not props._id
 
-    CSON.readFile @file(), (error, results) =>
-      unless error
-        for key, value of results
-          if key is props._id
-            delete(props._id)
-            results[key] = props
+    projects = CSON.readFileSync @file()
 
-      CSON.writeFile @file(), results, (err)  ->
-        if err
-          message = "Project could not be updated. Please try again"
-          atom.notifications?.addError message
-        else
-          callback(true) if callback?
+    for key, data of projects
+      if key is props._id
+        delete(props._id)
+        projects[key] = props
+
+    CSON.writeFileSync @file(), projects
+    callback?(true)
+
+  delete: (id) ->
+    projects = CSON.readFileSync @file()
+
+    for key, data of projects
+      if key is id
+        delete(projects[key])
 
   ## DELETE
   # delete: (project) ->
