@@ -6,16 +6,33 @@ class Settings
     @load(settings)
 
   load: (settings={}) ->
+    if settings.global?
+      settings['*'] = settings.global
+      delete settings.global
+
+    if settings['*']?
+      scopedSettings = settings
+      settings = settings['*']
+      delete scopedSettings['*']
+
+      @set setting, scope for scope, setting of scopedSettings
+
+    @set settings
+
+  set: (settings, scope) ->
     flatSettings = {}
-    @flattenSettings flatSettings, settings
+    options = if scope then {scopeSelector: scope} else {}
+    options.save = false
+
+    @flatten flatSettings, settings
     for setting, value of flatSettings
       if _.isArray value
-        currentValue = atom.config.get setting
+        valueOptions = if scope then {scope: scope} else {}
+        currentValue = atom.config.get setting, valueOptions
         value = _.union currentValue, value
-      atom.config.setRawValue setting, value
-    # atom.config.emit 'updated'
+      atom.config.set setting, value, options
 
-  flattenSettings: (root, dict, path) ->
+  flatten: (root, dict, path) ->
     for key, value of dict
       dotPath = key
       dotPath = "#{path}.#{key}" if path?
@@ -23,4 +40,4 @@ class Settings
       if not isObject
         root[dotPath] = value
       else
-        @flattenSettings root, dict[key], dotPath
+        @flatten root, dict[key], dotPath
