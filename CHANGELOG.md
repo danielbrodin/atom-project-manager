@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.16.0
+Added support for scoped settings. Thanks to [@benjic](https://github.com/benjic)
+
 ## 1.15.11
 Fixes issue where projects couldn't be listed because template didn't exist. Thanks to  [@coopermaruyama](https://github.com/coopermaruyama)
 
