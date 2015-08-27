@@ -60,14 +60,16 @@ You can specify a group that the project belongs to and then sort the projects l
     '/path/to/project-manager'
   ]
   'settings':
-    'editor.showIndentGuide': false
-    'project-manager:showPath': true
+    '*':
+      'editor.showIndentGuide': false
+      'project-manager:showPath': true
 
 'coffeescript-template':
   'icon': 'icon-coffeescript'
   'settings':
-    'editor.tabLength': 2
-    'editor.preferredLineLength': 80
+    '.source.coffee':
+      'editor.tabLength': 2
+      'editor.preferredLineLength': 80
 ```
 
 ## Package Settings
