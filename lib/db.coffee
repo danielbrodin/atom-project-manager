@@ -56,8 +56,8 @@ class DB
     id = props.title.replace(/\s+/g, '').toLowerCase()
 
     projects[id] = props
-    successMessage = "#{project.props.title} has been added"
-    errorMessage = "#{project.props.title} could not be saved"
+    successMessage = "#{props.title} has been added"
+    errorMessage = "#{props.title} could not be saved"
 
     CSON.writeFile @file(), projects, (err) ->
       unless err
@@ -80,7 +80,7 @@ class DB
     CSON.writeFileSync @file(), projects
     callback?(true)
 
-  delete: (id) ->
+  delete: (id, callback) ->
     projects = CSON.readFileSync @file()
 
     for key, data of projects
@@ -88,6 +88,7 @@ class DB
         delete(projects[key])
 
     CSON.writeFileSync @file(), projects
+    callback()
 
   onUpdate: (callback) ->
     @emitter.on 'db-updated', () =>
