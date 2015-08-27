@@ -10,7 +10,7 @@ describe "Settings", ->
       expect(atom.config.get("foo.bar.baz")).toBe 42
 
   describe ".load(settings) with a 'scope' option", ->
-    it "sets the setting for the scope", ->
+    it "Loads the settings for the scope", ->
       settings = new Settings()
       scopedSettings =
         "*":
@@ -20,4 +20,5 @@ describe "Settings", ->
       settings.load(scopedSettings)
 
       expect(atom.config.get("foo.bar.baz")).toBe 42
-      expect(atom.config.get("foo.bar.baz", {scope: [".source.coffee"]})).toBe 84
+      expect(atom.config.get("foo.bar.baz", {scope:[".source.coffee"]})).toBe 84
+      expect(atom.config.get("foo.bar.baz", {scope:[".text"]})).toBe 42
