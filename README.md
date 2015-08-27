@@ -30,8 +30,10 @@ Under settings you can set everything that you can have in the `config.cson` fil
 The formatting should be as follows:
 ```
 'settings':
-  'editor.tabLength': 2
-  'project-manager.showPath': true
+  '*':
+    'editor.tabLength': 4
+  '.source.coffee':
+    'editor.tabLength': 2
 ```
 The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
 
