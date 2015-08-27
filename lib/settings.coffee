@@ -14,6 +14,7 @@ module.exports =
     _ = require 'underscore-plus'
     flatSettings = {}
     options = if scope then {scopeSelector: scope} else {}
+    options.save = false
 
     @flatten flatSettings, settings
     for setting, value of flatSettings
