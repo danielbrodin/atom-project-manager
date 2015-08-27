@@ -10,12 +10,29 @@ module.exports =
       else
         @flatten root, dict[key], dotPath
 
-  enable: (settings) ->
+  resetUserSettings: (settings, scope) ->
     _ = require 'underscore-plus'
     flatSettings = {}
+    options = if scope then {scopeSelector: scope} else {}
+
     @flatten flatSettings, settings
     for setting, value of flatSettings
       if _.isArray value
-        currentValue = atom.config.get setting
+        valueOptions = if scope then {scope: scope} else {}
+        currentValue = atom.config.get setting, valueOptions
         value = _.union currentValue, value
-      atom.config.setRawValue setting, value
+      atom.config.set setting, value, options
+
+  enable: (settings) ->
+    if settings.global?
+      settings['*'] = settings.global
+      delete settings.global
+
+    if settings['*']?
+      scopedSettings = settings
+      settings = settings['*']
+      delete scopedSettings['*']
+
+      @resetUserSettings setting, scope for scope, setting of scopedSettings
+
+    @resetUserSettings settings

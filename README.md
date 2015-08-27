@@ -33,6 +33,19 @@ The formatting should be as follows:
   'editor.tabLength': 2
   'project-manager.showPath': true
 ```
+
+Similiarly to `config.cson`, scoped settings are also supported. This allows for grammar specific settings:
+```
+'settings':
+  '*':
+    editor:
+      tabLength: 2
+    'project-manager.showPath': true
+  '.source.gfm':
+    editor:
+      tabLength: 4
+      preferredLineLength: 85
+```
 The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
 
 ### `devMode:`

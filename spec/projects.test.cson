@@ -12,3 +12,17 @@
         'test2'
         'test3'
       ]
+'Test02':
+  'title': 'Test02'
+  'paths': [
+    '/Users/'
+  ]
+  'settings':
+    '*':
+      editor:
+        tabLength: 2
+        preferredLineLength: 80
+    '.source.coffee':
+      editor:
+        tabLength: 4
+        preferredLineLength: 100
