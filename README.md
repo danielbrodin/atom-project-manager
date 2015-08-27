@@ -34,7 +34,7 @@ The formatting should be as follows:
   'project-manager.showPath': true
 ```
 
-Similiarly to `config.cson`, scoped settings are also supported. This allows for grammar specific settings:
+Similarly to `config.cson`, scoped settings are also supported. This allows for grammar specific settings:
 ```
 'settings':
   '*':
