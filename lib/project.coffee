@@ -9,7 +9,7 @@ class Project
 
   # Properties that have been set
   # as to not save default values in DB
-  setProps: []
+  propsToSave: []
 
   db: null
   projectSettings: null
@@ -18,7 +18,7 @@ class Project
     @props = @getDefaultProps()
     if props
       for key, value of props
-        @setProps.push(key) unless key in @setProps
+        @propsToSave.push(key) unless key in @propsToSave
         @props[key] = value
 
   getDefaultProps: ->
@@ -33,12 +33,12 @@ class Project
 
   set: (key, value) =>
     @props[key] = value
-    @setProps.push(key) unless key in @setProps
+    @propsToSave.push(key) unless key in @propsToSave
     @save()
 
   unset: (key) ->
     unset(@props[key])
-    unset(@setProps[key])
+    unset(@propsToSave[key])
     @save()
 
   isCurrent: =>
@@ -66,7 +66,7 @@ class Project
   save: =>
     @db ?= new DB()
     props = {}
-    for key, value in @setProps
+    for key, value in @propsToSave
       props[key] = @props[key]
 
     if @props._id
