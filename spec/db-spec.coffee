@@ -1,15 +1,15 @@
+Helper = require './spec-helper'
 DB = require '../lib/db'
 
 describe "DB", ->
   db = null
-  settingsFile = "#{__dirname}/projects.test.cson"
 
   test1 = off
   test2 = off
 
   beforeEach ->
     db = new DB()
-    spyOn(db, 'file').andCallFake -> settingsFile
+    spyOn(db, 'file').andCallFake -> Helper.settingsPath
 
   it "finds all projects when given no options", ->
     runs -> db.find (projects) ->
