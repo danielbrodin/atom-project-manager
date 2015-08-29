@@ -73,17 +73,17 @@ class ProjectsListView extends SelectListView
     @setItems(items)
     @focusFilterEditor()
 
-  viewForItem: (project) ->
+  viewForItem: ({title, group, icon, devMode, paths}) ->
     $$ ->
-      @li class: 'two-lines', 'data-project-title': project.title, =>
+      @li class: 'two-lines', 'data-project-title': title, =>
         @div class: 'primary-line', =>
-          @span class: 'project-manager-devmode' if project.devMode
-          @div class: "icon #{project.icon}", =>
-            @span project.title
-            @span class: 'project-manager-list-group', project.group if project.group?
+          @span class: 'project-manager-devmode' if devMode
+          @div class: "icon #{icon}", =>
+            @span title
+            @span class: 'project-manager-list-group', group if group?
 
         if atom.config.get('project-manager.showPath')
-          for path in project.paths
+          for path in paths
             @div class: 'secondary-line', =>
               @div class: 'no-icon', path
 
