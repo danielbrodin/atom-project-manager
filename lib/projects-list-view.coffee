@@ -1,6 +1,7 @@
 {$, $$, SelectListView, View} = require 'atom-space-pen-views'
 _ = require 'underscore-plus'
 Projects = require './projects'
+Project = require './project'
 
 module.exports =
 class ProjectsListView extends SelectListView
@@ -37,7 +38,8 @@ class ProjectsListView extends SelectListView
   cancelled: ->
     @hide()
 
-  confirmed: (project) ->
+  confirmed: (props) ->
+    project = new Project(props)
     project.open()
     @cancel()
 
@@ -62,26 +64,29 @@ class ProjectsListView extends SelectListView
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
 
+    items = []
     sortBy = atom.config.get('project-manager.sortBy')
+    for project in projects
+      items.push(project.props)
     if sortBy isnt 'default'
-      projects = @sortBy(projects, sortBy)
-    @setItems(projects)
+      items = @sortBy(items, sortBy)
+    @setItems(items)
     @focusFilterEditor()
 
   viewForItem: (project) ->
     $$ ->
-      @li class: 'two-lines', 'data-project-title': project.props.title, =>
+      @li class: 'two-lines', 'data-project-title': project.title, =>
         @div class: 'primary-line', =>
-          @span class: 'project-manager-devmode' if project.props.devMode
-          @div class: "icon #{project.props.icon}", =>
-            @span project.props.title
-            @span class: 'project-manager-list-group', project.props.group if project.props.group?
+          @span class: 'project-manager-devmode' if project.devMode
+          @div class: "icon #{project.icon}", =>
+            @span project.title
+            @span class: 'project-manager-list-group', project.group if project.group?
 
         if atom.config.get('project-manager.showPath')
-          for path in project.props.paths
+          for path in project.paths
             @div class: 'secondary-line', =>
               @div class: 'no-icon', path
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
-      (a.props[key] || '\uffff').toUpperCase() > (b.props[key] || '\uffff').toUpperCase()
+      (a[key] || '\uffff').toUpperCase() > (b[key] || '\uffff').toUpperCase()
