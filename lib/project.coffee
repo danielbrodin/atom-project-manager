@@ -7,19 +7,15 @@ class Project
   props: {}
   requiredProperties: ['title', 'paths']
 
-  # Properties that have been set
-  # as to not save default values in DB
   propsToSave: []
 
   db: null
   projectSettings: null
 
-  constructor: (props=null) ->
-    @props = @getDefaultProps()
-    if props
-      for key, value of props
-        @propsToSave.push(key) unless key in @propsToSave
-        @props[key] = value
+  constructor: (props={}) ->
+    for key, value of props
+      @propsToSave.push(key) unless key in @propsToSave
+    @props = _.deepExtend @getDefaultProps(), props
 
   getDefaultProps: ->
     props =
