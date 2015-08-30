@@ -63,7 +63,7 @@ class DB
       unless err
         atom.notifications?.addSuccess successMessage
         props._id = id
-        callback(props)
+        callback(props._id)
       else
         atom.notifications?.addError errorMessage
 

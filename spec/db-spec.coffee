@@ -23,7 +23,8 @@ describe "DB", ->
       paths: [
         "/Users/project-3"
       ]
-    db.add project3, (props) ->
+    db.add project3, (id) ->
+      expect(id).toBe 'testproject3'
       db.find (projects) ->
         expect(projects.length).toBe 3
         test2 = on
