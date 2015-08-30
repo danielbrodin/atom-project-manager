@@ -12,18 +12,18 @@ describe "DB", ->
     spyOn(db, 'file').andCallFake -> Helper.settingsPath
 
   it "finds all projects when given no options", ->
-    runs -> db.find (projects) ->
+    db.find (projects) ->
       expect(projects.length).toBe 2
       test1 = on
 
   it "can add a new project", ->
     waitsFor -> test1
-    test3 =
+    project3 =
       title: "Test project 3"
       paths: [
         "/Users/project-3"
       ]
-    runs -> db.add test3, (props) ->
+    db.add project3, (props) ->
       db.find (projects) ->
         expect(projects.length).toBe 3
         test2 = on
