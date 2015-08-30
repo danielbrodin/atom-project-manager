@@ -66,6 +66,7 @@ class DB
         callback(props._id)
       else
         atom.notifications?.addError errorMessage
+        callback(false)
 
   update: (props, callback) ->
     return false if not props._id
