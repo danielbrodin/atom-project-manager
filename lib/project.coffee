@@ -73,7 +73,7 @@ class Project
           @props._id = newProject._id
 
   remove: ->
-    @db = new DB() unless @db
+    @db ?= new DB()
     removed = @db.delete @props._id
 
   open: ->
