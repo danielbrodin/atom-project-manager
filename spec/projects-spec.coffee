@@ -1,6 +1,5 @@
 Helper = require './spec-helper'
 Projects = require '../lib/projects'
-temp = require 'temp'
 
 describe "Projects", ->
   projects = null
