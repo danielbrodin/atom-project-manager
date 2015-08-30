@@ -12,7 +12,7 @@ describe "DB", ->
     spyOn(db, 'file').andCallFake -> Helper.settingsPath
 
   it "finds all projects when given no options", ->
-    db.find (projects) ->
+    runs -> db.find (projects) ->
       expect(projects.length).toBe 2
       test1 = on
 
@@ -23,7 +23,7 @@ describe "DB", ->
       paths: [
         "/Users/project-3"
       ]
-    db.add project3, (id) ->
+    runs -> db.add project3, (id) ->
       expect(id).toBe 'testproject3'
       db.find (projects) ->
         expect(projects.length).toBe 3
