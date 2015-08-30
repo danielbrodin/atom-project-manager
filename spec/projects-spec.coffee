@@ -10,4 +10,4 @@ describe "Projects", ->
 
   it "returns all projects", ->
     projects.getAll (projects) ->
-      expect(projects.length).toBe 2
+      expect(projects.length).toBe Helper.savedProjects

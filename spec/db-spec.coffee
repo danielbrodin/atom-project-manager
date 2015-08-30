@@ -13,7 +13,7 @@ describe "DB", ->
 
   it "finds all projects when given no options", ->
     runs -> db.find (projects) ->
-      expect(projects.length).toBe 2
+      expect(projects.length).toBe Helper.savedProjects
       test1 = on
 
   it "can add a new project", ->
@@ -26,11 +26,11 @@ describe "DB", ->
     runs -> db.add project3, (id) ->
       expect(id).toBe 'testproject3'
       db.find (projects) ->
-        expect(projects.length).toBe 3
+        expect(projects.length).toBe Helper.savedProjects+1
         test2 = on
 
   it "can delete a project", ->
     waitsFor -> test2
     runs -> db.delete "testproject3", () ->
       db.find (projects) ->
-        expect(projects.length).toBe 2
+        expect(projects.length).toBe Helper.savedProjects
