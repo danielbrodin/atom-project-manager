@@ -60,16 +60,17 @@ class Project
       @projectSettings.load(@props.settings)
 
   save: =>
-    @db ?= new DB()
-    props = {}
-    for key, value in @propsToSave
-      props[key] = @props[key]
+    if @isValid()
+      @db ?= new DB()
+      props = {}
+      for key, value in @propsToSave
+        props[key] = @props[key]
 
-    if @props._id
-      @db.update(props)
-    else
-      @db.add props, (newProject) =>
-        @props._id = newProject._id
+      if @props._id
+        @db.update(props)
+      else
+        @db.add props, (newProject) =>
+          @props._id = newProject._id
 
   remove: ->
     @db = new DB() unless @db
