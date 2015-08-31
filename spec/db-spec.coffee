@@ -44,10 +44,7 @@ describe "DB", ->
       expect(id).toBe 'testproject3'
       db.find (projects) ->
         expect(projects.length).toBe 3
-        test2 = on
 
-  it "can delete a project", ->
-    waitsFor -> test2
-    runs -> db.delete "testproject3", () ->
-      db.find (projects) ->
-        expect(projects.length).toBe 2
+        db.delete "testproject3", () ->
+          db.find (projects) ->
+            expect(projects.length).toBe 2
