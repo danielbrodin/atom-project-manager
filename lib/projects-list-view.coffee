@@ -60,30 +60,6 @@ class ProjectsListView extends SelectListView
   hide: ->
     @panel?.hide()
 
-<<<<<<< HEAD:lib/project-manager-view.coffee
-  show: ->
-    CSON.readFile @projectManager.file(), (error, currentProjects) =>
-      unless error
-        projects = []
-        for title, project of currentProjects
-          if project.template? and currentProjects[project.template]?
-            project = _.deepExtend(project, currentProjects[project.template])
-          projects.push(project) if project.paths?
-
-        sortBy = atom.config.get('project-manager.sortBy')
-        if sortBy isnt 'default'
-          projects = @sortBy(projects, sortBy)
-
-        @panel ?= atom.workspace.addModalPanel(item: this)
-        @panel.show()
-        @setItems(projects)
-        @focusFilterEditor()
-      else
-        message = "There was an error trying to list your projects"
-        options =
-          detail: error.message
-        atom.notifications.addError message, options
-=======
   show: (projects) ->
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
@@ -96,7 +72,6 @@ class ProjectsListView extends SelectListView
       items = @sortBy(items, sortBy)
     @setItems(items)
     @focusFilterEditor()
->>>>>>> Rewrite:lib/projects-list-view.coffee
 
   viewForItem: ({title, group, icon, devMode, paths}) ->
     $$ ->
@@ -114,11 +89,4 @@ class ProjectsListView extends SelectListView
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
-<<<<<<< HEAD:lib/project-manager-view.coffee
-      a = (a[key] || '\uffff').toUpperCase()
-      b = (b[key] || '\uffff').toUpperCase()
-
-      return if a > b then 1 else -1
-=======
       (a[key] || '\uffff').toUpperCase() > (b[key] || '\uffff').toUpperCase()
->>>>>>> Rewrite:lib/projects-list-view.coffee

@@ -36,24 +36,7 @@ The formatting should be as follows:
   '.source.coffee':
     'editor.tabLength': 2
 ```
-<<<<<<< HEAD
-
-Similarly to `config.cson`, scoped settings are also supported. This allows for grammar specific settings:
-```
-'settings':
-  '*':
-    editor:
-      tabLength: 2
-    'project-manager.showPath': true
-  '.source.gfm':
-    editor:
-      tabLength: 4
-      preferredLineLength: 85
-```
-The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
-=======
 The settings will be updated on change, but can also manually be done from the command palette with `Project Manager: Reload Project Settings`
->>>>>>> Rewrite
 
 ### `devMode:`
 Will open the project in dev mode. The API for this doesn't work perfectly though so if you try to switch to a project that is already open in dev mode, a new window will open.
