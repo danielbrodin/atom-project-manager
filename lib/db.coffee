@@ -57,7 +57,7 @@ class DB
       id = props.title.replace(/\s+/g, '').toLowerCase()
       projects[id] = props
 
-      @writeFile projects, (success) ->
+      @writeFile projects, () ->
         atom.notifications?.addSuccess "#{props.title} has been added"
         callback?(id)
 
