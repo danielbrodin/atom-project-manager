@@ -5,6 +5,8 @@ Project = require './project'
 
 module.exports =
 class Projects
+  db: null
+  
   constructor: () ->
     @emitter = new Emitter
     @db = new DB()
