@@ -1,5 +1,5 @@
 # Project Manager
-[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg)](https://travis-ci.org/danielbrodin/atom-project-manager/)
+[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg?branch=master)](https://travis-ci.org/danielbrodin/atom-project-manager/)
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
