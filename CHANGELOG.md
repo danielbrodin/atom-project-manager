@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+Fixed an issue where the projects file would be added to late.
+
 ## 2.0.0
 No noticeable changes, just a rewrite of the package to make it easier to add new features and take in pull requests. Please let me know if you find any bugs :)
 
