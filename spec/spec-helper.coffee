@@ -19,7 +19,6 @@ helper =
       ]
     testproject2:
       title: "Test project 2"
-      group: "Test"
       paths: [
         "/Users/project-2"
       ]
