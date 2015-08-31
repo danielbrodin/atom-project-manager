@@ -9,7 +9,8 @@ describe "DB", ->
 
   beforeEach ->
     db = new DB()
-    spyOn(db, 'file').andCallFake -> Helper.settingsPath
+    spyOn(db, 'readFile').andCallFake(Helper.readFile)
+    spyOn(db, 'writeFile').andCallFake(Helper.writeFile)
 
   it "finds all projects when given no options", ->
     runs -> db.find (projects) ->
