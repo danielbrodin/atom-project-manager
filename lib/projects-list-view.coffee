@@ -6,6 +6,7 @@ Project = require './project'
 module.exports =
 class ProjectsListView extends SelectListView
   possibleFilterKeys: ['title', 'group', 'template']
+  projects: null
 
   activate: ->
     new ProjectListView
@@ -13,6 +14,7 @@ class ProjectsListView extends SelectListView
   initialize: (serializeState) ->
     super
     @addClass('project-manager')
+    @projects = new Projects()
 
   serialize: ->
 
@@ -49,12 +51,12 @@ class ProjectsListView extends SelectListView
     else
       super
 
-  toggle: () ->
+  toggle: () =>
     if @panel?.isVisible()
       @hide()
     else
-      projects = new Projects()
-      projects.getAll (projects) =>
+      # @projects = new Projects()
+      @projects.getAll (projects) =>
         @show(projects)
 
   hide: ->
