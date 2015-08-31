@@ -27,69 +27,59 @@ class DB
   # TODO: Add support for @searchValue array
   find: (callback, filter=true) =>
 
-    CSON.readFile @file(), (error, results) =>
+    # CSON.readFile @file(), (error, results) =>
+    @readFile (results) =>
       found = false
-      unless error
-        projects = []
+      projects = []
 
-        # "JOIN" on templates :)
-        for key, result of results
-          result._id = key
-          if result.template? and results[result.template]?
-            result = _.deepExtend(result, results[result.template])
-          projects.push(result)
+      # "JOIN" on templates :)
+      for key, result of results
+        result._id = key
+        if result.template? and results[result.template]?
+          result = _.deepExtend(result, results[result.template])
+        projects.push(result)
 
-        if filter and @searchKey and @searchValue
-          for key, project of projects
-            if typeof project[@searchKey] is 'object'
-              if @searchValue in project[@searchKey]
-                found = project
-            else if project[@searchKey] is @searchValue
+      if filter and @searchKey and @searchValue
+        for key, project of projects
+          if typeof project[@searchKey] is 'object'
+            if @searchValue in project[@searchKey]
               found = project
-        else
-          found = projects
+          else if project[@searchKey] is @searchValue
+            found = project
+      else
+        found = projects
 
-        callback(found)
+      callback?(found)
 
   add: (props, callback) ->
-    projects = CSON.readFileSync(@file()) || {}
-    id = props.title.replace(/\s+/g, '').toLowerCase()
+    @readFile (projects) =>
+      id = props.title.replace(/\s+/g, '').toLowerCase()
+      projects[id] = props
 
-    projects[id] = props
-    successMessage = "#{props.title} has been added"
-    errorMessage = "#{props.title} could not be saved"
-
-    CSON.writeFile @file(), projects, (err) ->
-      unless err
-        atom.notifications?.addSuccess successMessage
-        props._id = id
-        callback(props._id)
-      else
-        atom.notifications?.addError errorMessage
-        callback(false)
+      @writeFile projects, (success) ->
+        atom.notifications?.addSuccess "#{props.title} has been added"
+        callback?(id)
 
   update: (props, callback) ->
     return false if not props._id
 
-    projects = CSON.readFileSync @file()
+    @readFile (projects) =>
+      for key, data of projects
+        if key is props._id
+          delete(props._id)
+          projects[key] = props
 
-    for key, data of projects
-      if key is props._id
-        delete(props._id)
-        projects[key] = props
-
-    CSON.writeFileSync @file(), projects
-    callback?(true)
+      @writeFile projects, () ->
+        callback?()
 
   delete: (id, callback) ->
-    projects = CSON.readFileSync @file()
+    @readFile (projects) =>
+      for key, data of projects
+        if key is id
+          delete(projects[key])
 
-    for key, data of projects
-      if key is id
-        delete(projects[key])
-
-    CSON.writeFileSync @file(), projects
-    callback()
+      @writeFile projects, () ->
+        callback?()
 
   onUpdate: (callback) ->
     @emitter.on 'db-updated', () =>
@@ -131,3 +121,11 @@ class DB
 
       @filepath = "#{filedir}/#{filename}"
     @filepath
+
+  readFile: (callback) ->
+    projects = CSON.readFileSync(@file()) || {}
+    callback?(projects)
+
+  writeFile: (projects, callback) ->
+    CSON.writeFileSync @file(), projects
+    callback?()
