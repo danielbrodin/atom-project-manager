@@ -6,8 +6,6 @@ describe "DB", ->
   test1 = off
   test2 = off
 
-  dataLength = 2
-
   data =
     testproject1:
       title: "Test project 1"
@@ -31,13 +29,12 @@ describe "DB", ->
       callback()
 
   it "finds all projects when given no options", ->
-    console.log data
-    runs -> db.find (allProjects) ->
-      expect(allProjects.length).toBe dataLength
-      # test1 = on
+    runs -> db.find (projects) ->
+      expect(projects.length).toBe 2
+      test1 = on
 
   it "can add and delete a project", ->
-    # waitsFor -> test1
+    waitsFor -> test1
     project3 =
       title: "Test project 3"
       paths: [
@@ -45,14 +42,12 @@ describe "DB", ->
       ]
     runs -> db.add project3, (id) ->
       expect(id).toBe 'testproject3'
-      db.find (allProjects) ->
-        console.log data
-        expect(allProjects.length).toBe dataLength+1
-        # test2 = on
+      db.find (projects) ->
+        expect(projects.length).toBe 3
+        test2 = on
 
   it "can delete a project", ->
-    # waitsFor -> test2
+    waitsFor -> test2
     runs -> db.delete "testproject3", () ->
-      db.find (allProjects) ->
-        console.log data
-        expect(allProjects.length).toBe dataLength
+      db.find (projects) ->
+        expect(projects.length).toBe 2
