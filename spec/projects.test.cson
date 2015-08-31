@@ -1,8 +1,16 @@
-'Test01':
-  'title': 'Test01'
-  'paths': [
-    '/Users/'
+testproject1:
+  title: "Test project 1"
+  group: "Test"
+  paths: [
+    "/Users/project-1"
   ]
+testproject2:
+  title: "Test project 2"
+  group: "Test"
+  paths: [
+    "/Users/project-2"
+  ]
+<<<<<<< HEAD
   'settings':
     'tree-view':
       'showOnRightSide': true
@@ -26,3 +34,5 @@
       editor:
         tabLength: 4
         preferredLineLength: 100
+=======
+>>>>>>> Rewrite

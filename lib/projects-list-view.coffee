@@ -1,13 +1,14 @@
 {$, $$, SelectListView, View} = require 'atom-space-pen-views'
-CSON = require 'season'
 _ = require 'underscore-plus'
+Projects = require './projects'
+Project = require './project'
 
 module.exports =
-class ProjectManagerView extends SelectListView
-  projectManager: null
+class ProjectsListView extends SelectListView
   possibleFilterKeys: ['title', 'group', 'template']
+
   activate: ->
-    new ProjectManagerView
+    new ProjectListView
 
   initialize: (serializeState) ->
     super
@@ -37,8 +38,9 @@ class ProjectManagerView extends SelectListView
   cancelled: ->
     @hide()
 
-  confirmed: (project) ->
-    @projectManager.openProject(project)
+  confirmed: (props) ->
+    project = new Project(props)
+    project.open()
     @cancel()
 
   getEmptyMessage: (itemCount, filteredItemCount) =>
@@ -47,16 +49,18 @@ class ProjectManagerView extends SelectListView
     else
       super
 
-  toggle: (projectManager) ->
-    @projectManager = projectManager
+  toggle: () ->
     if @panel?.isVisible()
       @hide()
     else
-      @show()
+      projects = new Projects()
+      projects.getAll (projects) =>
+        @show(projects)
 
   hide: ->
     @panel?.hide()
 
+<<<<<<< HEAD:lib/project-manager-view.coffee
   show: ->
     CSON.readFile @projectManager.file(), (error, currentProjects) =>
       unless error
@@ -79,9 +83,22 @@ class ProjectManagerView extends SelectListView
         options =
           detail: error.message
         atom.notifications.addError message, options
+=======
+  show: (projects) ->
+    @panel ?= atom.workspace.addModalPanel(item: this)
+    @panel.show()
 
-  viewForItem: ({title, paths, icon, group, devMode}) ->
-    icon = icon or 'icon-chevron-right'
+    items = []
+    sortBy = atom.config.get('project-manager.sortBy')
+    for project in projects
+      items.push(project.props)
+    if sortBy isnt 'default'
+      items = @sortBy(items, sortBy)
+    @setItems(items)
+    @focusFilterEditor()
+>>>>>>> Rewrite:lib/projects-list-view.coffee
+
+  viewForItem: ({title, group, icon, devMode, paths}) ->
     $$ ->
       @li class: 'two-lines', 'data-project-title': title, =>
         @div class: 'primary-line', =>
@@ -97,7 +114,11 @@ class ProjectManagerView extends SelectListView
 
   sortBy: (arr, key) ->
     arr.sort (a, b) ->
+<<<<<<< HEAD:lib/project-manager-view.coffee
       a = (a[key] || '\uffff').toUpperCase()
       b = (b[key] || '\uffff').toUpperCase()
 
       return if a > b then 1 else -1
+=======
+      (a[key] || '\uffff').toUpperCase() > (b[key] || '\uffff').toUpperCase()
+>>>>>>> Rewrite:lib/projects-list-view.coffee

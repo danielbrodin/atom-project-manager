@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 {CompositeDisposable} = require 'atom'
 fs = require 'fs'
 Settings = null
 ProjectsListView = null
 ProjectsAddView = null
+=======
+Projects = null
+Project = null
+SaveDialog = null
+DB = null
+>>>>>>> Rewrite
 
 module.exports =
   config:
@@ -31,6 +38,7 @@ module.exports =
         'group'
       ]
 
+<<<<<<< HEAD
   filepath: null
   subscriptions: null
 
@@ -66,11 +74,29 @@ module.exports =
         ProjectsAddView ?= require './project-manager-add-view'
         projectsAddView = new ProjectsAddView()
         projectsAddView.toggle(@)
+=======
+  projects: null
+  project: null
+  projectsListView: null
 
-      'project-manager:edit-projects': =>
-        atom.workspace.open @file()
+  activate: (state) ->
+    atom.commands.add 'atom-workspace',
+      'project-manager:toggle': =>
+        @createProjectListView().toggle()
+
+      'project-manager:save-project': ->
+        SaveDialog ?= require './save-dialog'
+        saveDialog = new SaveDialog()
+        saveDialog.attach()
+>>>>>>> Rewrite
+
+      'project-manager:edit-projects': ->
+        DB ?= require './db'
+        db = new DB()
+        atom.workspace.open db.file()
 
       'project-manager:reload-project-settings': =>
+<<<<<<< HEAD
         @loadCurrentProject()
 
   file: (update = false) ->
@@ -142,3 +168,29 @@ module.exports =
 
   deactivate: ->
     @subscriptions.dispose()
+=======
+        @loadProject()
+
+    atom.project.onDidChangePaths @updatePaths
+
+    @loadProject()
+
+  loadProject: =>
+    Projects ?= require './projects'
+    @projects = new Projects()
+    @projects.getCurrent (project) =>
+      if project
+        @project = project
+        @project.load()
+
+  updatePaths: =>
+    paths = atom.project.getPaths()
+    if @project and paths.length
+      @project.set('paths', paths)
+
+  createProjectListView: ->
+    unless @projectListView?
+      ProjectsListView = require './projects-list-view'
+      @projectsListView = new ProjectsListView()
+    @projectsListView
+>>>>>>> Rewrite

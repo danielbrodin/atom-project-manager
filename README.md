@@ -1,28 +1,29 @@
 # Project Manager
+[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg)](https://travis-ci.org/danielbrodin/atom-project-manager/)
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
-A package for saving your projects for fast and easy access.
 
-## Installation
-```sh
+Get easy access to all your projects and manage them with project specific settings and options.
+
+
+## Install
+```
 apm install project-manager
 ```
-or find it in the Packages tab under settings
 
-## Usage
-All commands can also be found in the Packages menu
+## Use
 ### List projects
-`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or **Project Manager** in the Command Palette.
+`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: Toggle` in the Command Palette.
 
 You can filter result by `title`, `group` and `template`.
 `group: atom` would list all projects with the group `atom`. Default is `title`
 
 ### Save project
-**Project Manager: Save Project** in the Command Palette and write the title you want to save the project as.
+`Project Manager: Save Project` in the Command Palette and write the title you want to save the project as.
 
 ### Edit projects
-All projects are saved in a `.cson` file which you can easily reach by searching for **Project Manager: Edit Projects** in the Command Palette.
+All projects are saved in a `.cson` file which you can easily reach by searching for `Project Manager: Edit Projects` in the Command Palette.
 
 ## Project Settings
 ### `settings:`
@@ -30,9 +31,12 @@ Under settings you can set everything that you can have in the `config.cson` fil
 The formatting should be as follows:
 ```
 'settings':
-  'editor.tabLength': 2
-  'project-manager.showPath': true
+  '*':
+    'editor.tabLength': 4
+  '.source.coffee':
+    'editor.tabLength': 2
 ```
+<<<<<<< HEAD
 
 Similarly to `config.cson`, scoped settings are also supported. This allows for grammar specific settings:
 ```
@@ -47,6 +51,9 @@ Similarly to `config.cson`, scoped settings are also supported. This allows for 
       preferredLineLength: 85
 ```
 The settings will be updated on change, but can also manually be done from the command palette with **Project Manager: Reload Project Settings**
+=======
+The settings will be updated on change, but can also manually be done from the command palette with `Project Manager: Reload Project Settings`
+>>>>>>> Rewrite
 
 ### `devMode:`
 Will open the project in dev mode. The API for this doesn't work perfectly though so if you try to switch to a project that is already open in dev mode, a new window will open.
@@ -61,8 +68,8 @@ You can specify a template in the `projects.cson` file to share settings between
 You can specify a group that the project belongs to and then sort the projects list after group.
 
 ### Example
-```coffeeScript
-'Project Manager':
+```
+'projectmanager':
   'title': 'Project Manager'
   'devMode': true
   'group': 'Atom'
@@ -71,14 +78,15 @@ You can specify a group that the project belongs to and then sort the projects l
     '/path/to/project-manager'
   ]
   'settings':
-    'editor.showIndentGuide': false
-    'project-manager:showPath': true
+    '*':
+      'editor.tabLength': 2
 
 'coffeescript-template':
   'icon': 'icon-coffeescript'
   'settings':
-    'editor.tabLength': 2
-    'editor.preferredLineLength': 80
+    '.source.coffee':
+      'editor.tabLength': 2
+      'editor.preferredLineLength': 80
 ```
 
 ## Package Settings
@@ -86,6 +94,10 @@ You can specify a group that the project belongs to and then sort the projects l
 
 ~~**Close Current:** Closes the current window before opening the new project~~ *(Currently disabled)*
 
-**Environment Specific Projects:** Use `projects.[hostname].cson` instead of `projects.cson`
+**Environment Specific Projects:** Uses `projects.[hostname].cson` instead of `projects.cson`
 
 **Sort By:** Sorts the projects list by selected option
+
+--------
+
+[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)
