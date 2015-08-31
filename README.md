@@ -1,17 +1,18 @@
 # Project Manager
-
-Get easy access to all your projects and manage them with project specific settings and options.
+[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg)](https://travis-ci.org/danielbrodin/atom-project-manager/)
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
 
+Get easy access to all your projects and manage them with project specific settings and options.
 
-## Installation
+
+## Install
 ```
 apm install project-manager
 ```
 
-## Usage
+## Use
 ### List projects
 `ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: Toggle` in the Command Palette.
 
