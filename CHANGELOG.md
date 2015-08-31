@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0
+No noticeable changes, just a rewrite of the package to make it easier to add new features and take in pull requests. Please let me know if you find any bugs :)
+
 ## 1.16.0
 Added support for scoped settings. Thanks to [@benjic](https://github.com/benjic)
 
