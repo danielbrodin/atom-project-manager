@@ -4,7 +4,6 @@ Get easy access to all your projects and manage them with project specific setti
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
-Boost my creativity, [![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer:
 
 
 ## Installation
@@ -80,3 +79,7 @@ You can specify a group that the project belongs to and then sort the projects l
 **Environment Specific Projects:** Uses `projects.[hostname].cson` instead of `projects.cson`
 
 **Sort By:** Sorts the projects list by selected option
+
+--------
+
+[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)
