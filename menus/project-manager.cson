@@ -1,27 +1,26 @@
-# See https://atom.io/docs/latest/creating-a-package#menus for more details
-# 'menu': [
-#   {
-#     'label': 'Packages'
-#     'submenu': [
-#       'label': 'Project Manager'
-#       'submenu': [
-#         {
-#           'label': 'Toggle',
-#           'command': 'project-manager:toggle'
-#         }
-#         {
-#           'label': 'Save Project',
-#           'command': 'project-manager:save-project'
-#         }
-#         {
-#           'label': 'Edit Projects',
-#           'command': 'project-manager:edit-projects'
-#         }
-#         {
-#           'label': 'Reload Projects Settings',
-#           'command': 'project-manager:reload-project-settings'
-#         }
-#       ]
-#     ]
-#   }
-# ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Project Manager'
+      'submenu': [
+        {
+          'label': 'List Projects',
+          'command': 'project-manager:list-projects'
+        }
+        {
+          'label': 'Save Project',
+          'command': 'project-manager:save-project'
+        }
+        {
+          'label': 'Edit Projects',
+          'command': 'project-manager:edit-projects'
+        }
+        {
+          'label': 'Reload Projects Settings',
+          'command': 'project-manager:reload-project-settings'
+        }
+      ]
+    ]
+  }
+]
