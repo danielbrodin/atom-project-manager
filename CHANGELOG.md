@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.0
+Added back the menu under Packages
+
 ## 2.1.0
 Renamed `Project Manager: Toggle` to `Project Manager: List Projects` to make it clearer what it does.
 
