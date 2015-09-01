@@ -36,7 +36,7 @@ module.exports =
 
   activate: (state) ->
     atom.commands.add 'atom-workspace',
-      'project-manager:toggle': =>
+      'project-manager:list-projects': =>
         @createProjectListView().toggle()
 
       'project-manager:save-project': ->
