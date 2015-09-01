@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0
+Renamed `Project Manager: Toggle` to `Project Manager: List Projects` to make it clearer what it does.
+
 ## 2.0.1
 Fixed an issue where the projects file would be added to late.
 
