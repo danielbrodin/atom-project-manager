@@ -2,6 +2,7 @@ Projects = null
 Project = null
 SaveDialog = null
 DB = null
+ProjectsListView = null
 
 module.exports =
   config:
@@ -36,8 +37,10 @@ module.exports =
 
   activate: (state) ->
     atom.commands.add 'atom-workspace',
-      'project-manager:list-projects': =>
-        @createProjectListView().toggle()
+      'project-manager:list-projects': ->
+        ProjectsListView ?= require './projects-list-view'
+        projectsListView = new ProjectsListView()
+        projectsListView.toggle()
 
       'project-manager:save-project': ->
         SaveDialog ?= require './save-dialog'
@@ -68,9 +71,3 @@ module.exports =
     paths = atom.project.getPaths()
     if @project and paths.length
       @project.set('paths', paths)
-
-  createProjectListView: ->
-    unless @projectListView?
-      ProjectsListView = require './projects-list-view'
-      @projectsListView = new ProjectsListView()
-    @projectsListView

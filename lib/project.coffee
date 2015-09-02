@@ -4,15 +4,12 @@ DB = require './db'
 
 module.exports =
 class Project
-  props: {}
   requiredProperties: ['title', 'paths']
-
-  propsToSave: []
-
   db: null
   projectSettings: null
 
   constructor: (props={}) ->
+    @propsToSave = []
     for key, value of props
       @propsToSave.push(key) unless key in @propsToSave
     @props = _.deepExtend @getDefaultProps(), props
