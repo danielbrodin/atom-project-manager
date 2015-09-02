@@ -8,13 +8,13 @@ describe "List View", ->
   data =
     testproject1:
       title: "Test project 1"
-      group: "Test"
       paths: ["/Users/project-1"]
     testproject2:
       title: "Test project 2"
       paths: ["/Users/project-2"]
       template: "test-template"
       icon: "icon-bug"
+      group: "Test"
 
   projects = ->
     array = []
@@ -27,12 +27,13 @@ describe "List View", ->
     workspaceElement = atom.views.getView(atom.workspace)
     listView = new ProjectsListView
     {list, filterEditorView} = listView
-    listView.show(projects())
 
   it "will list all projects", ->
+    listView.show(projects())
     expect(list.find('li').length).toBe 2
 
   it "will add the correct icon to each project", ->
+    listView.show(projects())
     icon1 = list.find('li[data-project-title="Test project 1"]').find('.icon')
     icon2 = list.find('li[data-project-title="Test project 2"]').find('.icon')
     expect(icon1.attr('class')).toContain 'icon-chevron-right'
@@ -40,6 +41,7 @@ describe "List View", ->
 
   describe "When the text of the mini editor changes", ->
     beforeEach ->
+      listView.show(projects())
       listView.isOnDom = -> true # Fix this somehow
 
     it "will only list projects with the correct title", ->
@@ -75,3 +77,14 @@ describe "List View", ->
       expect(listView.getFilterKey()).toBe listView.defaultFilterKey
       expect(listView.getFilterQuery()).toBe '1'
       expect(list.find('li').length).toBe 1
+
+  describe "It sorts the projects in correct order", ->
+    it "sorts after title", ->
+      atom.config.set('project-manager.sortBy', 'title')
+      listView.show(projects())
+      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 1"
+
+    it "sort after group", ->
+      atom.config.set('project-manager.sortBy', 'group')
+      listView.show(projects())
+      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 2"
