@@ -8,11 +8,12 @@ class Project
   db: null
   projectSettings: null
 
-  constructor: (props={}) ->
+  constructor: (@props={}) ->
+    @db = new DB()
     @propsToSave = []
-    for key, value of props
+    for key, value of @props
       @propsToSave.push(key) unless key in @propsToSave
-    @props = _.deepExtend @getDefaultProps(), props
+    @props = _.deepExtend @getDefaultProps(), @props
 
   getDefaultProps: ->
     props =
@@ -30,8 +31,10 @@ class Project
     @save()
 
   unset: (key) ->
-    unset(@props[key])
-    unset(@propsToSave[key])
+    defaults = @getDefaultProps()
+    delete(@props[key])
+    @propsToSave = _.without @propsToSave, key
+    @props[key] = defaults[key] if defaults[key]?
     @save()
 
   isCurrent: =>
@@ -66,8 +69,11 @@ class Project
       if @props._id
         @db.update(props)
       else
-        @db.add props, (newProject) =>
-          @props._id = newProject._id
+        @db.add props, (id) =>
+          @props._id = id
+      return true
+    else
+      return false
 
   remove: ->
     @db ?= new DB()
