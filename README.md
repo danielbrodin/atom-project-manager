@@ -81,6 +81,41 @@ You can specify a group that the project belongs to and then sort the projects l
 
 **Sort By:** Sorts the projects list by selected option
 
+
+## API
+The project manager provides a service that you can use in your own Atom packages. To use it, include `project-manager` in the `consumedServices` section of your package.json.
+
+```
+"consumedServices": {
+    "project-manager": {
+      "versions": {
+        "^2.2.1": "consumeProjectManager"
+      }
+    }
+  }
+```
+Then in your package's main module, call methods on the service
+```
+module.exports =
+  doSomethingWithTheCurrentProject: (project) ->
+
+  consumeProjectManager: (PM) ->
+    PM.projects.getCurrent (project) =>
+      if project
+        @doSomethingWithTheCurrentProject(project)
+```
+
+### Methods
+#### `{Projects}`
+- `::getAll(callback)` - Calls your `callback(projects)`. `projects` is an `Array` containing `{Project}`
+- `::getCurrent(callback)` - Calls your `callback(project)` with the current `{Project}` if any
+
+#### `{Project}`
+- `{props}` - Contains all properties of the project like `title`, `paths` and `settings`
+- `::open` - Will open the project
+- `::isCurrent` - returns `true` if it's the current project
+
+
 --------
 
 [![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)

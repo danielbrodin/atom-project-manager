@@ -19,5 +19,13 @@
     "atom-space-pen-views": "^2.0.3",
     "season": "^5.2.0",
     "underscore-plus": "^1.6.6"
+  },
+  "providedServices": {
+    "project-manager": {
+      "description": "Get access to all saved projects",
+      "versions": {
+        "2.3.0": "provideProjects"
+      }
+    }
   }
 }

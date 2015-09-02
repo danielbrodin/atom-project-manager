@@ -71,3 +71,6 @@ module.exports =
     paths = atom.project.getPaths()
     if @project and paths.length
       @project.set('paths', paths)
+
+  provideProjects: ->
+    projects: new Projects()
