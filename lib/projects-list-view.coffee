@@ -7,6 +7,7 @@ module.exports =
 class ProjectsListView extends SelectListView
   possibleFilterKeys: ['title', 'group', 'template']
   projects: null
+  defaultFilterKey: 'title'
 
   activate: ->
     new ProjectListView
@@ -19,7 +20,7 @@ class ProjectsListView extends SelectListView
   serialize: ->
 
   getFilterKey: ->
-    filter = 'title'
+    filter = @defaultFilterKey
     input = @filterEditorView.getText()
     inputArr = input.split(':')
 
