@@ -115,6 +115,7 @@ module.exports =
 - `::open` - Will open the project
 - `::isCurrent` - returns `true` if it's the current project
 
+Please let me know if you make something out of it :)
 
 --------
 

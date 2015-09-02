@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+Added services to let other packages get access to the saved projects. Look through the API section of the read me and let me know if you have any questions or you find any bugs with it.
+
+And also fixed some bugs :)
+
 ## 2.2.1
 Fixed bug where the list view would sort projects wrong if there were to many
 
