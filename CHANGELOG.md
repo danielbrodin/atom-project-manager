@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.1
+Fixed bug where the list view would sort projects wrong if there were to many
+
 ## 2.2.0
 Added back the menu under Packages
 
