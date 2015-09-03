@@ -15,6 +15,7 @@ describe "DB", ->
           "/Users/project-1"
         ]
       testproject2:
+        _id: 'testproject2'
         title: "Test project 2"
         paths: [
           "/Users/project-2"
@@ -26,10 +27,32 @@ describe "DB", ->
       data = projects
       callback()
 
-  it "finds all projects when given no options", ->
-    db.find (projects) ->
-      expect(projects.length).toBe 2
+  describe "::Find", ->
+    it "finds all projects when given no query", ->
+      db.find (projects) ->
+        expect(projects.length).toBe 2
 
+    it "finds project from path", ->
+      db.setSearchQuery 'paths', ['/Users/project-2']
+      expect(db.searchKey).toBe 'paths'
+      expect(db.searchValue).toEqual ['/Users/project-2']
+      db.find (project) ->
+        expect(project.title).toBe 'Test project 2'
+
+    it "finds project from title", ->
+      db.setSearchQuery 'title', 'Test project 1'
+      db.find (project) ->
+        expect(project.title).toBe 'Test project 1'
+
+    it "finds project from id", ->
+      db.setSearchQuery '_id', 'testproject2'
+      db.find (project) ->
+        expect(project.title).toBe 'Test project 2'
+
+    it "finds nothing if query is wrong", ->
+      db.setSearchQuery '_id', 'noproject'
+      db.find (project) ->
+        expect(project).toBe false
 
   it "can add a project", ->
     newProject =
