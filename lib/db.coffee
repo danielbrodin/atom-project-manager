@@ -6,12 +6,8 @@ _ = require 'underscore-plus'
 module.exports =
 class DB
   filepath: null
-  searchValue: null
-  searchKey: null
 
-  constructor: (searchValue, searchKey) ->
-    @searchValue = searchValue
-    @searchKey = searchKey
+  constructor: (@searchValue, @searchKey) ->
     @emitter = new Emitter
 
     fs.exists @file(), (exists) =>
