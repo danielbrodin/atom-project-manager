@@ -7,7 +7,7 @@ module.exports =
 class DB
   filepath: null
 
-  constructor: (@searchValue, @searchKey) ->
+  constructor: (@searchKey, @searchValue) ->
     @emitter = new Emitter
 
     fs.exists @file(), (exists) =>
@@ -16,9 +16,11 @@ class DB
       else
         @subscribeToProjectsFile()
 
+  setSearchQuery: (@searchKey, @searchValue) ->
+
   # FIND
   # TODO: Add support for @searchValue array
-  find: (callback, filter=true) =>
+  find: (callback) =>
 
     @readFile (results) =>
       found = false
@@ -31,12 +33,9 @@ class DB
           result = _.deepExtend(result, results[result.template])
         projects.push(result)
 
-      if filter and @searchKey and @searchValue
+      if @searchKey and @searchValue
         for key, project of projects
-          if typeof project[@searchKey] is 'object'
-            if @searchValue in project[@searchKey]
-              found = project
-          else if project[@searchKey] is @searchValue
+          if _.isEqual project[@searchKey], @searchValue
             found = project
       else
         found = projects
@@ -45,7 +44,7 @@ class DB
 
   add: (props, callback) ->
     @readFile (projects) =>
-      id = props.title.replace(/\s+/g, '').toLowerCase()
+      id = @generateID(props.title)
       projects[id] = props
 
       @writeFile projects, () ->
@@ -98,6 +97,9 @@ class DB
           if error
             atom.notifications?.addError "Project Manager", options =
               details: "Could not create the file for storing projects"
+
+  generateID: (string) ->
+    string.replace(/\s+/g, '').toLowerCase()
 
   file: (update=false) ->
     @filepath = null if update
