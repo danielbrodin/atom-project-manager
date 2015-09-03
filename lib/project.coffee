@@ -47,7 +47,7 @@ class Project
     if @props._id?
       @db.setSearchQuery '_id', @props._id
       @db.onUpdate (props) =>
-        updatedProps = _.deepExtend @getDefaultProps(), updatedProps
+        updatedProps = _.deepExtend @getDefaultProps(), props
         if not _.isEqual @props, updatedProps
           @updateProps props
           @emitter.emit 'updated'
