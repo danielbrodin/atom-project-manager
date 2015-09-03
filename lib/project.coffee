@@ -12,12 +12,14 @@ class Project
   constructor: (@props={}) ->
     @emitter = new Emitter
     @db = new DB()
-    @propsToSave = []
-    for key, value of @props
-      @propsToSave.push(key) unless key in @propsToSave
-    @props = _.deepExtend @getDefaultProps(), @props
-
+    @updateProps @props
     @lookForUpdates()
+
+  updateProps: (props) ->
+    @propsToSave = []
+    for key, value of props
+      @propsToSave.push(key) unless key in @propsToSave
+    @props = _.deepExtend @getDefaultProps(), props
 
   getDefaultProps: ->
     props =
@@ -41,12 +43,13 @@ class Project
     @props[key] = defaults[key] if defaults[key]?
     @save()
 
-  lookForUpdates: ->
+  lookForUpdates: =>
     if @props._id?
       @db.setSearchQuery '_id', @props._id
-      @db.onUpdate (updatedProps) =>
+      @db.onUpdate (props) =>
         updatedProps = _.deepExtend @getDefaultProps(), updatedProps
         if not _.isEqual @props, updatedProps
+          @updateProps props
           @emitter.emit 'updated'
           if @isCurrent()
             @load()
