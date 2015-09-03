@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.0
+Now automatically updates a project and its settings if it's the active project when it has been updated in the `projects.cson` file
+
 ## 2.3.0
 Added services to let other packages get access to the saved projects. Look through the API section of the read me and let me know if you have any questions or you find any bugs with it.
 
