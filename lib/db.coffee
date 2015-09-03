@@ -17,10 +17,6 @@ class DB
     fs.exists @file(), (exists) =>
       unless exists
         @writeFile({})
-        # fs.writeFile @file(), '{}', (error) ->
-        #   if error
-        #     atom.notifications?.addError "Project Manager", options =
-        #       details: "Could not create the file for storing projects"
       else
         @subscribeToProjectsFile()
 
@@ -28,7 +24,6 @@ class DB
   # TODO: Add support for @searchValue array
   find: (callback, filter=true) =>
 
-    # CSON.readFile @file(), (error, results) =>
     @readFile (results) =>
       found = false
       projects = []
