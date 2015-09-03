@@ -15,6 +15,28 @@ describe "Project", ->
     project = new Project(properties)
     expect(project.isValid()).toBe false
 
+  it "automatically updates it's properties", ->
+    props =
+      _id: 'test'
+      title: "Test"
+      paths: ["/Users/test"]
+    project = new Project(props)
+
+    spyOn(project, 'updateProps').andCallThrough()
+    spyOn(project.db, 'readFile').andCallFake (callback) ->
+      props =
+        test:
+          _id: 'test'
+          title: "Test"
+          paths: ["/Users/test"]
+          icon: 'icon-test'
+      callback(props)
+
+    project.db.emitter.emit 'db-updated'
+
+    expect(project.updateProps).toHaveBeenCalled()
+    expect(project.props.icon).toBe 'icon-test'
+
 
   describe "::set/::unset", ->
     project = null
