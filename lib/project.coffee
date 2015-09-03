@@ -1,3 +1,4 @@
+{Emitter} = require 'atom'
 _ = require 'underscore-plus'
 Settings = require './settings'
 DB = require './db'
@@ -9,11 +10,14 @@ class Project
   projectSettings: null
 
   constructor: (@props={}) ->
+    @emitter = new Emitter
     @db = new DB()
     @propsToSave = []
     for key, value of @props
       @propsToSave.push(key) unless key in @propsToSave
     @props = _.deepExtend @getDefaultProps(), @props
+
+    @lookForUpdates()
 
   getDefaultProps: ->
     props =
@@ -36,6 +40,16 @@ class Project
     @propsToSave = _.without @propsToSave, key
     @props[key] = defaults[key] if defaults[key]?
     @save()
+
+  lookForUpdates: ->
+    if @props._id?
+      @db.setSearchQuery '_id', @props._id
+      @db.onUpdate (updatedProps) =>
+        updatedProps = _.deepExtend @getDefaultProps(), updatedProps
+        if not _.isEqual @props, updatedProps
+          @emitter.emit 'updated'
+          if @isCurrent()
+            @load()
 
   isCurrent: =>
     activePath = atom.project.getPaths()[0]
@@ -71,6 +85,7 @@ class Project
       else
         @db.add props, (id) =>
           @props._id = id
+          @lookForUpdates()
       return true
     else
       return false
@@ -83,3 +98,7 @@ class Project
     atom.open options =
       pathsToOpen: @props.paths
       devMode: @props.devMode
+
+  onUpdate: (callback) ->
+    @emitter.on 'updated', () ->
+      callback()
