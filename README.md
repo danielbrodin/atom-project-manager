@@ -11,77 +11,66 @@ Get easy access to all your projects and manage them with project specific setti
 
 ## Install
 ```
-apm install project-manager
+$ apm install project-manager
 ```
+or open Atom and go to Preferences > Install and search for `project-manager`
+
 
 ## Use
-### List projects
-`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: Toggle` in the Command Palette.
+### List Projects
+`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: List Projects` in the Command Palette.
 
-You can filter result by `title`, `group` and `template`.
+You can filter projects by `title`, `group` and `template`.
 `group: atom` would list all projects with the group `atom`. Default is `title`
 
-### Save project
+### Save Project
 `Project Manager: Save Project` in the Command Palette and write the title you want to save the project as.
 
-### Edit projects
+### Edit Projects
 All projects are saved in a `.cson` file which you can easily reach by searching for `Project Manager: Edit Projects` in the Command Palette.
 
 ## Project Settings
-### `settings:`
-Under settings you can set everything that you can have in the `config.cson` file which is what you see under the settings view.
-The formatting should be as follows:
-```
-'settings':
-  '*':
-    'editor.tabLength': 4
-  '.source.coffee':
-    'editor.tabLength': 2
-```
-The settings will be updated on change, but can also manually be done from the command palette with `Project Manager: Reload Project Settings`
 
-### `devMode:`
-Will open the project in dev mode. The API for this doesn't work perfectly though so if you try to switch to a project that is already open in dev mode, a new window will open.
+setting    | Type      | Description                                                                                                                                           | Default               
+-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------
+`title`    | `string`  | Projects title. Used in the projects list                                                                                                | `''`                  
+`paths`    | `array`   | The folders that will open in the tree view. First path is the main one that counts as the project.                                                   | `[]`                  
+`settings` | `Object`  | Enables you to set project specific settings. Everything that goes in the `config.cson` file can go here. It also supports scoped settings.           | `{}`                  
+`icon`     | `string`  | Icon that shows in the projects list. It's class-based so can either be a class already provided by Atom like `icon-squirell` or a class of your own. | `'icon-chevron-right'`
+`devMode`  | `boolean` | `true` if project should open in dev mode                                                                                                             | `false`               
+`group`    | `string`  | Adds a group to the projects list that can be used to group and filter projects                                                                       | `null`                
+`template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                
 
-### `icon:`
-This changes the icon displayed next to the project title in the list view. The icon is class-based, so you can either use the classes already provided by Atom like `icon-squirrel` or make your own class (target `:before`). The GitHub [octicons](https://octicons.github.com/) font is available to use, and most, if not all classes, just replace `octicon-` with `icon-`.
-
-### `template:`
-You can specify a template in the `projects.cson` file to share settings between projects. The settings will merge so you can still specify project specific settings.
-
-### `group:`
-You can specify a group that the project belongs to and then sort the projects list after group.
 
 ### Example
 ```
-'projectmanager':
-  'title': 'Project Manager'
-  'devMode': true
-  'group': 'Atom'
-  'template': 'coffeescript-template'
-  'paths': [
+projectmanager:
+  title: 'Project Manager'
+  devMode: true
+  group: 'Atom'
+  template: 'coffeescript-template'
+  paths: [
     '/path/to/project-manager'
   ]
-  'settings':
+  settings:
     '*':
-      'editor.tabLength': 2
+      'editor.tabLength': 4
 
 'coffeescript-template':
-  'icon': 'icon-coffeescript'
-  'settings':
+  icon: 'icon-coffeescript'
+  settings:
     '.source.coffee':
       'editor.tabLength': 2
       'editor.preferredLineLength': 80
 ```
 
 ## Package Settings
-**Show Path:** Shows the path in the list view
-
-~~**Close Current:** Closes the current window before opening the new project~~ *(Currently disabled)*
-
-**Environment Specific Projects:** Uses `projects.[hostname].cson` instead of `projects.cson`
-
-**Sort By:** Sorts the projects list by selected option
+Name                          | Setting                                       | Default     | Description                                                                                                                                      
+------------------------------|-----------------------------------------------|-------------|------------
+Show Path                     | `project-manager.showPath`                    | `true`      | Shows each projects paths in the projects list                                                                                                   
+Environment Specific Projects | `project-manager.environmentSpecificProjects` | `false`     | If you share your `.atom` folder between computers but don't use the same projects. Will create a `projects.[hostname].cson` for each environment
+Sort By                       | `project-manager.sortBy`                      | `'default'` | Will sort the projects list by selected option. Default sorting is the order in which the are                                                    
+~~Close Current~~             | ~~`project-manager.closeCurrent`~~            | ~~`false`~~ | ~~Closes the current window before opening a new project.~~ **Currently disabled** because I haven't found a proper way to achieve this anymore.
 
 
 ## API
@@ -109,13 +98,25 @@ module.exports =
 
 ### Methods
 #### `{Projects}`
-- `::getAll(callback)` - Calls your `callback(projects)`. `projects` is an `Array` containing `{Project}`
-- `::getCurrent(callback)` - Calls your `callback(project)` with the current `{Project}` if any
+- `::getAll`
+  - `{Function} callback` - Callback that receives an `Array` of `{Project}`'s
+- `::getCurrent`
+  - `{Function} callback` - Callback that receives the current `{Project}` or `false` if there is none active
+- `::onUpdate`
+  - `{Function} callback` - Will be called each time a project have been updated
 
 #### `{Project}`
 - `{props}` - Contains all properties of the project like `title`, `paths` and `settings`
 - `::open` - Will open the project
-- `::isCurrent` - returns `true` if it's the current project
+- `::isCurrent` - Returns `true` if it's the current project
+- `::onUpdate`
+  - `{Function} callback` - Will be called when the project have been updated
+- `::set` - Will set the property on the project
+  - `{String} key`
+  - `{Mixed} value`
+- `::unset` - Will remove the property from the project
+  - `{String} key`
+
 
 Please let me know if you make something out of it :)
 
