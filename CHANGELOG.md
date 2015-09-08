@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.1
+- Updated READ ME to be a bit more clear
+- Added cleaning of package commands on deactivation.
+
 ## 2.4.0
 Now automatically updates a project and its settings if it's the active project when it has been updated in the `projects.cson` file
 
