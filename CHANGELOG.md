@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.4.1
+## 2.5.0
 - Updated READ ME to be a bit more clear
 - Added cleaning of package commands on deactivation.
 
