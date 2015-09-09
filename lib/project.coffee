@@ -47,12 +47,23 @@ class Project
     if @props._id?
       @db.setSearchQuery '_id', @props._id
       @db.onUpdate (props) =>
-        updatedProps = _.deepExtend @getDefaultProps(), props
-        if not _.isEqual @props, updatedProps
-          @updateProps props
-          @emitter.emit 'updated'
-          if @isCurrent()
-            @load()
+        if props
+          updatedProps = _.deepExtend @getDefaultProps(), props
+          if not _.isEqual @props, updatedProps
+            @updateProps props
+            @emitter.emit 'updated'
+            if @isCurrent()
+              @load()
+        else
+          # If user have changed key/id, look for path instead
+          # Could still break if paths also have changed but fix that later :)
+          @db.setSearchQuery 'paths', @props.paths
+          @db.find (props) =>
+            @updateProps props
+            @db.setSearchQuery '_id', @props._id
+            @emitter.emit 'updated'
+            if @isCurrent()
+              @load()
 
   isCurrent: =>
     activePath = atom.project.getPaths()[0]

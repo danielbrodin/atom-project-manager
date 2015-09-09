@@ -37,6 +37,33 @@ describe "Project", ->
     expect(project.updateProps).toHaveBeenCalled()
     expect(project.props.icon).toBe 'icon-test'
 
+  it "automatically updates it's properties even though key have changed", ->
+    props =
+      _id: 'test'
+      title: "Test"
+      paths: ["/Users/test"]
+    project = new Project(props)
+
+    spyOn(project, 'updateProps').andCallThrough()
+    spyOn(project.db, 'readFile').andCallFake (callback) ->
+      props =
+        testtest:
+          _id: 'testtest'
+          title: "Test"
+          paths: ["/Users/test"]
+          icon: 'icon-test'
+      callback(props)
+
+    expect(project.db.searchKey).toBe '_id'
+    expect(project.db.searchValue).toBe 'test'
+    project.db.emitter.emit 'db-updated'
+
+    expect(project.updateProps).toHaveBeenCalled()
+    expect(project.props._id).toBe 'testtest'
+    expect(project.props.icon).toBe 'icon-test'
+    expect(project.db.searchKey).toBe '_id'
+    expect(project.db.searchValue).toBe 'testtest'
+
 
   describe "::set/::unset", ->
     project = null
