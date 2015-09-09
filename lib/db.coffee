@@ -1,6 +1,7 @@
 {Emitter} = require 'atom'
 CSON = require 'season'
 fs = require 'fs'
+path = require 'path'
 _ = require 'underscore-plus'
 
 module.exports =
@@ -87,8 +88,19 @@ class DB
 
   subscribeToProjectsFile: =>
     @fileWatcher.close() if @fileWatcher?
-    @fileWatcher = fs.watch @file(), (event, filename) =>
-      @emitter.emit 'db-updated'
+
+    try
+      @fileWatcher = fs.watch @file(), (event, filename) =>
+        @emitter.emit 'db-updated'
+    catch error
+      watchErrorUrl = 'https://github.com/atom/atom/blob/master/docs/build-instructions/linux.md#typeerror-unable-to-watch-path'
+      atom.notifications?.addError """
+        <b>Project Manager</b><br>
+        Could not watch for changes to `#{path.basename(@file())}`.
+        Make sure you have permissions to `#{@file()}`. On linux there
+        can be problems with watch sizes. See <a href='#{watchErrorUrl}'>
+        this document</a> for more info.""",
+        dismissable: true
 
   updateFile: ->
     fs.exists @file(true), (exists) =>
