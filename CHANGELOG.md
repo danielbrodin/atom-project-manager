@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.1
+- Fixes a bug that would not update a project if the key had changed manually in the `projects.cson`. Not a 100% fix, but will hopefully work for now until a prettier one is around :)
+- Added a notification with a link to a fix for when the `projects.cson` file can't be watched.
+
 ## 2.5.0
 - Updated READ ME to be a bit more clear
 - Added cleaning of package commands on deactivation.
