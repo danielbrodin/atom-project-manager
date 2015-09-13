@@ -80,11 +80,9 @@ describe "Project", ->
       expect(project.props.title).toBe ''
       project.set('title', 'test')
       expect(project.props.title).toBe 'test'
-      expect(project.propsToSave).toContain 'title'
 
       project.unset('title')
       expect(project.props.title).toBe ''
-      expect(project.propsToSave).not.toContain 'title'
 
 
   describe "::save", ->
