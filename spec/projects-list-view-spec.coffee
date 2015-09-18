@@ -84,9 +84,9 @@ describe "List View", ->
     it "sorts after title", ->
       atom.config.set('project-manager.sortBy', 'title')
       listView.show(projects())
-      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 1"
+      expect(list.find('li:eq(0)').data('projectId')).toBe "testproject1"
 
     it "sort after group", ->
       atom.config.set('project-manager.sortBy', 'group')
       listView.show(projects())
-      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 2"
+      expect(list.find('li:eq(0)').data('projectId')).toBe "testproject2"
