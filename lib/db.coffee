@@ -131,8 +131,16 @@ class DB
   readFile: (callback) ->
     fs.exists @file(), (exists) =>
       if exists
-        projects = CSON.readFileSync(@file()) || {}
-        callback?(projects)
+        try
+          projects = CSON.readFileSync(@file()) || {}
+          callback?(projects)
+        catch error
+          message = "Failed to load #{path.basename(this.file())}"
+          detail = if error.location?
+            error.stack
+          else
+            error.message
+          @notifyFailure message, detail
       else
         fs.writeFile @file(), '{}', (error) ->
           callback?({})
@@ -140,3 +148,6 @@ class DB
   writeFile: (projects, callback) ->
     CSON.writeFileSync @file(), projects
     callback?()
+
+  notifyFailure: (message, detail) ->
+    atom.notifications.addError(message, {detail, dismissable: true})
