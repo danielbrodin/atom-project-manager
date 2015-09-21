@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.2
+Now shows a notification if the `projects.cson` file isn't correctly formatted.
+
 ## 2.5.1
 - Fixes a bug that would not update a project if the key had changed manually in the `projects.cson`. Not a 100% fix, but will hopefully work for now until a prettier one is around :)
 - Added a notification with a link to a fix for when the `projects.cson` file can't be watched.
