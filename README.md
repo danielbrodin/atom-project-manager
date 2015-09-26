@@ -120,6 +120,21 @@ module.exports =
 
 Please let me know if you make something out of it :)
 
+## Contribute
+If you would like to contribute to the project manager, be it new features or bugs,
+please do the following:
+
+1. Fork the repository
+2. Create a new topic branch off the master branch that describe what it does
+3. Commit and push the branch
+4. Make a pull request describing what you have done
+5. Now it will hopefully get merged :)
+
+All PR's should:
+- Pass the [jscs](https://atom.io/packages/linter-jscs) linter
+- Pass the [jshint](https://atom.io/packages/linter-jshint) linter
+- Add a test when it makes sense, which should be most of the time
+
 --------
 
 [![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)
