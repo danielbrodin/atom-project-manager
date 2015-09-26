@@ -7,9 +7,11 @@ describe "List View", ->
 
   data =
     testproject1:
+      _id: 'testproject1'
       title: "Test project 1"
       paths: ["/Users/project-1"]
     testproject2:
+      _id: 'testproject2'
       title: "Test project 2"
       paths: ["/Users/project-2"]
       template: "test-template"
@@ -34,8 +36,8 @@ describe "List View", ->
 
   it "will add the correct icon to each project", ->
     listView.show(projects())
-    icon1 = list.find('li[data-project-title="Test project 1"]').find('.icon')
-    icon2 = list.find('li[data-project-title="Test project 2"]').find('.icon')
+    icon1 = list.find('li[data-project-id="testproject1"]').find('.icon')
+    icon2 = list.find('li[data-project-id="testproject2"]').find('.icon')
     expect(icon1.attr('class')).toContain 'icon-chevron-right'
     expect(icon2.attr('class')).toContain 'icon-bug'
 
@@ -82,9 +84,9 @@ describe "List View", ->
     it "sorts after title", ->
       atom.config.set('project-manager.sortBy', 'title')
       listView.show(projects())
-      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 1"
+      expect(list.find('li:eq(0)').data('projectId')).toBe "testproject1"
 
     it "sort after group", ->
       atom.config.set('project-manager.sortBy', 'group')
       listView.show(projects())
-      expect(list.find('li:eq(0)').data('projectTitle')).toBe "Test project 2"
+      expect(list.find('li:eq(0)').data('projectId')).toBe "testproject2"
