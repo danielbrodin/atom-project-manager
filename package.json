@@ -1,7 +1,7 @@
 {
   "name": "project-manager",
   "main": "./lib/project-manager",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": "https://github.com/danielbrodin/atom-project-manager",
   "license": "MIT",
