@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.1
+Fixed bug that happened when there where no settings on a project
+
 ## 2.6.0
 Package now use ES6 mostly. Still some views done in CoffeeScript.
 A restart of Atom could be needed for it to work after the update.
