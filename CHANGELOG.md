@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0
+Package now use ES6 mostly. Still some views done in CoffeeScript.
+A restart of Atom could be needed for it to work after the update.
+
 ## 2.5.2
 Now shows a notification if the `projects.cson` file isn't correctly formatted.
 
