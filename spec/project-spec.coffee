@@ -99,6 +99,14 @@ describe "Project", ->
     it "does not save if not valid", ->
       expect(project.save()).toBe false
 
+    it "only saves settings that isn't default", ->
+      props = {
+        title: 'Test'
+        paths: ['/Users/test']
+      }
+      project = new Project(props)
+      expect(project.getPropsToSave()).toEqual props
+
     it "saves project if _id isn't set", ->
       project.set('title', 'Test')
       project.set('paths', ["/Users/"])
