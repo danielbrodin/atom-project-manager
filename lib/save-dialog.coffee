@@ -1,5 +1,6 @@
 Dialog = require './dialog'
 Project = require './project'
+Projects = require './projects'
 path = require 'path'
 
 module.exports =
@@ -15,6 +16,12 @@ class SaveDialog extends Dialog
       input: title
       select: true
       iconClass: 'icon-arrow-right'
+
+    projects = new Projects()
+    projects.getCurrent (project) =>
+      if project.props.paths[0] is firstPath
+        @showError "This project is already saved as #{project.props.title}"
+
 
   onConfirm: (title) ->
     if title

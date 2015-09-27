@@ -6,7 +6,7 @@ class Dialog extends View
     @div class: 'project-manager-dialog', =>
       @label prompt, class: 'icon', outlet: 'promptText'
       @subview 'miniEditor', new TextEditorView(mini: true)
-      @div class: 'error-message', outlet: 'errorMessage'
+      @div class: 'error-message text-error', outlet: 'errorMessage'
 
   initialize: ({input, select, iconClass} = {}) ->
     @promptText.addClass(iconClass) if iconClass
