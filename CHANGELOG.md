@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.2
+Fixed [#160](https://github.com/danielbrodin/atom-project-manager/issues/160)
+
 ## 2.6.1
 Fixed bug that happened when there where no settings on a project
 
