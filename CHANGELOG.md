@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.4
+[#161](https://github.com/danielbrodin/atom-project-manager/issues/161) should now be fixed for real thanks to [@douggr](https://github.com/douggr) :)
+
 ## 2.6.3
 Should fix [#161](https://github.com/danielbrodin/atom-project-manager/issues/161)
 
