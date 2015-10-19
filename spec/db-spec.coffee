@@ -1,4 +1,5 @@
 DB = require '../lib/db'
+os = require 'os'
 
 describe "DB", ->
   db = null
@@ -70,3 +71,16 @@ describe "DB", ->
     db.delete "testproject1", () ->
       db.find (projects) ->
         expect(projects.length).toBe 1
+
+  describe "Environment specific settings", ->
+    it "loads a generic file if not set", ->
+      atom.config.set('project-manager.environmentSpecificProjects', false);
+      filedir = atom.getConfigDirPath();
+      expect(db.file()).toBe "#{filedir}/projects.cson"
+
+    it "loads a environment specific file is set to true", ->
+      atom.config.set('project-manager.environmentSpecificProjects', true);
+      hostname = os.hostname().split('.').shift().toLowerCase();
+      filedir = atom.getConfigDirPath();
+
+      expect(db.file()).toBe "#{filedir}/projects.#{hostname}.cson"
