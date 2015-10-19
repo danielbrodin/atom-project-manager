@@ -117,7 +117,8 @@ class DB
     @filepath = null if update
 
     unless @filepath?
-      filename = 'projects.cson'
+      filename = atom.config.get('project-manager.project-settings-file') ||
+        'projects.cson'
       filedir = atom.getConfigDirPath()
 
       if atom.config.get('project-manager.environmentSpecificProjects')
