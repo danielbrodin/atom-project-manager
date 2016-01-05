@@ -70,7 +70,7 @@ Name                          | Setting                                       | 
 Show Path                     | `project-manager.showPath`                    | `true`      | Shows each projects paths in the projects list                                                                                                   
 Environment Specific Projects | `project-manager.environmentSpecificProjects` | `false`     | If you share your `.atom` folder between computers but don't use the same projects. Will create a `projects.[hostname].cson` for each environment
 Sort By                       | `project-manager.sortBy`                      | `'default'` | Will sort the projects list by selected option. Default sorting is the order in which the are                                                    
-~~Close Current~~             | ~~`project-manager.closeCurrent`~~            | ~~`false`~~ | ~~Closes the current window before opening a new project.~~ **Currently disabled** because I haven't found a proper way to achieve this anymore.
+Close Current                 | `project-manager.closeCurrent`                | `false`     | Closes the current window before opening a new project.
 
 
 ## API
