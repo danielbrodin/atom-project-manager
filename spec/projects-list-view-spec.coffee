@@ -13,7 +13,7 @@ describe "List View", ->
     testproject2:
       _id: 'testproject2'
       title: "Test project 2"
-      paths: ["/Users/project-2"]
+      paths: [atom.getConfigDirPath()]
       template: "test-template"
       icon: "icon-bug"
       group: "Test"
@@ -33,6 +33,11 @@ describe "List View", ->
   it "will list all projects", ->
     listView.show(projects())
     expect(list.find('li').length).toBe 2
+
+  it "will let you know if a path is not available", ->
+    listView.show(projects())
+    expect(list.find('li').eq(0).data('pathMissing')).toBe true
+    expect(list.find('li').eq(1).data('pathMissing')).toBe false
 
   it "will add the correct icon to each project", ->
     listView.show(projects())
