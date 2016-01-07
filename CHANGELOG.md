@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0
+- The option to close the current window when opening a new project is now back. Still not a great implementation but the old one seems to work again.
+- The project listing will now warn you if a projects path is not available.
+
 ## 2.6.5
 Fixes [#163](https://github.com/danielbrodin/atom-project-manager/issues/163)
 
