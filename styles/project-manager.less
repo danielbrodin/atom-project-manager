@@ -11,13 +11,12 @@
 .project-manager input { width: 100%; }
 
 .project-manager [data-path-missing="true"] {
-  background-color: @background-color-warning !important;
-
-  .icon:before {
-    color: @text-color-warning;
+  .primary-line,
+  .secondary-line {
+    opacity: 0.4;
   }
 
-  .project-manager-list-group {
+  .secondary-line .icon:before {
     color: @text-color-warning;
   }
 }
