@@ -10,6 +10,17 @@
 
 .project-manager input { width: 100%; }
 
+.project-manager [data-path-missing="true"] {
+  .primary-line,
+  .secondary-line {
+    opacity: 0.4;
+  }
+
+  .secondary-line .icon:before {
+    color: @text-color-warning;
+  }
+}
+
 .project-manager-list-group {
   color: @text-color-subtle;
   text-shadow: none;
