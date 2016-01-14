@@ -1,5 +1,8 @@
 # Changelog
 
+## Next release
+Now adds back focus to editor when closing the project list view.
+
 ## 2.7.3
 Fixes [#143](https://github.com/danielbrodin/atom-project-manager/issues/143)
 
