@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## 2.7.4
 Now adds back focus to editor when closing the project list view.
 
 ## 2.7.3
