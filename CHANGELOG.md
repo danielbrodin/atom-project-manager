@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.6
+Fix [#195](https://github.com/danielbrodin/atom-project-manager/issues/195)
+
 ## 2.7.5
 Bugfix
 
