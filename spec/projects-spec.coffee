@@ -1,4 +1,5 @@
 Projects = require '../lib/projects'
+DB = require '../lib/db'
 
 describe "Projects", ->
   projects = null
@@ -16,7 +17,8 @@ describe "Projects", ->
       ]
 
   beforeEach ->
-    projects = new Projects()
+    db = new DB()
+    projects = new Projects(db)
     spyOn(projects.db, 'readFile').andCallFake (callback) ->
       callback(data)
     spyOn(projects.db, 'writeFile').andCallFake (projects, callback) ->

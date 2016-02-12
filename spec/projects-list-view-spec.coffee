@@ -1,5 +1,7 @@
 ProjectsListView = require '../lib/projects-list-view'
+Projects = require '../lib/projects'
 Project = require '../lib/project'
+DB = require '../lib/db'
 {$} = require 'atom-space-pen-views'
 
 describe "List View", ->
@@ -18,29 +20,30 @@ describe "List View", ->
       icon: "icon-bug"
       group: "Test"
 
-  projects = ->
-    array = []
-    for key, setting of data
-      project = new Project(setting)
-      array.push(project)
-    return array
-
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
-    listView = new ProjectsListView
+    db = new DB()
+    projects = new Projects(db)
+    spyOn(projects, 'getAll').andCallFake (callback) ->
+      array = []
+      for key, setting of data
+        project = new Project(setting, db)
+        array.push(project)
+      callback(array)
+    listView = new ProjectsListView(projects)
     {list, filterEditorView} = listView
 
   it "will list all projects", ->
-    listView.show(projects())
+    listView.toggle()
     expect(list.find('li').length).toBe 2
 
   it "will let you know if a path is not available", ->
-    listView.show(projects())
+    listView.toggle()
     expect(list.find('li').eq(0).data('pathMissing')).toBe true
     expect(list.find('li').eq(1).data('pathMissing')).toBe false
 
   it "will add the correct icon to each project", ->
-    listView.show(projects())
+    listView.toggle()
     icon1 = list.find('li[data-project-id="testproject1"]').find('.icon')
     icon2 = list.find('li[data-project-id="testproject2"]').find('.icon')
     expect(icon1.attr('class')).toContain 'icon-chevron-right'
@@ -48,7 +51,7 @@ describe "List View", ->
 
   describe "When the text of the mini editor changes", ->
     beforeEach ->
-      listView.show(projects())
+      listView.toggle()
       listView.isOnDom = -> true # Fix this somehow
 
     it "will only list projects with the correct title", ->
@@ -88,10 +91,10 @@ describe "List View", ->
   describe "It sorts the projects in correct order", ->
     it "sorts after title", ->
       atom.config.set('project-manager.sortBy', 'title')
-      listView.show(projects())
+      listView.toggle()
       expect(list.find('li:eq(0)').data('projectId')).toBe "testproject1"
 
     it "sort after group", ->
       atom.config.set('project-manager.sortBy', 'group')
-      listView.show(projects())
+      listView.toggle()
       expect(list.find('li:eq(0)').data('projectId')).toBe "testproject2"

@@ -29,31 +29,48 @@ describe "DB", ->
       callback()
 
   describe "::Find", ->
-    it "finds all projects when given no query", ->
+    it "finds all projects", ->
       db.find (projects) ->
         expect(projects.length).toBe 2
 
+  describe "::addUpdater", ->
     it "finds project from path", ->
-      db.setSearchQuery 'paths', ['/Users/project-2']
-      expect(db.searchKey).toBe 'paths'
-      expect(db.searchValue).toEqual ['/Users/project-2']
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 2'
+      query =
+        key: 'paths'
+        value: data.testproject2.paths
+      db.addUpdater 'noIdMatchButPathMatch', query, (props) =>
+        expect(props._id).toBe 'testproject2'
+
+      db.emitter.emit 'db-updated'
 
     it "finds project from title", ->
-      db.setSearchQuery 'title', 'Test project 1'
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 1'
+      query =
+        key: 'title'
+        value: 'Test project 1'
+      db.addUpdater 'noIdMatchButTitleMatch', query, (props) =>
+        expect(props.title).toBe query.value
+
+      db.emitter.emit 'db-updated'
 
     it "finds project from id", ->
-      db.setSearchQuery '_id', 'testproject2'
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 2'
+      query =
+        key: '_id'
+        value: 'testproject1'
+      db.addUpdater 'shouldIdMatchButNotOnThis', query, (props) =>
+        expect(props._id).toBe query.value
+
+      db.emitter.emit 'db-updated'
 
     it "finds nothing if query is wrong", ->
-      db.setSearchQuery '_id', 'noproject'
-      db.find (project) ->
-        expect(project).toBe false
+      query =
+        key: '_id'
+        value: 'IHaveNoID'
+      haveBeenChanged = false
+      db.addUpdater 'noIdMatch', query, (props) =>
+        haveBeenChanged = true
+
+      db.emitter.emit 'db-updated'
+      expect(haveBeenChanged).toBe false
 
   it "can add a project", ->
     newProject =

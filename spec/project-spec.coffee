@@ -1,18 +1,21 @@
 Project = require '../lib/project'
+DB = require '../lib/db'
+db = new DB();
 
 describe "Project", ->
+
   it "recieves default properties", ->
     properties =
       title: "Test"
       paths: ["/Users/"]
-    project = new Project(properties)
+    project = new Project(properties, db)
 
     expect(project.props.icon).toBe 'icon-chevron-right'
 
   it "does not validate without proper properties", ->
     properties =
       title: "Test"
-    project = new Project(properties)
+    project = new Project(properties, db)
     expect(project.isValid()).toBe false
 
   it "automatically updates it's properties", ->
@@ -20,7 +23,7 @@ describe "Project", ->
       _id: 'test'
       title: "Test"
       paths: ["/Users/test"]
-    project = new Project(props)
+    project = new Project(props, db)
 
     spyOn(project, 'updateProps').andCallThrough()
     spyOn(project.db, 'readFile').andCallFake (callback) ->
@@ -42,7 +45,7 @@ describe "Project", ->
       _id: 'test'
       title: "Test"
       paths: ["/Users/test"]
-    project = new Project(props)
+    project = new Project(props, db)
 
     spyOn(project, 'updateProps').andCallThrough()
     spyOn(project.db, 'readFile').andCallFake (callback) ->
@@ -54,22 +57,17 @@ describe "Project", ->
           icon: 'icon-test'
       callback(props)
 
-    expect(project.db.searchKey).toBe '_id'
-    expect(project.db.searchValue).toBe 'test'
     project.db.emitter.emit 'db-updated'
 
     expect(project.updateProps).toHaveBeenCalled()
     expect(project.props._id).toBe 'testtest'
     expect(project.props.icon).toBe 'icon-test'
-    expect(project.db.searchKey).toBe '_id'
-    expect(project.db.searchValue).toBe 'testtest'
-
 
   describe "::set/::unset", ->
     project = null
 
     beforeEach ->
-      project = new Project()
+      project = new Project({}, db)
       spyOn(project.db, 'add').andCallFake (props, callback) ->
         id = props.title.replace(/\s+/g, '').toLowerCase()
         callback?(id)
@@ -89,7 +87,7 @@ describe "Project", ->
     project = null
 
     beforeEach ->
-      project = new Project()
+      project = new Project({}, db)
       spyOn(project.db, 'add').andCallFake (props, callback) ->
         id = props.title.replace(/\s+/g, '').toLowerCase()
         callback?(id)
@@ -104,7 +102,7 @@ describe "Project", ->
         title: 'Test'
         paths: ['/Users/test']
       }
-      project = new Project(props)
+      project = new Project(props, db)
       expect(project.getPropsToSave()).toEqual props
 
     it "saves project if _id isn't set", ->
