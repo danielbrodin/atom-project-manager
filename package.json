@@ -27,5 +27,26 @@
         "2.3.0": "provideProjects"
       }
     }
+  },
+  "configSchema": {
+    "showPath": {
+      "type": "boolean",
+      "default": true
+    },
+    "closeCurrent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Closes the current window after opening another project"
+    },
+    "environmentSpecificProjects": {
+      "type": "boolean",
+      "default": false
+    },
+    "sortBy": {
+      "type": "string",
+      "description": "Default sorting is the order in which the projects are",
+      "default": "default",
+      "enum": ["default", "title", "group"]
+    }
   }
 }
