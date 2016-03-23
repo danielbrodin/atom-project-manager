@@ -1,43 +1,29 @@
-DB = require '../lib/db'
 os = require 'os'
+utils = require './utils';
+db = require '../lib/db';
+db.updateFilepath(utils.dbPath());
+projects =
+  testproject1:
+    title: "Test project 1"
+    group: "Test"
+    paths: [
+      "/Users/project-1"
+    ]
+  testproject2:
+    _id: 'testproject2'
+    title: "Test project 2"
+    paths: [
+      "/Users/project-2"
+    ]
+
+db.writeFile projects
 
 describe "DB", ->
-  db = null
-  data = null
-
-  beforeEach ->
-    db = new DB()
-
-    data =
-      testproject1:
-        title: "Test project 1"
-        group: "Test"
-        paths: [
-          "/Users/project-1"
-        ]
-      testproject2:
-        _id: 'testproject2'
-        title: "Test project 2"
-        paths: [
-          "/Users/project-2"
-        ]
-
-    spyOn(db, 'readFile').andCallFake (callback) ->
-      callback(data)
-    spyOn(db, 'writeFile').andCallFake (projects, callback) ->
-      data = projects
-      callback()
-
-  describe "::Find", ->
-    it "finds all projects", ->
-      db.find (projects) ->
-        expect(projects.length).toBe 2
-
   describe "::addUpdater", ->
     it "finds project from path", ->
       query =
         key: 'paths'
-        value: data.testproject2.paths
+        value: projects.testproject2.paths
       db.addUpdater 'noIdMatchButPathMatch', query, (props) =>
         expect(props._id).toBe 'testproject2'
 
@@ -81,23 +67,13 @@ describe "DB", ->
     db.add newProject, (id) ->
       expect(id).toBe 'newproject'
       db.find (projects) ->
-        expect(projects.length).toBe 3
+        found = false
+        for project in projects
+          found = true if project._id = 'newproject'
+        expect(found).toBe true
 
 
   it "can remove a project", ->
     db.delete "testproject1", () ->
       db.find (projects) ->
         expect(projects.length).toBe 1
-
-  describe "Environment specific settings", ->
-    it "loads a generic file if not set", ->
-      atom.config.set('project-manager.environmentSpecificProjects', false);
-      filedir = atom.getConfigDirPath();
-      expect(db.file()).toBe "#{filedir}/projects.cson"
-
-    it "loads a environment specific file is set to true", ->
-      atom.config.set('project-manager.environmentSpecificProjects', true);
-      hostname = os.hostname().split('.').shift().toLowerCase();
-      filedir = atom.getConfigDirPath();
-
-      expect(db.file()).toBe "#{filedir}/projects.#{hostname}.cson"
