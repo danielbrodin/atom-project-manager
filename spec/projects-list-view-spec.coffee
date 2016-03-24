@@ -10,7 +10,7 @@ describe "List View", ->
 
   beforeEach ->
     spyOn(db, 'readFile').andCallFake (callback) ->
-      existingPath = path.join(atom.getConfigDirPath(), 'packages', 'project-manager')
+      existingPath = path.join(__dirname)
       data =
         one:
           title: 'project one'
