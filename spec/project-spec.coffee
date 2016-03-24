@@ -33,7 +33,9 @@ describe "Project", ->
 
     # Overwrite the settings in db
     props.icon = 'icon-test'
-    db.add props, () ->
+    db.add(props)
+
+    project.onUpdate () ->
       expect(project.updateProps).toHaveBeenCalled()
       expect(project.props.icon).toBe 'icon-test'
 
@@ -65,7 +67,6 @@ describe "Project", ->
         title: 'updateProjectIfIDIsSet',
         paths: ['/Test/']
 
-      spyOn(db, 'add').andCallThrough()
       spyOn(db, 'update').andCallThrough()
 
       db.add props, (id) ->
@@ -74,5 +75,4 @@ describe "Project", ->
 
         project.save()
 
-        expect(db.add).not.toHaveBeenCalled()
         expect(db.update).toHaveBeenCalled()
