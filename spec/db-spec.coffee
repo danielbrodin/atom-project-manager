@@ -1,59 +1,62 @@
-DB = require '../lib/db'
 os = require 'os'
+utils = require './utils';
+db = require '../lib/db';
+db.updateFilepath(utils.dbPath());
+projects =
+  testproject1:
+    title: "Test project 1"
+    group: "Test"
+    paths: [
+      "/Users/project-1"
+    ]
+  testproject2:
+    _id: 'testproject2'
+    title: "Test project 2"
+    paths: [
+      "/Users/project-2"
+    ]
+
+db.writeFile projects
 
 describe "DB", ->
-  db = null
-  data = null
-
-  beforeEach ->
-    db = new DB()
-
-    data =
-      testproject1:
-        title: "Test project 1"
-        group: "Test"
-        paths: [
-          "/Users/project-1"
-        ]
-      testproject2:
-        _id: 'testproject2'
-        title: "Test project 2"
-        paths: [
-          "/Users/project-2"
-        ]
-
-    spyOn(db, 'readFile').andCallFake (callback) ->
-      callback(data)
-    spyOn(db, 'writeFile').andCallFake (projects, callback) ->
-      data = projects
-      callback()
-
-  describe "::Find", ->
-    it "finds all projects when given no query", ->
-      db.find (projects) ->
-        expect(projects.length).toBe 2
-
+  describe "::addUpdater", ->
     it "finds project from path", ->
-      db.setSearchQuery 'paths', ['/Users/project-2']
-      expect(db.searchKey).toBe 'paths'
-      expect(db.searchValue).toEqual ['/Users/project-2']
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 2'
+      query =
+        key: 'paths'
+        value: projects.testproject2.paths
+      db.addUpdater 'noIdMatchButPathMatch', query, (props) =>
+        expect(props._id).toBe 'testproject2'
+
+      db.emitter.emit 'db-updated'
 
     it "finds project from title", ->
-      db.setSearchQuery 'title', 'Test project 1'
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 1'
+      query =
+        key: 'title'
+        value: 'Test project 1'
+      db.addUpdater 'noIdMatchButTitleMatch', query, (props) =>
+        expect(props.title).toBe query.value
+
+      db.emitter.emit 'db-updated'
 
     it "finds project from id", ->
-      db.setSearchQuery '_id', 'testproject2'
-      db.find (project) ->
-        expect(project.title).toBe 'Test project 2'
+      query =
+        key: '_id'
+        value: 'testproject1'
+      db.addUpdater 'shouldIdMatchButNotOnThis', query, (props) =>
+        expect(props._id).toBe query.value
+
+      db.emitter.emit 'db-updated'
 
     it "finds nothing if query is wrong", ->
-      db.setSearchQuery '_id', 'noproject'
-      db.find (project) ->
-        expect(project).toBe false
+      query =
+        key: '_id'
+        value: 'IHaveNoID'
+      haveBeenChanged = false
+      db.addUpdater 'noIdMatch', query, (props) =>
+        haveBeenChanged = true
+
+      db.emitter.emit 'db-updated'
+      expect(haveBeenChanged).toBe false
 
   it "can add a project", ->
     newProject =
@@ -64,23 +67,13 @@ describe "DB", ->
     db.add newProject, (id) ->
       expect(id).toBe 'newproject'
       db.find (projects) ->
-        expect(projects.length).toBe 3
+        found = false
+        for project in projects
+          found = true if project._id = 'newproject'
+        expect(found).toBe true
 
 
   it "can remove a project", ->
     db.delete "testproject1", () ->
       db.find (projects) ->
         expect(projects.length).toBe 1
-
-  describe "Environment specific settings", ->
-    it "loads a generic file if not set", ->
-      atom.config.set('project-manager.environmentSpecificProjects', false);
-      filedir = atom.getConfigDirPath();
-      expect(db.file()).toBe "#{filedir}/projects.cson"
-
-    it "loads a environment specific file is set to true", ->
-      atom.config.set('project-manager.environmentSpecificProjects', true);
-      hostname = os.hostname().split('.').shift().toLowerCase();
-      filedir = atom.getConfigDirPath();
-
-      expect(db.file()).toBe "#{filedir}/projects.#{hostname}.cson"
