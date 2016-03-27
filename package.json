@@ -1,7 +1,7 @@
 {
   "name": "project-manager",
   "main": "./lib/project-manager",
-  "version": "2.7.6",
+  "version": "2.8.0",
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": "https://github.com/danielbrodin/atom-project-manager",
   "license": "MIT",
@@ -46,7 +46,12 @@
       "type": "string",
       "description": "Default sorting is the order in which the projects are",
       "default": "default",
-      "enum": ["default", "title", "group", "last modified"]
+      "enum": [
+        "default",
+        "title",
+        "group",
+        "last modified"
+      ]
     }
   }
 }
