@@ -40,7 +40,8 @@ setting    | Type      | Description                                            
 `devMode`  | `boolean` | `true` if project should open in dev mode                                                                                                             | `false`               
 `group`    | `string`  | Adds a group to the projects list that can be used to group and filter projects                                                                       | `null`                
 `template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                
-
+### Local settings file
+All these settings can be added to a `project.cson` file in the root folder of the project. It follows the below example, but without the project key.
 
 ### Example
 ```

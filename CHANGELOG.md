@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.0
+- You can now sort projects by the last modification date of the root path.
+- The Project Manager will now look for a local settings file (`project.cson`) for the currently active project and merge the settings with what's in `projects.cson`.
++ Some other stuff behind the scenes which could mean you have to restart Atom for everything to work as it should.
+
 ## 2.7.6
 Fix [#195](https://github.com/danielbrodin/atom-project-manager/issues/195)
 
