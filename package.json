@@ -46,7 +46,7 @@
       "type": "string",
       "description": "Default sorting is the order in which the projects are",
       "default": "default",
-      "enum": ["default", "title", "group"]
+      "enum": ["default", "title", "group", "last modified"]
     }
   }
 }
