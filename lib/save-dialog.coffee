@@ -10,6 +10,7 @@ class SaveDialog extends Dialog
   constructor: () ->
     firstPath = atom.project.getPaths()[0]
     title = path.basename(firstPath)
+    title = @prettifyTitle(title)
 
     super
       prompt: 'Enter name of project'
@@ -34,3 +35,7 @@ class SaveDialog extends Dialog
       @close()
     else
       @showError('You need to specify a name for the project')
+
+  prettifyTitle: (title) ->
+    title = title.replace(/[^\w\s]/gi, ' ')
+    title = title.charAt(0).toUpperCase() + title.slice(1)
