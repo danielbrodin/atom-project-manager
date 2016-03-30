@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.8.1
+## 2.9.0
 - Added some prettifying of autosuggested project title.
 - Bugfixes
 
