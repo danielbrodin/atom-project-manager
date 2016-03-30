@@ -1,7 +1,8 @@
 # Changelog
 
-## Next release
+## 2.8.1
 - Added some prettifying of autosuggested project title.
+- Bugfixes
 
 ## 2.8.0
 - You can now sort projects by the last modification date of the root path.
