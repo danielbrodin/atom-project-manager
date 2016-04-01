@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.3
+Just publishing to add the correct changelog. See 2.9.1
+
+## 2.9.2
+This is really 2.9.1 but a git issue messed up the version number.
+
 ## 2.9.1
 - Fixes [#209](https://github.com/danielbrodin/atom-project-manager/issues/209)
 - Now adds and removes paths when added to the projects settings.
