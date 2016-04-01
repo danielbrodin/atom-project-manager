@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.1
+- Fixes [#209](https://github.com/danielbrodin/atom-project-manager/issues/209)
+- Now adds and removes paths when added to the projects settings.
+
 ## 2.9.0
 - Added some prettifying of autosuggested project title.
 - Bugfixes
