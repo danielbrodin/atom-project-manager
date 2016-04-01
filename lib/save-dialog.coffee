@@ -10,7 +10,8 @@ class SaveDialog extends Dialog
   constructor: () ->
     firstPath = atom.project.getPaths()[0]
     title = path.basename(firstPath)
-    title = @prettifyTitle(title)
+    if atom.config.get('project-manager.prettifyTitle')
+      title = @prettifyTitle(title)
 
     super
       prompt: 'Enter name of project'
