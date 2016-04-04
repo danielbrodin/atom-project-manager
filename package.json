@@ -44,7 +44,8 @@
     },
     "prettifyTitle": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Will suggest a prettified project title on save."
     },
     "sortBy": {
       "type": "string",
