@@ -22,7 +22,7 @@ class SaveDialog extends Dialog
       iconClass: 'icon-arrow-right'
 
     projects.getCurrent (project) =>
-      if project.props.paths[0] is firstPath
+      if project.rootPAth is firstPath
         @showError "This project is already saved as #{project.props.title}"
 
 
