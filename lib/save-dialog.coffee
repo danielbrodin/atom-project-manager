@@ -2,6 +2,7 @@ Dialog = require './dialog'
 Project = require './project'
 projects = require './projects'
 path = require 'path'
+changeCase = require 'change-case'
 
 module.exports =
 class SaveDialog extends Dialog
@@ -10,8 +11,9 @@ class SaveDialog extends Dialog
   constructor: () ->
     firstPath = atom.project.getPaths()[0]
     title = path.basename(firstPath)
+
     if atom.config.get('project-manager.prettifyTitle')
-      title = @prettifyTitle(title)
+      title = changeCase.titleCase(title)
 
     super
       prompt: 'Enter name of project'
@@ -36,7 +38,3 @@ class SaveDialog extends Dialog
       @close()
     else
       @showError('You need to specify a name for the project')
-
-  prettifyTitle: (title) ->
-    title = title.replace(/[^\w\s]/gi, ' ')
-    title = title.charAt(0).toUpperCase() + title.slice(1)
