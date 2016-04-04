@@ -42,6 +42,10 @@
       "type": "boolean",
       "default": false
     },
+    "prettifyTitle": {
+      "type": "boolean",
+      "default": true
+    },
     "sortBy": {
       "type": "string",
       "description": "Default sorting is the order in which the projects are",
