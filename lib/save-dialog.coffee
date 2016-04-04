@@ -1,5 +1,4 @@
 Dialog = require './dialog'
-Project = require './project'
 projects = require './projects'
 path = require 'path'
 changeCase = require 'change-case'
@@ -32,8 +31,7 @@ class SaveDialog extends Dialog
         title: title
         paths: atom.project.getPaths()
 
-      project = new Project(properties)
-      project.save()
+      projects.addProject(properties)
 
       @close()
     else
