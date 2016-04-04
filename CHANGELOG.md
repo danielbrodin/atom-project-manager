@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.4
+Fix recursion that could happen in some cases.
+
 ## 2.9.3
 Just publishing to add the correct changelog. See 2.9.1
 
