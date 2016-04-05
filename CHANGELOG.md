@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.6
+Missed including a node package.
+
 ## 2.9.5
 Recursion should be fixed now.
 
