@@ -39,6 +39,11 @@
       "default": false,
       "description": "Closes the current window after opening another project"
     },
+	"oneWindow": {
+      "type": "boolean",
+      "default": true,
+      "description": "Opens and closes projects in the same window. Overwrites closeCurrent"
+    },
     "environmentSpecificProjects": {
       "type": "boolean",
       "default": false
