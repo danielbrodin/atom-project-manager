@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.5
+Recursion should be fixed now.
+
 ## 2.9.4
 Fix recursion that could happen in some cases.
 
