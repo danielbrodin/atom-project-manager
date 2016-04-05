@@ -1,7 +1,7 @@
 {
   "name": "project-manager",
   "main": "./lib/project-manager",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": "https://github.com/danielbrodin/atom-project-manager",
   "license": "MIT",
@@ -41,6 +41,11 @@
     "environmentSpecificProjects": {
       "type": "boolean",
       "default": false
+    },
+    "prettifyTitle": {
+      "type": "boolean",
+      "default": true,
+      "description": "Will suggest a prettified project title on save."
     },
     "sortBy": {
       "type": "string",
