@@ -1,5 +1,5 @@
 Dialog = require './dialog'
-projects = require './projects'
+manager = require './Manager';
 path = require 'path'
 changeCase = require 'change-case'
 
@@ -8,11 +8,18 @@ class SaveDialog extends Dialog
   filePath: null
 
   constructor: () ->
-    firstPath = atom.project.getPaths()[0]
-    title = path.basename(firstPath)
+    activeProject = manager.activeProject;
 
-    if atom.config.get('project-manager.prettifyTitle')
-      title = changeCase.titleCase(title)
+    firstPath = atom.project.getPaths()[0]
+
+    if activeProject
+      title = activeProject.title
+    else
+      title = path.basename(firstPath)
+
+      if atom.config.get('project-manager.prettifyTitle')
+        title = changeCase.titleCase(title)
+
 
     super
       prompt: 'Enter name of project'
@@ -20,18 +27,14 @@ class SaveDialog extends Dialog
       select: true
       iconClass: 'icon-arrow-right'
 
-    projects.getCurrent (project) =>
-      if project.rootPath is firstPath
-        @showError "This project is already saved as #{project.props.title}"
-
-
   onConfirm: (title) ->
     if title
       properties =
         title: title
         paths: atom.project.getPaths()
+        source: 'file'
 
-      projects.addProject(properties)
+      manager.saveProject(properties)
 
       @close()
     else

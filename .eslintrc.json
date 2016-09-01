@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "atom": true
+  },
+  "rules": {
+    "global-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0
+  }
+}

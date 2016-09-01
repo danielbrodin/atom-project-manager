@@ -18,6 +18,8 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
     "change-case": "^2.3.1",
+    "findit": "^2.0.0",
+    "mobx": "^2.4.4",
     "season": "^5.2.0",
     "underscore-plus": "^1.6.6"
   },
@@ -58,6 +60,17 @@
         "group",
         "last modified"
       ]
+    },
+    "includeGitRepositories": {
+      "type": "boolean",
+      "default": false,
+      "description": "Will search for directories in your `Project Home` that include `.git` and list them."
     }
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-plugin-import": "^1.14.0"
   }
 }
