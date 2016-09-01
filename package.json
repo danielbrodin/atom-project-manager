@@ -65,6 +65,11 @@
       "type": "boolean",
       "default": false,
       "description": "Will search for directories in your `Project Home` that include `.git` and list them."
+    },
+    "ignoreDirectories": {
+      "type": "string",
+      "default": "node_modules, vendor",
+      "description": "Comma separated list of directories to skip when looking for git repositories."
     }
   },
   "devDependencies": {
