@@ -1,5 +1,5 @@
 Dialog = require './dialog'
-manager = require './Manager';
+manager = require '../Manager';
 path = require 'path'
 changeCase = require 'change-case'
 
