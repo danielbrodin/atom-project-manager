@@ -1,5 +1,7 @@
 {$, TextEditorView, View} = require 'atom-space-pen-views'
 manager = require '../Manager'
+path = require 'path'
+changeCase = require 'change-case'
 
 module.exports =
 class SaveView extends View
