@@ -20,7 +20,6 @@ class SaveDialog extends Dialog
       if atom.config.get('project-manager.prettifyTitle')
         title = changeCase.titleCase(title)
 
-
     super
       prompt: 'Enter name of project'
       input: title
