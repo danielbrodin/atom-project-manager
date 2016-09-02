@@ -43,7 +43,7 @@ class SaveView extends View
 
 
     atom.commands.add @element,
-      'core:confirm': => @onConfirm(@miniEditor.getText())
+      'core:confirm': => @onConfirm()
       'core:cancel': => @cancel()
 
     # Section title
@@ -63,7 +63,6 @@ class SaveView extends View
 
     # Devmode
     @devMode.prop('checked', devMode)
-    console.log(@)
 
   attach: ->
     @panel = atom.workspace.addModalPanel(item: this.element)
@@ -91,4 +90,4 @@ class SaveView extends View
       devMode: @devMode[0].checked
       paths: atom.project.getPaths()
 
-    console.log props
+    manager.saveProject(props)
