@@ -6,6 +6,43 @@
 
 @dev-mode-icon: "\f065";
 
+// Edit View
+.project-manager-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    color: #d7dae0;
+  }
+
+  .block {
+    // margin-top: 1.2em;
+  }
+
+  .input-label {
+    font-size: 1.2em;
+    display: inline-block;
+    width: 35%;
+  }
+
+  .input-text {
+    display: inline-block;
+    width: 65%;
+  }
+
+  .input-checkbox {
+    // width: 1.5em;
+    // height: 1.5em;
+
+    &::before,
+    &::after {
+      // width: .45em;
+      // transform: rotate(225deg) scale(1);
+    }
+  }
+}
+
 .project-manager {}
 
 .project-manager input { width: 100%; }
