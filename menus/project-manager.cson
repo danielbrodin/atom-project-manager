@@ -13,6 +13,10 @@
           'command': 'project-manager:save-project'
         }
         {
+          'label': 'Edit Project',
+          'command': 'project-manager:edit-project'
+        }
+        {
           'label': 'Edit Projects',
           'command': 'project-manager:edit-projects'
         }
