@@ -27,6 +27,9 @@ Projects can be filtered by `title`, `group` and `template` by typing `group: at
 ### Save Project
 `Project Manager: Save Project` in the Command Palette and write the title you want to save the project as.
 
+### Edit Project
+`Project Manager: Edit Project` will open a page where you can edit the current project. It currently only supports certain fields.
+
 ### Edit Projects
 All projects are saved in a `.cson` file which you can easily reach by searching for `Project Manager: Edit Projects` in the Command Palette.
 
@@ -43,30 +46,21 @@ setting    | Type      | Description                                            
 `template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                
 
 ### Local settings file
-All these settings can be added to a `project.cson` file in the root folder of the project. It follows the below example, but without the project key.
+All these settings can be added to a `project.cson` file in the root folder of the project. It follows the below example, but without the array.
 
 ### Example
-```
+```coffeescript
 [
   {
     title: 'Project Manager'
-    devMode: true
     group: 'Atom'
-    template: 'coffeescript-template'
     paths: [
-    '/path/to/project-manager'
+      '/path/to/project-manager'
     ]
+    devMode: true
     settings:
-      '*':
-        'editor.tabLength': 4
-  }
-  {
-    title: 'coffeescript-template'
-    icon: 'icon-coffeescript'
-    settings:
-      '.source.coffee':
-        'editor.tabLength': 2
-        'editor.preferredLineLength': 80
+      'editor.tabLength': 4
+      'editor.showInvisibles': true
   }
 ]
 
@@ -74,7 +68,7 @@ All these settings can be added to a `project.cson` file in the root folder of t
 
 ## Provider
 If you want to use the projects available through the Project Manager you can use the provided methods.
-```
+```javascript
 function consumeProjectManager({ getProjects, getProject } => {
   /**
    * Get an array containing all projects.
