@@ -2,6 +2,7 @@
 <!-- [![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg?branch=master)](https://travis-ci.org/danielbrodin/atom-project-manager/) -->
 [![apm](https://img.shields.io/apm/dm/project-manager.svg)](https://atom.io/packages/project-manager)
 [![apm](https://img.shields.io/apm/v/project-manager.svg)]()
+[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)
 
 ![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)
 
@@ -40,6 +41,7 @@ setting    | Type      | Description                                            
 `devMode`  | `boolean` | `true` if project should open in dev mode                                                                                                             | `false`               
 `group`    | `string`  | Adds a group to the projects list that can be used to group and filter projects                                                                       | `null`                
 `template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                
+
 ### Local settings file
 All these settings can be added to a `project.cson` file in the root folder of the project. It follows the below example, but without the project key.
 
@@ -55,18 +57,43 @@ All these settings can be added to a `project.cson` file in the root folder of t
     '/path/to/project-manager'
     ]
     settings:
-    '*':
-    'editor.tabLength': 4
+      '*':
+        'editor.tabLength': 4
   }
   {
     title: 'coffeescript-template'
     icon: 'icon-coffeescript'
     settings:
-    '.source.coffee':
-      'editor.tabLength': 2
-      'editor.preferredLineLength': 80
+      '.source.coffee':
+        'editor.tabLength': 2
+        'editor.preferredLineLength': 80
   }
 ]
+
+```
+
+## Provider
+If you want to use the projects available through the Project Manager you can use the provided methods.
+```
+function consumeProjectManager({ getProjects, getProject } => {
+  /**
+   * Get an array containing all projects.
+   * The callback will be run each time a project is added.
+   */
+  getProjects(projects => {
+    // Do something with the projects.
+  });
+
+  /**
+   * Get the currently active project.
+   * The callback will be run whenever the active project changes.
+   */
+  getProject(project => {
+    if (project) {
+      // We have an active project.
+    }
+  });
+});
 
 ```
 
@@ -86,5 +113,3 @@ All PR's should:
 - Add a test when it makes sense, which should be most of the time
 
 --------
-
-[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)
