@@ -9,3 +9,6 @@
 
 '.project-manager input':
   'enter': 'core:confirm'
+
+'.project-manager atom-text-editor[mini]':
+  'shift-enter': 'project-manager:alt-confirm'
