@@ -16,8 +16,12 @@
     "atom": ">1.4.0"
   },
   "dependencies": {
+    "atom-project-util": "^4.0.0",
     "atom-space-pen-views": "^2.0.3",
     "change-case": "^2.3.1",
+    "etch": "^0.6.3",
+    "findit": "^2.0.0",
+    "mobx": "^2.4.4",
     "season": "^5.2.0",
     "underscore-plus": "^1.6.6"
   },
@@ -33,11 +37,6 @@
     "showPath": {
       "type": "boolean",
       "default": true
-    },
-    "closeCurrent": {
-      "type": "boolean",
-      "default": false,
-      "description": "Closes the current window after opening another project"
     },
     "environmentSpecificProjects": {
       "type": "boolean",
@@ -58,6 +57,22 @@
         "group",
         "last modified"
       ]
+    },
+    "includeGitRepositories": {
+      "type": "boolean",
+      "default": false,
+      "description": "Will search for directories in your `Project Home` that include `.git` and list them."
+    },
+    "ignoreDirectories": {
+      "type": "string",
+      "default": "node_modules, vendor",
+      "description": "Comma separated list of directories to skip when looking for git repositories."
     }
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-plugin-import": "^1.14.0"
   }
 }
