@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.1
+Fixes an issue with loading settings.
+
 ## 3.0.0
 This release features a complete rewrite and structure that should hopefully fix some bugs. Make sure to reload Atom after the update.
 
