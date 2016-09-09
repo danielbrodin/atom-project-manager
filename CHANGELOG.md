@@ -4,10 +4,11 @@
 This release features a complete rewrite and structure that should hopefully fix some bugs. Make sure to reload Atom after the update.
 
 Some of the new features include:
-- A new option to include git repositories found in your `core.projectHome` directory.
+- A new setting to include git repositories found in your `core.projectHome` directory.
 - You can now open a project with `shift + enter` which will open it in the current window.
 - The start of a new project edit mode. `Project Manager: Edit Project` in the command palette. It currently only features some of the fields, but everything should be added.
 - A new structure in the `projects.cson` file. Finally rid of the unnecessary object key :) Your file will be updated the first time you save a project.
+- The templates integration isn't 100% yet, but it's there.
 
 Please report any bugs you find, but first make sure you have reloaded Atom.
 
