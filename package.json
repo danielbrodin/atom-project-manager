@@ -29,7 +29,7 @@
     "project-manager": {
       "description": "Get access to all saved projects",
       "versions": {
-        "2.3.0": "provideProjects"
+        "3.1.0": "provideProjects"
       }
     }
   },

@@ -69,7 +69,7 @@ All these settings can be added to a `project.cson` file in the root folder of t
 ## Provider
 If you want to use the projects available through the Project Manager you can use the provided methods.
 ```javascript
-function consumeProjectManager({ getProjects, getProject } => {
+function consumeProjectManager({ getProjects, getProject, saveProject } => {
   /**
    * Get an array containing all projects.
    * The callback will be run each time a project is added.
@@ -87,6 +87,12 @@ function consumeProjectManager({ getProjects, getProject } => {
       // We have an active project.
     }
   });
+
+  /**
+   * Can take either a project recieved from getProjects/getProject or
+   * just a object with the props for a new project.
+   */
+  saveProject(project);
 });
 
 ```

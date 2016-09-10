@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+Added a method to save a project in the provider. Check the readme for more info.
+
+## 3.0.1
+Fixed an issue that prevent the settings from being loaded.
+
 ## 3.0.0
 This release features a complete rewrite and structure that should hopefully fix some bugs. Make sure to reload Atom after the update.
 
