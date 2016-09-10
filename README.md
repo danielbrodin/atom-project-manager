@@ -68,8 +68,9 @@ All these settings can be added to a `project.cson` file in the root folder of t
 
 ## Provider
 If you want to use the projects available through the Project Manager you can use the provided methods.
+
 ```javascript
-function consumeProjectManager({ getProjects, getProject, saveProject } => {
+function consumeProjectManager({ getProjects, getProject, saveProject, openProject } => {
   /**
    * Get an array containing all projects.
    * The callback will be run each time a project is added.
@@ -85,14 +86,23 @@ function consumeProjectManager({ getProjects, getProject, saveProject } => {
   getProject(project => {
     if (project) {
       // We have an active project.
+    } else {
+      // Project is either not loaded yet, or there is no project saved.
     }
   });
 
   /**
    * Can take either a project recieved from getProjects/getProject or
-   * just a object with the props for a new project.
+   * just an object with the props for a new project.
    */
   saveProject(project);
+
+  /**
+   * Will open the project.
+   * `openInSameWindow` should be true if the project should open up in the
+   * current window.
+   */
+  openProject(project, openInSameWindow);
 });
 
 ```
