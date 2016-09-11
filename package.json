@@ -67,6 +67,11 @@
       "type": "string",
       "default": "node_modules, vendor",
       "description": "Comma separated list of directories to skip when looking for git repositories."
+    },
+    "alwaysOpenInSameWindow": {
+      "type": "boolean",
+      "default": false,
+      "description": "Will reverse `shift+enter` in the list view to open in a new window."
     }
   },
   "devDependencies": {

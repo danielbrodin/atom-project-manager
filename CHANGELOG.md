@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.0
+Added a new setting for reversing the effect of `shift+enter` in the list view, so it will default to open in the same window.
+
 ## 3.1.0
 Added a method to save a project in the provider. Check the readme for more info.
 
