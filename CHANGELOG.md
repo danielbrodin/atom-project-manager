@@ -1,7 +1,10 @@
 # Changelog
 
-## 3.2.1
+## 3.2.2
 Fixes the sorting option.
+
+## 3.2.1
+Fixes [#259](https://github.com/danielbrodin/atom-project-manager/issues/259)
 
 ## 3.2.0
 Added a new setting for reversing the effect of `shift+enter` in the list view, so it will default to open in the same window.
