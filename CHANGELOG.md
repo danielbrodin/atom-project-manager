@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.3
+Fixes [#260](https://github.com/danielbrodin/atom-project-manager/issues/260)
+
 ## 3.2.2
 Fixes the sorting option.
 
