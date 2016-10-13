@@ -21,8 +21,8 @@
           'command': 'project-manager:edit-projects'
         }
         {
-          'label': 'Reload Projects Settings',
-          'command': 'project-manager:reload-project-settings'
+          'label': 'Update Projects',
+          'command': 'project-manager:update-projects'
         }
       ]
     ]
