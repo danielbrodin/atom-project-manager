@@ -1,5 +1,9 @@
 # Changelog
 
+## Upcoming
+- Added `Project Manager: Update Projects` command that for example can be used to include a new git repository without having to reload Atom.
+- Added a notification when saving or editing a project.
+
 ## 3.2.3
 Fixes [#260](https://github.com/danielbrodin/atom-project-manager/issues/260)
 
