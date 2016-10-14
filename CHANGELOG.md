@@ -1,6 +1,6 @@
 # Changelog
 
-## Upcoming
+## 3.2.4
 - Added `Project Manager: Update Projects` command that for example can be used to include a new git repository without having to reload Atom.
 - Added a notification when saving or editing a project.
 - Added a notification for when a syntax error is found in `projects.cson`.
