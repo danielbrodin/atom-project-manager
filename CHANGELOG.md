@@ -1,5 +1,8 @@
 # Changelog
 
+## Upcoming
+Now closes the save/edit view on save.
+
 ## 3.2.4
 - Added `Project Manager: Update Projects` command that for example can be used to include a new git repository without having to reload Atom.
 - Added a notification when saving or editing a project.
