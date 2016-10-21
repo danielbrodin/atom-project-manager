@@ -3,6 +3,7 @@
 ## 3.3.0
 - Added option to save paths relative to home dir.
 - Fixed bug that would change a relative path to absolute when saving a project.
+- The Prettify Title option now works again.
 
 And some other things and corrections.
 
