@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.0
+- Added option to save paths relative to home dir.
+- Fixed bug that would change a relative path to absolute when saving a project.
+
+And some other things and corrections.
+
 ## 3.2.5
 Now automatically closes the edit/save view on save and restores focus to whatever had focus last.
 
