@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.1
+- Deploy seems to be broken so this is pretty much 3.3.0.
+
 ## 3.3.0
 - Added option to save paths relative to home dir.
 - Fixed bug that would change a relative path to absolute when saving a project.
