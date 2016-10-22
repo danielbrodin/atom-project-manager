@@ -18,8 +18,8 @@
   "dependencies": {
     "atom-project-util": "^4.0.0",
     "atom-space-pen-views": "^2.0.3",
-    "change-case": "^2.3.1",
-    "etch": "^0.6.3",
+    "change-case": "^3.0.0",
+    "etch": "^0.8.0",
     "findit": "^2.0.0",
     "mobx": "^2.4.4",
     "season": "^5.4.1",
@@ -82,9 +82,9 @@
     }
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.0.0",
     "eslint": "^3.4.0",
-    "eslint-config-airbnb-base": "^5.0.3",
-    "eslint-plugin-import": "^1.14.0"
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.0.1"
   }
 }
