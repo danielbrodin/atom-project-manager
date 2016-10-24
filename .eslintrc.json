@@ -9,7 +9,7 @@
     "atom": true
   },
   "rules": {
-    "global-require": 0,
+    "global-require": 0
   },
   "settings": {
     "import/core-modules": ["atom"]
