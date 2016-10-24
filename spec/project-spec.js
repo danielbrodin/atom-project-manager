@@ -1,3 +1,5 @@
+/* global describe it expect */
+
 const Project = require('../lib/models/Project');
 
 const packagePaths = atom.packages.getPackageDirPaths();

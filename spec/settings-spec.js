@@ -1,3 +1,4 @@
+/* global describe it expect */
 
 const Settings = require('../lib/Settings');
 
@@ -30,24 +31,5 @@ describe('Settings', () => {
 
     expect(atom.config.get('foo.bar')).toBe('baz');
     expect(atom.config.get('foo.bar', { scope: ['.js.source'] })).toBe('not-baz');
-  });
-
-  it('loads settings with duplicate keys', () => {
-    const config = {
-      foo: {
-        bar: {
-          baz: 'overwritten',
-          boo: 'not-duplicate',
-        },
-      },
-      'foo.bar': {
-        baz: 'duplicate',
-      },
-    };
-
-    settings.load(config);
-
-    expect(atom.config.get('foo.bar.boo')).toBe('not-duplicate');
-    expect(atom.config.get('foo.bar.baz')).toBe('duplicate');
   });
 });
