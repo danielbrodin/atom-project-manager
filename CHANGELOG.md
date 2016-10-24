@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.2
+- Added back the check to see if the path exists in a project. You can however still open it which you couldn't before.
+- Added a link to the documentation about `devMode`.
+
+And some other fixes behind the scenes :)
+
 ## 3.3.1
 - Deploy seems to be broken so this is pretty much 3.3.0.
 
