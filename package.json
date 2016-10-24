@@ -21,7 +21,7 @@
     "change-case": "^3.0.0",
     "etch": "^0.8.0",
     "findit": "^2.0.0",
-    "mobx": "^2.4.4",
+    "mobx": "^2.6.0",
     "season": "^5.4.1",
     "tildify": "^1.2.0",
     "underscore-plus": "^1.6.6",
@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
-    "eslint": "^3.4.0",
+    "eslint": "^3.8.0",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.1"
   }
