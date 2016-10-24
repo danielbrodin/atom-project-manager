@@ -15,6 +15,9 @@
   "engines": {
     "atom": ">1.4.0"
   },
+  "scripts": {
+    "test": "apm test && ./node_modules/.bin/eslint lib/**"
+  },
   "dependencies": {
     "atom-project-util": "^4.0.0",
     "atom-space-pen-views": "^2.0.3",
