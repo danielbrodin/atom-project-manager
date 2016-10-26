@@ -1,0 +1,10 @@
+[
+  {
+    title: 'foo'
+    paths: ['bar']
+  }
+  {
+    title: 'bar'
+    paths: ['baz']
+  }
+]
