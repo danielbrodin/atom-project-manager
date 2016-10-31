@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.3
+Fixed an issue when the projects file was empty.
+
 ## 3.3.2
 - Added back the check to see if the path exists in a project. You can however still open it which you couldn't before.
 - Added a link to the documentation about `devMode`.
