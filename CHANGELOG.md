@@ -2,7 +2,8 @@
 
 ## 3.3.4
 
-Fixes [#297](https://github.com/danielbrodin/atom-project-manager/issues/297). Thanks to [@wmcmurray](https://github.com/wmcmurray)
+- Fixes [#297](https://github.com/danielbrodin/atom-project-manager/issues/297). Thanks to [@wmcmurray](https://github.com/wmcmurray).
+- Link added for available icons thanks to [@umpirsky](https://github.com/umpirsky).
 
 ## 3.3.3
 
