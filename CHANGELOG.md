@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.5
+
+Fixes issues with the tree-view since atom 1.17.0.
+
 ## 3.3.4
 
 - Fixes [#297](https://github.com/danielbrodin/atom-project-manager/issues/297). Thanks to [@wmcmurray](https://github.com/wmcmurray).
