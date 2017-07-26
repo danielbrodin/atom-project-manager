@@ -28,3 +28,10 @@
     ]
   }
 ]
+'context-menu':
+  ".project-root-header": [
+      {
+        "label": "Project Manager:Rename",
+        "command": "project-manager:rename"
+      }
+    ]
