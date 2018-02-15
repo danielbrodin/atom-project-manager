@@ -34,6 +34,7 @@ describe('Project', () => {
 
       expect(changedProps.group).toBe('test');
       expect(changedProps.icon).not.toBeDefined();
+      expect(changedProps.color).not.toBeDefined();
     });
 
     it('can update its properties', () => {
