@@ -1,5 +1,9 @@
 # Changelog
 
+## Upcoming
+
+Merge a bunch of PR. #334,
+
 ## 3.3.5
 
 Fixes issues with the tree-view since atom 1.17.0.
