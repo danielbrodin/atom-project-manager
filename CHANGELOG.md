@@ -2,7 +2,7 @@
 
 ## Upcoming
 
-Merge a bunch of PR. #334,
+Merge a bunch of PR. [#334](https://github.com/danielbrodin/atom-project-manager/pull/334), [#377](https://github.com/danielbrodin/atom-project-manager/pull/377),
 
 ## 3.3.5
 
