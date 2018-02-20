@@ -74,22 +74,24 @@ function consumeProjectManager({ getProjects, getProject, saveProject, openProje
   /**
    * Get an array containing all projects.
    * The callback will be run each time a project is added.
+   * Returns a Disposable.
    */
-  getProjects(projects => {
+  disposables.add( getProjects(projects => {
     // Do something with the projects.
-  });
+  }));
 
   /**
    * Get the currently active project.
    * The callback will be run whenever the active project changes.
+   * Returns a Disposable.
    */
-  getProject(project => {
+  disposables.add( getProject(project => {
     if (project) {
       // We have an active project.
     } else {
       // Project is either not loaded yet, or there is no project saved.
     }
-  });
+  }));
 
   /**
    * Can take either a project recieved from getProjects/getProject or
