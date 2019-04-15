@@ -1,6 +1,9 @@
 # Changelog
 
 ## 3.3.6
+Updates to fix some smaller issues.
+
+## 3.3.6
 
 Merge a bunch of PR. [#334](https://github.com/danielbrodin/atom-project-manager/pull/334), [#377](https://github.com/danielbrodin/atom-project-manager/pull/377), [#377](https://github.com/danielbrodin/atom-project-manager/pull/382)
 
