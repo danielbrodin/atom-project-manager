@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.3.6
+## 3.3.7
 Updates to fix some smaller issues.
 
 ## 3.3.6
