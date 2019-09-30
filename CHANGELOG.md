@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.8
+Fixes a bug introduced by atom. [#396](https://github.com/danielbrodin/atom-project-manager/pull/396)
+
 ## 3.3.7
 Updates to fix some smaller issues.
 
