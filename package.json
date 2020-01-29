@@ -1,43 +1,29 @@
 {
-  "name": "project-manager",
-  "main": "./lib/project-manager",
-  "version": "3.3.8",
-  "description": "Project Manager for easy access and switching between projects in Atom.",
-  "repository": "https://github.com/danielbrodin/atom-project-manager",
-  "license": "MIT",
-  "keywords": [
-    "project",
-    "manager",
-    "settings",
-    "workflow",
-    "productivity"
+  "_from": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+  "_id": "project-manager@3.3.8",
+  "_inBundle": false,
+  "_integrity": "sha512-7NWUhRuImndEgKL9egmpk+bUYjxtuPu7iHH1Svjl5bvZiYaJpUv+R1N46YD3FJqYBCJHAdRaq7D5SU3E5/UXew==",
+  "_location": "/project-manager",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
   ],
-  "engines": {
-    "atom": ">1.4.0"
+  "_resolved": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+  "_shasum": "3589919bc89448c5b69e9feee45b421b9b94ec1f",
+  "_spec": "https://www.atom.io/api/packages/project-manager/versions/3.3.8/tarball",
+  "_where": "/tmp/apm-install-dir-119910-15063-8vfu0g.d65dw",
+  "bugs": {
+    "url": "https://github.com/danielbrodin/atom-project-manager/issues"
   },
-  "scripts": {
-    "test": "apm test && ./node_modules/.bin/eslint lib/**"
-  },
-  "dependencies": {
-    "atom-project-util": "^4.2.0",
-    "atom-space-pen-views": "^2.0.3",
-    "change-case": "^3.0.0",
-    "etch": "^0.8.0",
-    "findit": "^2.0.0",
-    "mobx": "^2.6.0",
-    "season": "^5.4.1",
-    "tildify": "^1.2.0",
-    "underscore-plus": "^1.6.6",
-    "untildify": "^3.0.2"
-  },
-  "providedServices": {
-    "project-manager": {
-      "description": "Get access to all saved projects",
-      "versions": {
-        "3.1.0": "provideProjects"
-      }
-    }
-  },
+  "bundleDependencies": false,
   "configSchema": {
     "showPath": {
       "type": "boolean",
@@ -84,10 +70,54 @@
       "description": "Will reverse `shift+enter` in the list view to open in a new window."
     }
   },
+  "dependencies": {
+    "atom-project-util": "^4.2.0",
+    "atom-space-pen-views": "^2.0.3",
+    "change-case": "^3.0.0",
+    "etch": "^0.8.0",
+    "findit": "^2.0.0",
+    "mobx": "^5.0",
+    "season": "^5.4.1",
+    "tildify": "^1.2.0",
+    "underscore-plus": "^1.6.6",
+    "untildify": "^3.0.2"
+  },
+  "deprecated": false,
+  "description": "Project Manager for easy access and switching between projects in Atom.",
   "devDependencies": {
     "babel-eslint": "^7.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.3.0"
-  }
+  },
+  "engines": {
+    "atom": ">1.4.0"
+  },
+  "homepage": "https://github.com/danielbrodin/atom-project-manager#readme",
+  "keywords": [
+    "project",
+    "manager",
+    "settings",
+    "workflow",
+    "productivity"
+  ],
+  "license": "MIT",
+  "main": "./lib/project-manager",
+  "name": "project-manager",
+  "providedServices": {
+    "project-manager": {
+      "description": "Get access to all saved projects",
+      "versions": {
+        "3.1.0": "provideProjects"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielbrodin/atom-project-manager.git"
+  },
+  "scripts": {
+    "test": "apm test && ./node_modules/.bin/eslint lib/**"
+  },
+  "version": "3.3.8"
 }
